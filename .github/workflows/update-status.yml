@@ -10,38 +10,37 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Zainstaluj bibliotekę Steam Query
-        run: pip install python-a2s
-
-      - name: Pobierz prawdziwą liczbę graczy z serwera
+      - name: Pobierz status z BattleMetrics API
         run: |
           python3 -c '
-          import a2s, json
+          import requests, json
 
-          ip = "146.59.1.3"
-          # Porty zapytań Steam (Query Port) dla Conan Exiles
-          ports_to_try = [27015, 20800, 20801, 7777]
-          
-          online = False
-          players_str = "0/10"
-
-          for port in ports_to_try:
-              try:
-                  info = a2s.info((ip, port), timeout=3.0)
-                  online = True
-                  players_str = f"{info.player_count}/{info.max_players}"
-                  print(f"Sukces na porcie {port}: {players_str}")
-                  break
-              except Exception as e:
-                  continue
-
-          data = {
-              "online": online,
-              "players": players_str
-          }
+          try:
+              url = "https://api.battlemetrics.com/servers?filter[ip]=146.59.1.3&filter[port]=20800"
+              res = requests.get(url, timeout=10)
+              data = res.json()
+              
+              online = False
+              players_str = "0/10"
+              
+              if data.get("data") and len(data["data"]) > 0:
+                  attr = data["data"][0]["attributes"]
+                  if attr.get("status") == "online":
+                      online = True
+                      current = attr.get("players", 0)
+                      maximum = attr.get("maxPlayers", 10)
+                      players_str = f"{current}/{maximum}"
+                      
+              output = {
+                  "online": online,
+                  "players": players_str
+              }
+          except Exception as e:
+              print("Błąd pobierania:", e)
+              output = {"online": false, "players": "0/10"}
 
           with open("status.json", "w", encoding="utf-8") as f:
-              json.dump(data, f, indent=2)
+              json.dump(output, f, indent=2)
           '
 
       - name: Zapisz zmiany w repozytorium
@@ -49,4 +48,4 @@ jobs:
           git config --global user.name "Status Bot"
           git config --global user.email "bot@github.com"
           git add status.json
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Aktualizacja liczby graczy" && git push)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Automatyczna aktualizacja statusu" && git push)
