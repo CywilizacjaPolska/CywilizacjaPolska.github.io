@@ -233,6 +233,19 @@
       </div>
     </section>
 
+    <!-- PASEK ODŚWIEŻANIA STATUSÓW -->
+    <div class="container" style="margin-top: 1rem; margin-bottom: 2rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; background: linear-gradient(145deg, rgba(30, 41, 59, 0.6), rgba(15, 23, 42, 0.8)); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 1.2rem 1.8rem;">
+        <div>
+          <p style="color: #94a3b8; font-size: 0.85rem; margin: 0 0 0.2rem 0;">Odczyt integracji może być opóźniony. Brak danych nie oznacza wyłączonego serwera.</p>
+          <small id="last-checked" style="color: var(--gold, #d4a017); font-size: 0.8rem;">Sprawdzono przed chwilą</small>
+        </div>
+        <button id="refresh-btn" onclick="manualRefresh()" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); color: #fff; padding: 0.6rem 1.2rem; border-radius: 8px; cursor: pointer; font-family: 'Manrope', sans-serif; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem; transition: 0.2s; white-space: nowrap;">
+          Odśwież statusy 🔄
+        </button>
+      </div>
+    </div>
+
     <!-- SEKCJA YOUTUBE LIVE -->
     <section class="section" id="live">
       <div class="container">
@@ -412,6 +425,38 @@
     document.addEventListener("DOMContentLoaded", () => {
       updateConanStatus();
       setInterval(updateConanStatus, 30000);
+      
+      async function manualRefresh() {
+  const btn = document.getElementById("refresh-btn");
+  const timeEl = document.getElementById("last-checked");
+  
+  // Efekt kliknięcia / ładowania
+  btn.style.opacity = "0.7";
+  btn.textContent = "Odświeżanie...";
+
+  // Wywołanie Twoich funkcji sprawdzających statusy
+  if (typeof updateConanStatus === 'function') {
+    await updateConanStatus();
+  }
+  if (typeof updateYouTubeLive === 'function') {
+    await updateYouTubeLive();
+  }
+
+  // Pobranie aktualnego czasu w formacie HH:MM
+  const now = new Date();
+  const timeString = now.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' });
+  
+  if (timeEl) {
+    timeEl.textContent = `Sprawdzono o ${timeString}`;
+  }
+
+  // Przywrócenie wyglądu przycisku
+  setTimeout(() => {
+    btn.style.opacity = "1";
+    btn.textContent = "Odśwież statusy 🔄";
+  }, 400);
+}
+
     });
   </script>
 </body>
