@@ -2,7 +2,6 @@ const { GameDig } = require('gamedig');
 const fs = require('fs');
 
 async function checkServers() {
-  // Konfiguracja Twoich serwerów (dopasuj adresy IP i porty query/gry)
   const servers = {
     valheim: { type: 'valheim', host: '51.83.239.219', port: 28700 },
     conan: { type: 'conanexiles', host: '146.59.1.3', port: 20800 },
@@ -19,15 +18,16 @@ async function checkServers() {
         host: config.host,
         port: config.port,
         maxAttempts: 3,
-        socketTimeout: 4000
+        socketTimeout: 5000
       });
       
+      console.log(`Sukces dla ${key}! Gracze: ${state.players.length}/${state.maxplayers}`);
       statusData[key] = {
         online: true,
         players: `${state.players.length}/${state.maxplayers}`
       };
     } catch (error) {
-      console.log(`Serwer ${key} jest OFFLINE lub niedostępny.`);
+      console.log(`Błąd dla serwera ${key}:`, error.message);
       statusData[key] = {
         online: false,
         players: "0/0"
@@ -35,9 +35,22 @@ async function checkServers() {
     }
   }
 
-  // Zapis do pliku status.json, który odczytuje Twoja strona
   fs.writeFileSync('status.json', JSON.stringify(statusData, null, 2));
   console.log('Plik status.json został pomyślnie zaktualizowany!');
 }
 
 checkServers();
+```[cite: 12]
+
+---
+
+### Jak odczytać wynik błędu na GitHubie?
+
+1. Po zaktualizowaniu i zapisaniu pliku `update-status.js` na GitHubie, przejdź do zakładki **Actions**.
+2. Kliknij w najnowsze zadanie **Aktualizacja statusu serwerów**.
+3. Kliknij na job o nazwie **update-status**, a następnie rozwiń krok **Uruchomienie skryptu sprawdzającego serwery**.
+4. Zobaczysz dokładne komunikaty z konsoli. Najczęstsze przyczyny błędów to:
+   * **`UDP Watchdog Timeout` / `Connection timed out`**: Oznacza to, że GameDig wysłał zapytanie, ale serwer nie odpowiedział. Najczęściej winny jest **port** (w wielu hostingach port gry różni się od portu query / Steam A2S, albo wymaga podania portu o 1 lub kilka oczek wyższego/niższego) lub zapora sieciowa (firewall) hostingu blokująca zewnętrzne zapytania UDP.
+   * **`Unknown game type`**: Oznacza, że biblioteka `gamedig` w użytej wersji nie rozpoznaje danego typu (np. `enshrouded` może wymagać innego identyfikatora w zależności od wersji paczki `gamedig`).
+
+Sprawdź, jaki komunikat o błędzie pojawi się w logach GitHub Actions po tej zmianie – to wskaże nam, czy musimy skorygować porty, czy typy serwerów w skrypcie!
