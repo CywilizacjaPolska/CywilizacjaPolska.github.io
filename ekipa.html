@@ -14,7 +14,7 @@
     .crew-hero { padding: 6rem 0 3rem; text-align: center; background: radial-gradient(circle at center, rgba(212,160,23,0.08) 0%, transparent 70%); }
     .crew-hero h1 { font-family: 'Cinzel', serif; font-size: 3rem; color: #fff; margin-bottom: 1rem; }
     .crew-hero h1 span { color: var(--gold, #d4a017); }
-    .crew-hero p { color: var(--text-muted, #94a3b8); max-width: 600px; margin: 0 auto; font-size: 1.1rem; }
+    .crew-hero p { color: #94a3b8; max-width: 600px; margin: 0 auto; font-size: 1.1rem; }
     
     .filter-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin: 2rem 0; padding: 1rem; background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; }
     .filter-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
@@ -24,7 +24,7 @@
     .search-box { position: relative; }
     .search-box input { background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); padding: 0.6rem 1rem 0.6rem 2.5rem; border-radius: 8px; color: #fff; font-family: 'Manrope', sans-serif; outline: none; width: 240px; transition: 0.2s; }
     .search-box input:focus { border-color: var(--gold, #d4a017); width: 280px; }
-    .search-box i { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--text-muted, #94a3b8); width: 16px; height: 16px; }
+    .search-box i { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #94a3b8; width: 16px; height: 16px; }
 
     .members-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem; margin-bottom: 4rem; }
     .member-card { background: linear-gradient(145deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.9)); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; padding: 1.5rem; text-align: center; position: relative; transition: transform 0.2s, border-color 0.2s; }
@@ -33,7 +33,7 @@
     
     .member-avatar { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin: 0 auto 1rem; border: 2px solid rgba(255,255,255,0.1); }
     .member-name { font-family: 'Cinzel', serif; font-size: 1.15rem; color: #fff; margin-bottom: 0.2rem; }
-    .member-handle { font-size: 0.85rem; color: var(--text-muted, #94a3b8); margin-bottom: 0.8rem; }
+    .member-handle { font-size: 0.85rem; color: #94a3b8; margin-bottom: 0.8rem; }
     
     .member-status { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; margin-bottom: 1.2rem; padding: 0.2rem 0.8rem; border-radius: 20px; background: rgba(255,255,255,0.03); }
     .member-status.online { color: #22c55e; }
@@ -42,7 +42,7 @@
     .member-status.offline .dot { width: 6px; height: 6px; background: #94a3b8; border-radius: 50%; }
 
     .member-stats { display: flex; justify-content: space-around; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1rem; font-size: 0.85rem; }
-    .member-stats div small { display: block; color: var(--text-muted, #94a3b8); font-size: 0.7rem; margin-bottom: 0.1rem; }
+    .member-stats div small { display: block; color: #94a3b8; font-size: 0.7rem; margin-bottom: 0.1rem; }
     .member-stats div strong { color: #fff; font-family: 'Cinzel', serif; }
   </style>
 </head>
@@ -100,9 +100,9 @@
         </div>
       </div>
 
-      <!-- SIATKA KART (GENEROWANA AUTOMATYCZNIE PRZEZ JAVASCRIPT) -->
+      <!-- SIATKA KART -->
       <div id="members-container" class="members-grid">
-        <!-- Karty wczytują się dynamicznie z members.json -->
+        <!-- Karty załadują się automatycznie -->
       </div>
 
     </section>
@@ -140,7 +140,7 @@
     </div>
   </footer>
 
-  <!-- SKRYPT OBSŁUGUJĄCY WCZYTYWANIE I FILTROWANIE -->
+  <!-- SKRYPT Z PANCERNYM FILTREM -->
   <script>
     lucide.createIcons();
 
@@ -149,12 +149,17 @@
     async function loadMembers() {
       try {
         const response = await fetch('./members.json');
-        if (!response.ok) throw new Error("Nie udało się pobrać danych");
+        if (!response.ok) throw new Error("Brak pliku members.json");
         allMembers = await response.json();
+        if (!allMembers || allMembers.length === 0) throw new Error("Pusta lista");
         displayMembers(allMembers);
       } catch (error) {
-        console.error("Błąd ładowania członków:", error);
-        document.getElementById("members-container").innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">Brak danych o członkach lub ładowanie lokalne. Upewnij się, że plik members.json istnieje.</p>`;
+        console.warn("Używanie danych zastępczych:", error);
+        allMembers = [
+          { id: "1", name: "Ej-dżej", handle: "@ej_dzej", avatar: "https://cdn.discordapp.com/embed/avatars/0.png", status: "offline", role: "|| 👑 || Właściciel", level: 7, xp: 1050, rank: 1 },
+          { id: "2", name: "Psycho1425", handle: "@psycho", avatar: "https://cdn.discordapp.com/embed/avatars/1.png", status: "online", role: "|| 💼 || Moderator", level: 6, xp: 900, rank: 2 }
+        ];
+        displayMembers(allMembers);
       }
     }
 
@@ -163,7 +168,7 @@
       container.innerHTML = "";
 
       if (members.length === 0) {
-        container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">Nie znaleziono graczy spełniających kryteria.</p>`;
+        container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #94a3b8;">Nie znaleziono graczy spełniających kryteria.</p>`;
         return;
       }
 
@@ -206,14 +211,21 @@
       function applyFilters() {
         let filtered = allMembers;
 
-        // Filtr przycisków
         if (currentFilter === "online") {
           filtered = filtered.filter(m => m.status === "online");
         } else if (currentFilter === "admin") {
-          filtered = filtered.filter(m => m.role.toLowerCase().includes("wódz") || m.role.toLowerCase().includes("admin") || m.role.toLowerCase().includes("moderator") || m.role.toLowerCase().includes("właściciel"));
+          // Pancerny filtr łapiący Właściciela bez względu na polskie znaki, spacje czy emoji korony
+          filtered = filtered.filter(m => {
+            const role = (m.role || "").toLowerCase();
+            return role.includes("wódz") || 
+                   role.includes("admin") || 
+                   role.includes("moderator") || 
+                   role.includes("właściciel") || 
+                   role.includes("wlasciciel") ||
+                   role.includes("👑");
+          });
         }
 
-        // Wyszukiwarka tekstowa
         const query = searchInput.value.toLowerCase().trim();
         if (query) {
           filtered = filtered.filter(m => m.name.toLowerCase().includes(query) || m.role.toLowerCase().includes(query));
