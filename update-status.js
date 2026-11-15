@@ -4,7 +4,7 @@ const fs = require('fs');
 async function checkServers() {
   const servers = {
     valheim: { type: 'valheim', host: '51.83.239.219', port: 28700 },
-    conan: { type: 'conanexiles', host: '146.59.1.3', port: 20800 },
+    conan: { type: 'conanexiles', host: '146.59.1.3', port: 20810 },
     enshrouded: { type: 'enshrouded', host: '51.83.239.219', port: 28710 }
   };
 
