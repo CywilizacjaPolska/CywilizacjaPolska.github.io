@@ -82,6 +82,7 @@
       overflow: hidden;
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
       transition: transform 0.2s, border-color 0.2s;
+      cursor: pointer;
     }
     .detailed-card:hover {
       transform: translateY(-5px);
@@ -182,7 +183,7 @@
       color: #e2e8f0;
       font-family: monospace;
       font-size: 0.9rem;
-      margin-bottom: 1rem;
+      margin-top: 1rem;
     }
     .copy-btn {
       background: transparent;
@@ -192,47 +193,6 @@
       transition: color 0.2s;
     }
     .copy-btn:hover { color: var(--gold, #d4a017); }
-
-    /* Stylowane przyciski dołączenia z motywami z screena */
-    .game-cta-btn {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.85rem 1.25rem;
-      border-radius: 8px;
-      text-decoration: none;
-      font-family: 'Manrope', sans-serif;
-      font-weight: 600;
-      font-size: 0.95rem;
-      transition: all 0.2s ease;
-    }
-    .game-cta-valheim {
-      background: rgba(16, 185, 129, 0.08);
-      border: 1px solid rgba(16, 185, 129, 0.35);
-      color: #fff;
-    }
-    .game-cta-valheim:hover {
-      background: rgba(16, 185, 129, 0.16);
-      border-color: rgba(16, 185, 129, 0.6);
-    }
-    .game-cta-conan {
-      background: rgba(212, 160, 23, 0.08);
-      border: 1px solid rgba(212, 160, 23, 0.4);
-      color: #fff;
-    }
-    .game-cta-conan:hover {
-      background: rgba(212, 160, 23, 0.16);
-      border-color: rgba(212, 160, 23, 0.7);
-    }
-    .game-cta-enshrouded {
-      background: rgba(99, 102, 241, 0.08);
-      border: 1px solid rgba(99, 102, 241, 0.35);
-      color: #fff;
-    }
-    .game-cta-enshrouded:hover {
-      background: rgba(99, 102, 241, 0.16);
-      border-color: rgba(99, 102, 241, 0.6);
-    }
   </style>
 </head>
 <body class="furia-world-site">
@@ -240,7 +200,7 @@
   <!-- GÓRNA NAWIGACJA -->
   <header class="site-header">
     <div class="header-inner">
-      <a href="index.html" class="brand">
+      <a href="https://cywilizacjapolska.github.io/" class="brand">
         <div class="brand-shield"><i data-lucide="shield"></i></div>
         <div class="brand-text">
           <span class="brand-title">CYWILIZACJA</span>
@@ -253,7 +213,7 @@
         <a href="serwery.html" class="active"><i data-lucide="server" class="nav-symbol"></i> Serwery</a>
         <a href="ekipa.html" class="button button-secondary"><i data-lucide="users" class="nav-symbol"></i> Społeczność</a>
         <a href="regulamin.html"><i data-lucide="book-open" class="nav-symbol"></i> Regulamin</a>
-        <a href="index.html#kroki"><i data-lucide="compass" class="nav-symbol"></i> Jak zacząć</a>
+        <a href="https://cywilizacjapolska.github.io/#kroki"><i data-lucide="compass" class="nav-symbol"></i> Jak zacząć</a>
       </nav>
 
       <a href="https://discord.gg/jmFhmU2VWR" target="_blank" class="button button-discord">
@@ -286,7 +246,7 @@
       <div class="detailed-server-grid" id="servers-grid">
         
         <!-- KARTA 1: VALHEIM -->
-        <article class="detailed-card" data-category="survival combat">
+        <article class="detailed-card" data-category="survival combat" onclick="location.href='valheim.html'">
           <div class="card-banner" style="background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=900&q=80');">
             <span id="valheim-badge" class="online-badge offline"><span class="dot"></span> Offline</span>
             <span style="position: relative; z-index: 2; color: #94a3b8; font-size: 0.8rem; font-weight: 600; background: rgba(15,23,42,0.8); padding: 0.2rem 0.6rem; border-radius: 6px;">ŚWIAT / 01</span>
@@ -306,19 +266,14 @@
             </ul>
           </div>
 
-          <div>
-            <div class="ip-box">
-              <span>51.83.239.219:28700</span>
-              <button class="copy-btn" onclick="copyIP('51.83.239.219:28700', this)" title="Kopiuj IP"><i data-lucide="copy" style="width:16px;height:16px;"></i></button>
-            </div>
-            <a class="game-cta-btn game-cta-valheim" href="steam://connect/51.83.239.219:28700">
-              <span>Wejdź do Valheim</span> <span>→</span>
-            </a>
+          <div class="ip-box" onclick="event.stopPropagation()">
+            <span>51.83.239.219:28700</span>
+            <button class="copy-btn" onclick="copyIP('51.83.239.219:28700', this, event)" title="Kopiuj IP"><i data-lucide="copy" style="width:16px;height:16px;"></i></button>
           </div>
         </article>
 
         <!-- KARTA 2: CONAN EXILES -->
-        <article class="detailed-card" data-category="combat">
+        <article class="detailed-card" data-category="combat" onclick="location.href='conan.html'">
           <div class="card-banner" style="background-image: url('https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=900&q=80');">
             <span id="conan-badge" class="online-badge offline"><span class="dot"></span> Sprawdzanie...</span>
             <span style="position: relative; z-index: 2; color: #94a3b8; font-size: 0.8rem; font-weight: 600; background: rgba(15,23,42,0.8); padding: 0.2rem 0.6rem; border-radius: 6px;">ŚWIAT / 02</span>
@@ -338,19 +293,14 @@
             </ul>
           </div>
 
-          <div>
-            <div class="ip-box">
-              <span>146.59.1.3:20800</span>
-              <button class="copy-btn" onclick="copyIP('146.59.1.3:20800', this)" title="Kopiuj IP"><i data-lucide="copy" style="width:16px;height:16px;"></i></button>
-            </div>
-            <a class="game-cta-btn game-cta-conan" href="steam://connect/146.59.1.3:20800">
-              <span>Poznaj ten świat</span> <span>→</span>
-            </a>
+          <div class="ip-box" onclick="event.stopPropagation()">
+            <span>146.59.1.3:20800</span>
+            <button class="copy-btn" onclick="copyIP('146.59.1.3:20800', this, event)" title="Kopiuj IP"><i data-lucide="copy" style="width:16px;height:16px;"></i></button>
           </div>
         </article>
 
         <!-- KARTA 3: ENSHROUDED -->
-        <article class="detailed-card" data-category="survival">
+        <article class="detailed-card" data-category="survival" onclick="location.href='enshrouded.html'">
           <div class="card-banner" style="background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=80');">
             <span id="enshrouded-badge" class="online-badge offline"><span class="dot"></span> Offline</span>
             <span style="position: relative; z-index: 2; color: #94a3b8; font-size: 0.8rem; font-weight: 600; background: rgba(15,23,42,0.8); padding: 0.2rem 0.6rem; border-radius: 6px;">ŚWIAT / 03</span>
@@ -370,14 +320,9 @@
             </ul>
           </div>
 
-          <div>
-            <div class="ip-box">
-              <span>51.83.239.219:28710</span>
-              <button class="copy-btn" onclick="copyIP('51.83.239.219:28710', this)" title="Kopiuj IP"><i data-lucide="copy" style="width:16px;height:16px;"></i></button>
-            </div>
-            <a class="game-cta-btn game-cta-enshrouded" href="steam://connect/51.83.239.219:28710">
-              <span>Wejdź do Enshrouded</span> <span>→</span>
-            </a>
+          <div class="ip-box" onclick="event.stopPropagation()">
+            <span>51.83.239.219:28710</span>
+            <button class="copy-btn" onclick="copyIP('51.83.239.219:28710', this, event)" title="Kopiuj IP"><i data-lucide="copy" style="width:16px;height:16px;"></i></button>
           </div>
         </article>
 
@@ -398,7 +343,7 @@
 
   </main>
 
-    <!-- FOOTER -->
+  <!-- FOOTER -->
   <footer class="site-footer">
     <div class="container footer-top">
       <div class="footer-brand">
@@ -412,7 +357,7 @@
       </div>
       <div>
         <h2>Cywilizacja Polska</h2>
-        <a href="#kroki">Jak zacząć</a>
+        <a href="https://cywilizacjapolska.github.io/#kroki">Jak zacząć</a>
       </div>
       <div>
         <h2>Gramy fair</h2>
@@ -432,7 +377,8 @@
     lucide.createIcons();
 
     // Funkcja kopiowania IP do schowka
-    function copyIP(text, btn) {
+    function copyIP(text, btn, event) {
+      if (event) event.stopPropagation();
       navigator.clipboard.writeText(text).then(() => {
         const originalHTML = btn.innerHTML;
         btn.innerHTML = '<i data-lucide="check" style="width:16px;height:16px;color:#22c55e;"></i>';
