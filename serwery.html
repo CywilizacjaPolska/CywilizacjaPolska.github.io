@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nasze Serwery — Cywilizacja Polska</title>
+  
+  <!-- FAVICON -->
+  <link rel="icon" type="image/png" href="favicon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Dodatkowe style dla dedykowanej podstrony serwerów */
+    .servers-hero {
+      position: relative;
+      padding: 7rem 0 4rem;
+      text-align: center;
+      background: linear-gradient(180deg, rgba(11, 15, 23, 0.95) 0%, rgba(15, 23, 42, 0.9) 100%), url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+      border-bottom: 1px solid rgba(212, 160, 23, 0.2);
+    }
+    .servers-hero h1 {
+      font-family: 'Cinzel', serif;
+      font-size: 3rem;
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+    .servers-hero h1 span { color: var(--gold, #d4a017); }
+    .servers-hero p {
+      color: #94a3b8;
+      max-width: 650px;
+      margin: 0 auto 2rem;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+    
+    /* Pasek filtrów kategorii */
+    .category-filters {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+    .cat-btn {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #fff;
+      padding: 0.6rem 1.2rem;
+      border-radius: 999px;
+      cursor: pointer;
+      font-family: 'Manrope', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: 0.2s;
+    }
+    .cat-btn.active, .cat-btn:hover {
+      background: var(--gold, #d4a017);
+      color: #0f172a;
+      border-color: var(--gold, #d4a017);
+    }
+
+    /* Siatka szczegółowych kart serwerów */
+    .detailed-server-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 2rem;
+      margin: 4rem 0;
+    }
+    .detailed-card {
+      background: linear-gradient(145deg, rgba(22, 27, 38, 0.9), rgba(11, 15, 23, 0.95));
+      border: 1px solid rgba(212, 160, 23, 0.2);
+      border-radius: 16px;
+      padding: 2.2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .detailed-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(212, 160, 23, 0.5);
+    }
+    .detailed-card h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.8rem;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+    .detailed-card .server-desc {
+      color: #94a3b8;
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+    .features-list {
+      list-style: none;
+      padding: 0;
+      margin: 1.5rem 0;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 1rem 0;
+    }
+    .features-list li {
+      color: #cbd5e1;
+      font-size: 0.9rem;
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .features-list li::before {
+      content: "•";
+      color: var(--gold, #d4a017);
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body class="furia-world-site">
+
+  <!-- GÓRNA NAWIGACJA -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="brand">
+        <div class="brand-shield"><i data-lucide="shield"></i></div>
+        <div class="brand-text">
+          <span class="brand-title">CYWILIZACJA</span>
+          <span class="brand-subtitle">POLSKA</span>
+        </div>
+      </a>
+
+      <nav class="main-nav">
+        <a href="index.html"><i data-lucide="home" class="nav-symbol"></i> Strona główna</a>
+        <a href="serwery.html" class="active"><i data-lucide="server" class="nav-symbol"></i> Serwery</a>
+        <a href="ekipa.html" class="button button-secondary"><i data-lucide="users" class="nav-symbol"></i> Społeczność</a>
+        <a href="index.html#kroki"><i data-lucide="compass" class="nav-symbol"></i> Jak zacząć</a>
+        <a href="index.html#wsparcie" class="nav-support"><i data-lucide="heart" class="nav-symbol"></i> Wsparcie</a>
+      </nav>
+
+      <a href="https://discord.gg/jmFhmU2VWR" target="_blank" class="button button-discord">
+        <i data-lucide="gamepad-2"></i> <span>Dołącz do ekipy</span> <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- HERO PODSTRONY SERWERÓW -->
+    <section class="servers-hero">
+      <div class="container">
+        <div class="eyebrow" style="color: var(--gold); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 0.5rem;">Trzy gry. Wspólna przygoda.</div>
+        <h1>Jaki świat <br><span>wybierasz dzisiaj?</span></h1>
+        <p>Własne miasto, twierdza na wygnaniu czy dziki nordycki survival? W Cywilizacji Polska każda historia zaczyna się inaczej.</p>
+        
+        <!-- Pasek filtrów -->
+        <div class="category-filters">
+          <button class="cat-btn active" onclick="filterServers('all')">Wszystkie światy</button>
+          <button class="cat-btn" onclick="filterServers('survival')">Budovanie i przetrwanie</button>
+          <button class="cat-btn" onclick="filterServers('combat')">Walka i fantasy</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- GŁÓWNA SEKCJA KART SERWERÓW -->
+    <section class="section container">
+      
+      <div class="detailed-server-grid" id="servers-grid">
+        
+        <!-- KARTA 1: VALHEIM -->
+        <article class="detailed-card" data-category="survival combat">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+              <span class="tag" style="background: rgba(212,160,23,0.15); color: var(--gold); padding: 0.2rem 0.8rem; border-radius: 6px; font-size: 0.75rem; font-weight: 700;">VALHEIM PVE</span>
+              <span style="color: #94a3b8; font-size: 0.8rem;">ŚWIAT / 01</span>
+            </div>
+            <h3>Valheim</h3>
+            <p class="server-desc">Dziedzictwo Odyna w Twoich rękach. Buduj drakkary i rzuć wyzwanie mitycznym bossom.</p>
+            
+            <p style="font-size: 0.85rem; color: var(--gold); font-weight: 600; margin-bottom: 0.5rem;">DLA TWORCÓW I ODKRYWCÓW</p>
+            <ul class="features-list">
+              <li>Budowanie monumentalnych osad i hal</li>
+              <li>Eksploracja proceduralnie generowanego świata</li>
+              <li>Wspólne rajdy i polowania na bossów</li>
+            </ul>
+          </div>
+
+          <div>
+            <div class="home-world-live" style="margin: 1.5rem 0;">
+              <div><small style="color: #94a3b8;">Dostępność</small><span id="valheim-status" class="status offline"><span class="dot"></span> Offline</span></div>
+              <div><small style="color: #94a3b8;">Wersja gry</small><strong id="valheim-version" style="color: #fff;">v0.217.46</strong></div>
+            </div>
+            <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 1rem;">IP: 51.83.239.219:28700</p>
+            <a class="home-world-cta" href="steam://connect/51.83.239.219:28700" style="display: block; text-align: center; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 0.8rem; border-radius: 8px; color: #fff; text-decoration: none; font-weight: 600;">Wejdź do Valheim →</a>
+          </div>
+        </article>
+
+        <!-- KARTA 2: CONAN EXILES -->
+        <article class="detailed-card" data-category="combat">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+              <span class="tag" style="background: rgba(239,68,68,0.15); color: #ef4444; padding: 0.2rem 0.8rem; border-radius: 6px; font-size: 0.75rem; font-weight: 700;">CONAN EXILES</span>
+              <span style="color: #94a3b8; font-size: 0.8rem;">ŚWIAT / 02</span>
+            </div>
+            <h3>Conan Exiles</h3>
+            <p class="server-desc">Zostaw trwały ślad na ziemi wygnańców. Surowy świat pełen niebezpieczeństw.</p>
+            
+            <p style="font-size: 0.85rem; color: var(--gold); font-weight: 600; margin-bottom: 0.5rem;">DLA WOJOWNIKÓW I BUDOWNICZYCH</p>
+            <ul class="features-list">
+              <li>Potężne twierdze i system bóstw</li>
+              <li>Zaawansowane rzemiosło i niewolnicy</li>
+              <li>Klimatyczne, mroczne fantasy</li>
+            </ul>
+          </div>
+
+          <div>
+            <div class="home-world-live" style="margin: 1.5rem 0;">
+              <div><small style="color: #94a3b8;">Dostępność</small><span id="conan-status" class="status offline"><span class="dot"></span> Sprawdzanie...</span></div>
+              <div><small style="color: #94a3b8;">Wersja gry</small><strong id="conan-version" style="color: #fff;">v3.0+</strong></div>
+            </div>
+            <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 1rem;">IP: 146.59.1.3:20800</p>
+            <a class="home-world-cta" href="steam://connect/146.59.1.3:20800" style="display: block; text-align: center; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 0.8rem; border-radius: 8px; color: #fff; text-decoration: none; font-weight: 600;">Poznaj ten świat →</a>
+          </div>
+        </article>
+
+        <!-- KARTA 3: ENSHROUDED -->
+        <article class="detailed-card" data-category="survival">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+              <span class="tag" style="background: rgba(59,130,246,0.15); color: #3b82f6; padding: 0.2rem 0.8rem; border-radius: 6px; font-size: 0.75rem; font-weight: 700;">ENSHROUDED PVE</span>
+              <span style="color: #94a3b8; font-size: 0.8rem;">ŚWIAT / 03</span>
+            </div>
+            <h3>Enshrouded</h3>
+            <p class="server-desc">Przetrwaj w spowitej zgubną mgle krainie. Odbuduj dawną świetność królestwa Embervale.</p>
+            
+            <p style="font-size: 0.85rem; color: var(--gold); font-weight: 600; margin-bottom: 0.5rem;">DLA ODKRYWCÓW</p>
+            <ul class="features-list">
+              <li>Walka ze skażeniem w spowitej mgle</li>
+              <li>W pełni zniszczalne otoczenie i voxelowe budowanie</li>
+              <li>Eksploracja z użyciem szybowca i haka</li>
+            </ul>
+          </div>
+
+          <div>
+            <div class="home-world-live" style="margin: 1.5rem 0;">
+              <div><small style="color: #94a3b8;">Dostępność</small><span id="enshrouded-status" class="status offline"><span class="dot"></span> Offline</span></div>
+              <div><small style="color: #94a3b8;">Wersja gry</small><strong id="enshrouded-version" style="color: #fff;">v1.0+</strong></div>
+            </div>
+            <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 1rem;">IP: 51.83.239.219:28710</p>
+            <a class="home-world-cta" href="steam://connect/51.83.239.219:28710" style="display: block; text-align: center; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 0.8rem; border-radius: 8px; color: #fff; text-decoration: none; font-weight: 600;">Wejdź do Enshrouded →</a>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- PASEK ODŚWIEŻANIA STATUSÓW -->
+      <div style="background: linear-gradient(145deg, rgba(30, 41, 59, 0.6), rgba(15, 23, 42, 0.8)); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 1.2rem 1.8rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-top: 3rem;">
+        <div>
+          <p style="color: #94a3b8; font-size: 0.85rem; margin: 0 0 0.2rem 0;">Odczyt integracji może być opóźniony. Brak danych nie oznacza wyłączonego serwera.</p>
+          <small id="last-checked" style="color: var(--gold, #d4a017); font-size: 0.8rem;">Sprawdzono przed chwilą</small>
+        </div>
+        <button id="refresh-btn" onclick="manualRefresh()" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); color: #fff; padding: 0.6rem 1.2rem; border-radius: 8px; cursor: pointer; font-family: 'Manrope', sans-serif; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem; transition: 0.2s; white-space: nowrap;">
+          Odśwież statusy 🔄
+        </button>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-top">
+      <div class="footer-brand">
+        <div class="brand-shield" style="margin-bottom: 12px;"><i data-lucide="shield"></i></div>
+        <p>Różne światy. Jedna społeczność.<br>Twoje miejsce do wspólnego przetrwania.</p>
+      </div>
+      <div>
+        <h2>Odkrywaj</h2>
+        <a href="serwery.html">Nasze serwery</a>
+        <a href="ekipa.html">Społeczność</a>
+        <a href="index.html#kroki">Jak zacząć</a>
+      </div>
+      <div>
+        <h2>Cywilizacja Polska</h2>
+        <a href="ekipa.html">O społeczności</a>
+        <a href="index.html#wsparcie">Wesprzyj serwery</a>
+      </div>
+      <div>
+        <h2>Gramy fair</h2>
+        <a href="#">Regulamin</a>
+        <a href="#">Polityka prywatności</a>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <span>© 2026 Cywilizacja Polska</span>
+      <span>Valheim · Conan Exiles · Enshrouded</span>
+      <a class="discord-link" href="https://discord.gg/jmFhmU2VWR" target="_blank">Spotkajmy się na Discordzie ↗</a>
+    </div>
+  </footer>
+
+  <!-- SKRYPTY STATUSÓW ORAZ FILTRÓW -->
+  <script>
+    lucide.createIcons();
+
+    // Sprawdzanie statusu serwera Conan Exiles
+    async function updateConanStatus() {
+      const statusEl = document.getElementById("conan-status");
+      if (!statusEl) return;
+
+      try {
+        const res = await fetch('./status.json?t=' + Date.now());
+        if (!res.ok) throw new Error("Błąd pliku statusu");
+
+        const data = await res.json();
+
+        if (data.online) {
+          statusEl.className = "status online";
+          statusEl.innerHTML = `<span class="dot"></span> Online (${data.players})`;
+        } else {
+          statusEl.className = "status offline";
+          statusEl.innerHTML = `<span class="dot"></span> Offline`;
+        }
+      } catch (e) {
+        console.error("Błąd odczytu statusu:", e);
+        statusEl.className = "status offline";
+        statusEl.innerHTML = `<span class="dot"></span> Offline`;
+      }
+    }
+
+    // Filtrowanie kart serwerów wg kategorii
+    function filterServers(category) {
+      const buttons = document.querySelectorAll('.cat-btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      const cards = document.querySelectorAll('.detailed-card');
+      cards.forEach(card => {
+        if (category === 'all' || card.dataset.category.includes(category)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Ręczne odświeżanie
+    async function manualRefresh() {
+      const btn = document.getElementById("refresh-btn");
+      const timeEl = document.getElementById("last-checked");
+      
+      if (btn) {
+        btn.style.opacity = "0.7";
+        btn.textContent = "Odświeżanie...";
+      }
+
+      await updateConanStatus();
+
+      const now = new Date();
+      const timeString = now.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' });
+      
+      if (timeEl) {
+        timeEl.textContent = `Sprawdzono o ${timeString}`;
+      }
+
+      if (btn) {
+        setTimeout(() => {
+          btn.style.opacity = "1";
+          btn.textContent = "Odśwież statusy 🔄";
+        }, 400);
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      updateConanStatus();
+      setInterval(updateConanStatus, 30000);
+    });
+  </script>
+</body>
+</html>
