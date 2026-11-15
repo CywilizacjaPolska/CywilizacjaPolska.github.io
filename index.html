@@ -9,57 +9,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    @keyframes livePulse {
-      0% { transform: scale(0.95); opacity: 0.8; }
-      50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 12px #ef4444; }
-      100% { transform: scale(0.95); opacity: 0.8; }
-    }
-    .yt-live-card {
-      background: linear-gradient(145deg, rgba(22, 27, 38, 0.85), rgba(11, 15, 23, 0.95));
-      border: 1px solid rgba(212, 160, 23, 0.25);
-      border-radius: 16px;
-      padding: 2rem;
-      text-align: center;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
-    }
-    .yt-live-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(239, 68, 68, 0.15);
-      border: 1px solid rgba(239, 68, 68, 0.35);
-      color: #ef4444;
-      padding: 0.35rem 1rem;
-      border-radius: 999px;
-      font-weight: 700;
-      font-size: 0.8rem;
-      margin-bottom: 1.5rem;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-    }
-    .yt-live-dot {
-      width: 8px;
-      height: 8px;
-      background: #ef4444;
-      border-radius: 50%;
-      box-shadow: 0 0 8px #ef4444;
-      display: inline-block;
-      animation: livePulse 1.6s infinite;
-    }
-    .yt-live-frame-wrap {
-      position: relative;
-      width: 100%;
-      max-width: 900px;
-      margin: 0 auto;
-      aspect-ratio: 16 / 9;
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6);
-      background: #090d14;
-    }
-  </style>
 </head>
 <body class="furia-world-site">
 
@@ -174,7 +123,7 @@
             </div>
           </article>
 
-          <!-- KARTA 2: CONAN EXILES -->
+          <!-- KARTA 2: CONAN EXILES (W STYLU VALHEIM - CZYSTY DESIGN) -->
           <article class="home-world-card card-conan" style="--card-bg: url('https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=900&q=80');">
             <div class="card-bg-layer"></div>
             <div class="home-world-art">
@@ -190,10 +139,13 @@
             </div>
             <div class="home-world-body">
               <div class="home-world-tags"><span>Twierdze</span><span>Bóstwa</span><span>Rzemiosło</span></div>
+              
+              <!-- Identyczny boks statusu jak w Valheim -->
               <div class="home-world-live">
                 <div><small>Dostępność</small><span id="conan-status" class="status offline"><span class="dot"></span> Sprawdzanie...</span></div>
                 <div><small>Wersja gry</small><strong id="conan-version">v3.0+</strong></div>
               </div>
+
               <p class="home-world-players">IP: 146.59.1.3:20800</p>
               <a class="home-world-cta" href="steam://connect/146.59.1.3:20800">Poznaj ten świat <span>→</span></a>
               <small class="home-world-checked">Status live GitHub</small>
@@ -229,73 +181,6 @@
         </div>
       </div>
     </section>
-
-    <!-- SEKCJA YOUTUBE LIVE (Ukryta domyślnie) -->
-<section class="section" id="youtube-live-section" style="display: none;">
-  <div class="container">
-    <div class="section-heading">
-      <div>
-        <div class="eyebrow">Relacja z serwera</div>
-        <h2>Oglądaj<br><span class="gold">transmisję na żywo.</span></h2>
-        <p>Wpadnij na stream z naszych światów, zobacz budowę fortec i wspólne wyprawy.</p>
-      </div>
-    </div>
-
-    <div class="yt-live-card">
-      <div class="yt-live-badge">
-        <span class="yt-live-dot"></span>
-        Transmisja na żywo
-      </div>
-
-      <div class="yt-live-frame-wrap">
-        <iframe
-          id="youtube-iframe"
-          src=""
-          title="YouTube Live"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen
-          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-        </iframe>
-      </div>
-    </div>
-  </div>
-</section>
-
-<script>
-  async function updateYouTubeLive() {
-    const section = document.getElementById("youtube-live-section");
-    const iframe = document.getElementById("youtube-iframe");
-    if (!section || !iframe) return;
-
-    try {
-      const res = await fetch('./youtube_live.json?t=' + Date.now());
-      if (!res.ok) {
-        section.style.display = "none";
-        return;
-      }
-
-      const data = await res.json();
-
-      // Pokazujemy sekcję TYLKO jeśli is_live to true i mamy poprawne video_id
-      if (data.is_live && data.video_id) {
-        iframe.src = `https://www.youtube-nocookie.com/embed/${data.video_id}?autoplay=0`;
-        section.style.display = "block";
-      } else {
-        // Jeśli nie ma streama, sekcja całkowicie znika ze strony!
-        iframe.src = "";
-        section.style.display = "none";
-      }
-    } catch (e) {
-      section.style.display = "none";
-    }
-  }
-
-  document.addEventListener("DOMContentLoaded", () => {
-    updateYouTubeLive();
-    setInterval(updateYouTubeLive, 30000); // Sprawdza co 30 sekund
-  });
-</script>
 
     <!-- SPOŁECZNOŚĆ -->
     <section class="section home-people home-people-epic" id="spolecznosc">
@@ -412,6 +297,40 @@
       <a class="discord-link" href="https://discord.gg/jmFhmU2VWR" target="_blank">Spotkajmy się na Discordzie ↗</a>
     </div>
   </footer>
+
+  <!-- CZYSTY SKRYPT ODCZYTUJĄCY PLIK status.json -->
+  <script>
+    lucide.createIcons();
+
+    async function updateConanStatus() {
+      const statusEl = document.getElementById("conan-status");
+      if (!statusEl) return;
+
+      try {
+        const res = await fetch('./status.json?t=' + Date.now());
+        if (!res.ok) throw new Error("Błąd pliku statusu");
+
+        const data = await res.json();
+
+        if (data.online) {
+          statusEl.className = "status online";
+          statusEl.innerHTML = `<span class="dot"></span> Online (${data.players})`;
+        } else {
+          statusEl.className = "status offline";
+          statusEl.innerHTML = `<span class="dot"></span> Offline`;
+        }
+
+      } catch (e) {
+        console.error("Błąd odczytu statusu:", e);
+        statusEl.className = "status offline";
+        statusEl.innerHTML = `<span class="dot"></span> Offline`;
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      updateConanStatus();
+      setInterval(updateConanStatus, 30000);
+    });
+  </script>
 </body>
 </html>
-```[cite: 7]
