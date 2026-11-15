@@ -2,8 +2,11 @@ name: Aktualizacja statusu serwera
 
 on:
   schedule:
-    - cron: '*/10 * * * *'
+    - cron: '*/10 * * * *'  # Uruchamia się automatycznie co 10 minut
   workflow_dispatch:
+
+permissions:
+  contents: write  # Kluczowe: pozwala automatycznemu zadaniu na zapisywanie zmian w repozytorium
 
 jobs:
   update:
@@ -21,20 +24,17 @@ jobs:
           PORT = 20800
 
           def check_game_server(ip, port):
-              # Standardowy pakiet zapytania A2S_INFO dla silników Steam/Source
               packet = b"\xFF\xFF\xFF\xFF\x54Source Engine Query\x00"
               sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
               sock.settimeout(4.0)
               try:
                   sock.sendto(packet, (ip, port))
                   data, _ = sock.recvfrom(1400)
-                  # Jeśli otrzymaliśmy odpowiedź zaczynającą się od \xFF\xFF\xFF\xFF\x49 (I = Info), serwer żyje
                   if len(data) > 4 and data[4:5] == b"I":
                       return True
               except Exception:
                   pass
               finally:
-              
                   sock.close()
               return False
 
@@ -64,4 +64,4 @@ jobs:
           git config --global user.name "Status Bot"
           git config --global user.email "bot@github.com"
           git add status.json
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Automatyczna aktualizacja statusu serwera (UDP check)" && git push)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Automatyczna aktualizacja statusu serwera" && git push)
