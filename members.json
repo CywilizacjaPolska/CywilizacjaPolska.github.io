@@ -1,0 +1,46 @@
+[
+  {
+    "id": "1",
+    "name": "Ragnar",
+    "handle": "@ragnar_pl",
+    "avatar": "https://images.unsplash.com/photo-1566492031773-4f4e44671857?auto=format&fit=crop&w=200&q=80",
+    "status": "online",
+    "role": "Wódz / Admin",
+    "level": 24,
+    "xp": 4820,
+    "rank": 1
+  },
+  {
+    "id": "2",
+    "name": "Freya",
+    "handle": "@freya_valheim",
+    "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80",
+    "status": "online",
+    "role": "Moderator",
+    "level": 19,
+    "xp": 3510,
+    "rank": 2
+  },
+  {
+    "id": "3",
+    "name": "Boromir",
+    "handle": "@boromir_ce",
+    "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80",
+    "status": "offline",
+    "role": "Gracz",
+    "level": 12,
+    "xp": 1840,
+    "rank": 3
+  },
+  {
+    "id": "4",
+    "name": "Astrid",
+    "handle": "@astrid_enshrouded",
+    "avatar": "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=200&q=80",
+    "status": "online",
+    "role": "Gracz",
+    "level": 8,
+    "xp": 950,
+    "rank": 4
+  }
+]

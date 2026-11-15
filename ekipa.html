@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Poznaj swoją ekipę — Cywilizacja Polska</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Dodatkowe style specyficzne dla podstrony ekipy dopasowane do Twojego motyvu */
+    .crew-hero { padding: 6rem 0 3rem; text-align: center; background: radial-gradient(circle at center, rgba(212,160,23,0.08) 0%, transparent 70%); }
+    .crew-hero h1 { font-family: 'Cinzel', serif; font-size: 3rem; color: #fff; margin-bottom: 1rem; }
+    .crew-hero h1 span { color: var(--gold, #d4a017); }
+    .crew-hero p { color: var(--text-muted, #94a3b8); max-width: 600px; margin: 0 auto; font-size: 1.1rem; }
+    
+    .filter-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin: 2rem 0; padding: 1rem; background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; }
+    .filter-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .filter-btn { background: transparent; border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; transition: 0.2s; font-family: 'Manrope', sans-serif; font-weight: 500; }
+    .filter-btn.active, .filter-btn:hover { background: var(--gold, #d4a017); color: #0f172a; border-color: var(--gold, #d4a017); }
+    
+    .search-box { position: relative; }
+    .search-box input { background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); padding: 0.6rem 1rem 0.6rem 2.5rem; border-radius: 8px; color: #fff; font-family: 'Manrope', sans-serif; outline: none; width: 240px; transition: 0.2s; }
+    .search-box input:focus { border-color: var(--gold, #d4a017); width: 280px; }
+    .search-box i { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--text-muted, #94a3b8); width: 16px; height: 16px; }
+
+    .members-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem; margin-bottom: 4rem; }
+    .member-card { background: linear-gradient(145deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.9)); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; padding: 1.5rem; text-align: center; position: relative; transition: transform 0.2s, border-color 0.2s; }
+    .member-card:hover { transform: translateY(-4px); border-color: rgba(212,160,23,0.4); }
+    .member-lvl { position: absolute; top: 1rem; right: 1rem; background: rgba(212,160,23,0.15); color: var(--gold, #d4a017); font-size: 0.75rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 6px; border: 1px solid rgba(212,160,23,0.3); font-family: 'Cinzel', serif; }
+    
+    .member-avatar { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin: 0 auto 1rem; border: 2px solid rgba(255,255,255,0.1); }
+    .member-name { font-family: 'Cinzel', serif; font-size: 1.15rem; color: #fff; margin-bottom: 0.2rem; }
+    .member-handle { font-size: 0.85rem; color: var(--text-muted, #94a3b8); margin-bottom: 0.8rem; }
+    
+    .member-status { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; margin-bottom: 1.2rem; padding: 0.2rem 0.8rem; border-radius: 20px; background: rgba(255,255,255,0.03); }
+    .member-status.online { color: #22c55e; }
+    .member-status.online .dot { width: 6px; height: 6px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 8px #22c55e; }
+    .member-status.offline { color: #94a3b8; }
+    .member-status.offline .dot { width: 6px; height: 6px; background: #94a3b8; border-radius: 50%; }
+
+    .member-stats { display: flex; justify-content: space-around; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1rem; font-size: 0.85rem; }
+    .member-stats div small { display: block; color: var(--text-muted, #94a3b8); font-size: 0.7rem; margin-bottom: 0.1rem; }
+    .member-stats div strong { color: #fff; font-family: 'Cinzel', serif; }
+  </style>
+</head>
+<body class="furia-world-site">
+
+  <!-- GÓRNA NAWIGACJA -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="brand">
+        <div class="brand-shield"><i data-lucide="shield"></i></div>
+        <div class="brand-text">
+          <span class="brand-title">CYWILIZACJA</span>
+          <span class="brand-subtitle">POLSKA</span>
+        </div>
+      </a>
+
+      <nav class="main-nav">
+        <a href="index.html"><i data-lucide="home" class="nav-symbol"></i> Strona główna</a>
+        <a href="index.html#serwery"><i data-lucide="server" class="nav-symbol"></i> Serwery</a>
+        <a href="ekipa.html" class="active"><i data-lucide="users" class="nav-symbol"></i> Społeczność</a>
+        <a href="index.html#kroki"><i data-lucide="compass" class="nav-symbol"></i> Jak zacząć</a>
+        <a href="index.html#wsparcie" class="nav-support"><i data-lucide="heart" class="nav-symbol"></i> Wsparcie</a>
+      </nav>
+
+      <a href="https://discord.gg/jmFhmU2VWR" target="_blank" class="button button-discord">
+        <i data-lucide="gamepad-2"></i> <span>Dołącz do ekipy</span> <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </header>
+
+  <main id="main">
+    
+    <!-- HERO PODSTRONY -->
+    <section class="crew-hero">
+      <div class="container">
+        <div class="eyebrow" style="color: var(--gold); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 0.5rem;">Cywilizacja to my</div>
+        <h1>Poznaj swoją <span>ekipę.</span></h1>
+        <p>Wspólna gra buduje relacje. Sprawdź najaktywniejszych graczy naszej społeczności[cite: 8].</p>
+      </div>
+    </section>
+
+    <!-- SEKCJA LISTY GRACZY -->
+    <section class="section container">
+      
+      <!-- PASEK FILTRÓW I WYSZUKIWARKA -->
+      <div class="filter-bar">
+        <div class="filter-buttons">
+          <button class="filter-btn active" data-filter="all">Wszyscy gracze</button>
+          <button class="filter-btn" data-filter="online">Online</button>
+          <button class="filter-btn" data-filter="admin">Admini i Moderatorzy</button>
+        </div>
+        <div class="search-box">
+          <i data-lucide="search"></i>
+          <input type="text" id="search-input" placeholder="Szukaj gracza..." />
+        </div>
+      </div>
+
+      <!-- SIATKA KART (GENEROWANA AUTOMATYCZNIE PRZEZ JAVASCRIPT) -->
+      <div id="members-container" class="members-grid">
+        <!-- Karty wczytują się dynamicznie z members.json -->
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-top">
+      <div class="footer-brand">
+        <div class="brand-shield" style="margin-bottom: 12px;"><i data-lucide="shield"></i></div>
+        <p>Różne światy. Jedna społeczność.<br>Twoje miejsce do wspólnego przetrwania.</p>
+      </div>
+      <div>
+        <h2>Odkrywaj</h2>
+        <a href="index.html#serwery">Nasze serwery</a>
+        <a href="ekipa.html">Społeczność</a>
+        <a href="index.html#kroki">Jak zacząć</a>
+      </div>
+      <div>
+        <h2>Cywilizacja Polska</h2>
+        <a href="ekipa.html">O społeczności</a>
+        <a href="index.html#wsparcie">Wesprzyj serwery</a>
+      </div>
+      <div>
+        <h2>Gramy fair</h2>
+        <a href="#">Regulamin</a>
+        <a href="#">Polityka prywatności</a>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <span>© 2026 Cywilizacja Polska</span>
+      <span>Valheim · Conan Exiles · Enshrouded</span>
+      <a class="discord-link" href="https://discord.gg/jmFhmU2VWR" target="_blank">Spotkajmy się na Discordzie ↗</a>
+    </div>
+  </footer>
+
+  <!-- SKRYPT OBSŁUGUJĄCY WCZYTYWANIE I FILTROWANIE -->
+  <script>
+    lucide.createIcons();
+
+    let allMembers = [];
+
+    async function loadMembers() {
+      try {
+        const response = await fetch('./members.json');
+        if (!response.ok) throw new Error("Nie udało się pobrać danych");
+        allMembers = await response.json();
+        displayMembers(allMembers);
+      } catch (error) {
+        console.error("Błąd ładowania członków:", error);
+        document.getElementById("members-container").innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">Brak danych o członkach lub ładowanie lokalne. Upewnij się, że plik members.json istnieje.</p>`;
+      }
+    }
+
+    function displayMembers(members) {
+      const container = document.getElementById("members-container");
+      container.innerHTML = "";
+
+      if (members.length === 0) {
+        container.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">Nie znaleziono graczy spełniających kryteria.</p>`;
+        return;
+      }
+
+      members.forEach(member => {
+        const card = document.createElement("article");
+        card.className = "member-card";
+        
+        const isOnline = member.status === "online";
+        const statusClass = isOnline ? "online" : "offline";
+        const statusText = isOnline ? "Dostępny" : "Offline";
+
+        card.innerHTML = `
+          <div class="member-lvl">LVL ${member.level}</div>
+          <img src="${member.avatar}" alt="${member.name}" class="member-avatar" onerror="this.src='https://cdn.discordapp.com/embed/avatars/0.png'" />
+          <h3 class="member-name">${member.name}</h3>
+          <div class="member-handle">${member.role}</div>
+          <div class="member-status ${statusClass}">
+            <span class="dot"></span> ${statusText}
+          </div>
+          <div class="member-stats">
+            <div><small>Poziom</small><strong>${member.level}</strong></div>
+            <div><small>Punkty XP</small><strong>${member.xp}</strong></div>
+            <div><small>Ranking</small><strong>#${member.rank}</strong></div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+      lucide.createIcons();
+    }
+
+    // Obsługa filtrów i wyszukiwarki
+    document.addEventListener("DOMContentLoaded", () => {
+      loadMembers();
+
+      const searchInput = document.getElementById("search-input");
+      const filterButtons = document.querySelectorAll(".filter-btn");
+
+      let currentFilter = "all";
+
+      function applyFilters() {
+        let filtered = allMembers;
+
+        // Filtr przycisków
+        if (currentFilter === "online") {
+          filtered = filtered.filter(m => m.status === "online");
+        } else if (currentFilter === "admin") {
+          filtered = filtered.filter(m => m.role.toLowerCase().includes("wódz") || m.role.toLowerCase().includes("admin") || m.role.toLowerCase().includes("moderator"));
+        }
+
+        // Wyszukiwarka tekstowa
+        const query = searchInput.value.toLowerCase().trim();
+        if (query) {
+          filtered = filtered.filter(m => m.name.toLowerCase().includes(query) || m.role.toLowerCase().includes(query));
+        }
+
+        displayMembers(filtered);
+      }
+
+      filterButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          filterButtons.forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          currentFilter = btn.dataset.filter;
+          applyFilters();
+        });
+      });
+
+      searchInput.addEventListener("input", applyFilters);
+    });
+  </script>
+</body>
+</html>
