@@ -18,29 +18,12 @@
       background: linear-gradient(180deg, rgba(11, 15, 23, 0.85) 0%, rgba(15, 23, 42, 0.95) 100%), url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
       border-bottom: 1px solid rgba(212, 160, 23, 0.2);
     }
-    .breadcrumb {
-      display: flex;
-      gap: 0.5rem;
-      align-items: center;
-      color: #94a3b8;
-      font-size: 0.85rem;
-      margin-bottom: 1rem;
-    }
+    .breadcrumb { display: flex; gap: 0.5rem; align-items: center; color: #94a3b8; font-size: 0.85rem; margin-bottom: 1rem; }
     .breadcrumb a { color: #94a3b8; text-decoration: none; transition: color 0.2s; }
     .breadcrumb a:hover { color: var(--gold, #d4a017); }
     
-    .server-title {
-      font-family: 'Cinzel', serif;
-      font-size: 3.5rem;
-      color: #fff;
-      margin-bottom: 0.75rem;
-    }
-    .server-subtitle {
-      font-size: 1.2rem;
-      color: #94a3b8;
-      max-width: 600px;
-      margin-bottom: 2rem;
-    }
+    .server-title { font-family: 'Cinzel', serif; font-size: 3.5rem; color: #fff; margin-bottom: 0.75rem; }
+    .server-subtitle { font-size: 1.2rem; color: #94a3b8; max-width: 600px; margin-bottom: 2rem; }
     
     .status-bar-grid {
       display: grid;
@@ -56,67 +39,31 @@
     .status-item small { display: block; color: #94a3b8; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.25rem; }
     .status-item strong { color: #fff; font-size: 1.05rem; }
     
-    .content-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 2.5rem;
-      margin: 3rem 0;
-    }
+    .content-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 2.5rem; margin: 3rem 0; }
     @media (max-width: 900px) { .content-grid { grid-template-columns: 1fr; } }
 
-    .feature-card-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-      margin-top: 1.5rem;
-    }
+    .feature-card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.5rem; }
     @media (max-width: 768px) { .feature-card-grid { grid-template-columns: 1fr; } }
-    .mini-feature-card {
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 10px;
-      padding: 1.25rem;
-    }
+    .mini-feature-card { background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 10px; padding: 1.25rem; }
     .mini-feature-card i { color: var(--gold, #d4a017); margin-bottom: 0.75rem; }
     .mini-feature-card h4 { color: #fff; font-size: 1rem; margin-bottom: 0.4rem; font-family: 'Cinzel', serif; }
     .mini-feature-card p { color: #94a3b8; font-size: 0.85rem; line-height: 1.5; }
 
-    .sidebar-box {
-      background: linear-gradient(145deg, rgba(22, 27, 38, 0.95), rgba(13, 17, 23, 0.98));
-      border: 1px solid rgba(212, 160, 23, 0.2);
-      border-radius: 14px;
-      padding: 2rem;
-    }
+    .sidebar-box { background: linear-gradient(145deg, rgba(22, 27, 38, 0.95), rgba(13, 17, 23, 0.98)); border: 1px solid rgba(212, 160, 23, 0.2); border-radius: 14px; padding: 2rem; }
     .sidebar-box h3 { font-family: 'Cinzel', serif; color: #fff; font-size: 1.4rem; margin-bottom: 1rem; }
     
-    .steps-list {
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-      margin: 1.5rem 0;
-    }
+    .steps-list { display: flex; flex-direction: column; gap: 1.25rem; margin: 1.5rem 0; }
     .step-row { display: flex; gap: 1rem; align-items: flex-start; }
     .step-num { font-family: 'Cinzel', serif; font-size: 1.5rem; color: var(--gold, #d4a017); font-weight: 800; line-height: 1; }
     .step-content h4 { color: #fff; font-size: 1rem; margin-bottom: 0.2rem; }
     .step-content p { color: #94a3b8; font-size: 0.85rem; line-height: 1.5; }
 
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-      margin: 2rem 0;
-    }
+    .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin: 2rem 0; }
     @media (max-width: 768px) { .gallery-grid { grid-template-columns: 1fr; } }
-    .gallery-card {
-      background: rgba(22, 27, 38, 0.8);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 12px;
-      overflow: hidden;
-    }
+    .gallery-card { background: rgba(22, 27, 38, 0.8); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; overflow: hidden; }
     .gallery-img { height: 180px; background-size: cover; background-position: center; }
     .gallery-body { padding: 1rem; color: #94a3b8; font-size: 0.85rem; }
 
-    /* Stylowany przycisk dołączenia */
     .game-cta-btn {
       display: flex;
       justify-content: space-between;
@@ -142,7 +89,6 @@
 </head>
 <body class="furia-world-site">
 
-  <!-- GÓRNA NAWIGACJA -->
   <header class="site-header">
     <div class="header-inner">
       <a href="https://cywilizacjapolska.github.io/" class="brand">
@@ -179,11 +125,10 @@
     </section>
 
     <div class="container">
-      <!-- PASEK STATUSU -->
       <div class="status-bar-grid">
         <div class="status-item">
           <small>Status serwera</small>
-          <strong id="valheim-status-badge" style="color: #94a3b8;"><span style="display:inline-block;width:8px;height:8px;background:#94a3b8;border-radius:50%;margin-right:6px;"></span> Sprawdzanie...</strong>
+          <strong id="valheim-status-badge" style="color: #94a3b8;"><span style="display:inline-block;width:8px;height:8px;background:#94a3b8;border-radius:50%;margin-right:6px;"></span> Offline</strong>
         </div>
         <div class="status-item">
           <small>Wersja gry</small>
@@ -199,7 +144,6 @@
         </div>
       </div>
 
-      <!-- GŁÓWNA TREŚĆ -->
       <div class="content-grid">
         <div>
           <h2 style="font-family: 'Cinzel', serif; color: #fff; font-size: 1.8rem; margin-bottom: 0.5rem;">Znajdź swój sposób na grę.</h2>
@@ -251,7 +195,6 @@
           </div>
         </div>
 
-        <!-- BOCZNY PANEL DOŁĄCZANIA -->
         <div>
           <div class="sidebar-box">
             <h3>Adres i dołączenie</h3>
@@ -276,7 +219,6 @@
         </div>
       </div>
 
-      <!-- GALERIA Z ŻYCIA SERWERA -->
       <section style="margin: 5rem 0;">
         <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1.5rem;">
           <div>
@@ -304,7 +246,6 @@
     </div>
   </main>
 
-  <!-- FOOTER -->
   <footer class="site-footer">
     <div class="container footer-top">
       <div class="footer-brand">
@@ -333,37 +274,6 @@
     </div>
   </footer>
 
-  <script>
-    lucide.createIcons();
-
-    // Pobieranie i aktualizacja statusu z status.json
-    async function updateServerStatus() {
-      const badge = document.getElementById("valheim-status-badge");
-      if (!badge) return;
-
-      try {
-        const res = await fetch('./status.json?t=' + Date.now());
-        if (!res.ok) throw new Error("Błąd pliku statusu");
-        const data = await res.json();
-
-        if (data.online) {
-          badge.style.color = "#22c55e";
-          badge.innerHTML = `<span style="display:inline-block;width:8px;height:8px;background:#22c55e;border-radius:50%;margin-right:6px;box-shadow:0 0 8px #22c55e;"></span> Online (${data.players || 0})`;
-        } else {
-          badge.style.color = "#94a3b8";
-          badge.innerHTML = `<span style="display:inline-block;width:8px;height:8px;background:#94a3b8;border-radius:50%;margin-right:6px;"></span> Offline`;
-        }
-      } catch (e) {
-        console.error("Błąd odczytu statusu:", e);
-        badge.style.color = "#94a3b8";
-        badge.innerHTML = `<span style="display:inline-block;width:8px;height:8px;background:#94a3b8;border-radius:50%;margin-right:6px;"></span> Offline`;
-      }
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      updateServerStatus();
-      setInterval(updateServerStatus, 30000);
-    });
-  </script>
+  <script>lucide.createIcons();</script>
 </body>
 </html>

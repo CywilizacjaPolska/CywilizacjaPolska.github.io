@@ -64,7 +64,6 @@
     .gallery-img { height: 180px; background-size: cover; background-position: center; }
     .gallery-body { padding: 1rem; color: #94a3b8; font-size: 0.85rem; }
 
-    /* Stylowany przycisk dołączenia */
     .game-cta-btn {
       display: flex;
       justify-content: space-between;
@@ -129,7 +128,7 @@
       <div class="status-bar-grid">
         <div class="status-item">
           <small>Status serwera</small>
-          <strong id="enshrouded-status-badge" style="color: #94a3b8;"><span style="display:inline-block;width:8px;height:8px;background:#94a3b8;border-radius:50%;margin-right:6px;"></span> Sprawdzanie...</strong>
+          <strong id="enshrouded-status-badge" style="color: #94a3b8;"><span style="display:inline-block;width:8px;height:8px;background:#94a3b8;border-radius:50%;margin-right:6px;"></span> Offline</strong>
         </div>
         <div class="status-item">
           <small>Wersja gry</small>
@@ -247,7 +246,6 @@
     </div>
   </main>
 
-  <!-- FOOTER -->
   <footer class="site-footer">
     <div class="container footer-top">
       <div class="footer-brand">
@@ -276,37 +274,6 @@
     </div>
   </footer>
 
-  <script>
-    lucide.createIcons();
-
-    // Pobieranie i aktualizacja statusu z status.json
-    async function updateServerStatus() {
-      const badge = document.getElementById("enshrouded-status-badge");
-      if (!badge) return;
-
-      try {
-        const res = await fetch('./status.json?t=' + Date.now());
-        if (!res.ok) throw new Error("Błąd pliku statusu");
-        const data = await res.json();
-
-        if (data.online) {
-          badge.style.color = "#22c55e";
-          badge.innerHTML = `<span style="display:inline-block;width:8px;height:8px;background:#22c55e;border-radius:50%;margin-right:6px;box-shadow:0 0 8px #22c55e;"></span> Online (${data.players || 0})`;
-        } else {
-          badge.style.color = "#94a3b8";
-          badge.innerHTML = `<span style="display:inline-block;width:8px;height:8px;background:#94a3b8;border-radius:50%;margin-right:6px;"></span> Offline`;
-        }
-      } catch (e) {
-        console.error("Błąd odczytu statusu:", e);
-        badge.style.color = "#94a3b8";
-        badge.innerHTML = `<span style="display:inline-block;width:8px;height:8px;background:#94a3b8;border-radius:50%;margin-right:6px;"></span> Offline`;
-      }
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      updateServerStatus();
-      setInterval(updateServerStatus, 30000);
-    });
-  </script>
+  <script>lucide.createIcons();</script>
 </body>
 </html>
