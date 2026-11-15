@@ -1,4 +1,4 @@
-name: Sprawdź status Live YouTube
+name: Sprawdź status Live YouTube (Strict)
 
 on:
   schedule:
@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Pobierz ID aktywnego live
+      - name: Sprawdź czy kanał faktycznie nadaje na żywo
         run: |
           python3 -c '
           import urllib.request
@@ -26,44 +26,49 @@ jobs:
 
           is_live = False
           video_id = ""
-          title = ""
 
           try:
               req = urllib.request.Request(
                   url,
                   headers={
                       "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-                      "Accept-Language": "pl-PL,pl;q=0.9,en;q=0.8"
+                      "Accept-Language": "en-US,en;q=0.9"
                   }
               )
+              # YouTube automatycznie przekierowuje /live na /watch?v=... TYLKO GDY TRWA TRANSMISJA
               with urllib.request.urlopen(req, timeout=15) as response:
+                  final_url = response.url
                   html = response.read().decode("utf-8", errors="ignore")
 
-              # Szukamy unikalnego ID aktywnego streama (musi posiadać znacznik nadawania na żywo)
-              if "\"isLiveNow\":true" in html or "\"isLive\":true" in html:
-                  # Wyciągamy videoId z bloku transmisji na żywo
+              # Warunek: URL musi wskazywać na /watch oraz kod strony musi potwierdzać isLiveNow
+              if "/watch?v=" in final_url and '"isLiveNow":true' in html:
+                  match = re.search(r"v=([a-zA-Z0-9_-]{11})", final_url)
+                  if match:
+                      is_live = True
+                      video_id = match.group(1)
+              elif '"isLiveNow":true' in html:
                   vid_match = re.search(r"\"videoId\":\"([a-zA-Z0-9_-]{11})\"", html)
                   if vid_match:
                       is_live = True
                       video_id = vid_match.group(1)
 
           except Exception as e:
-              print(f"Błąd: {e}")
+              print(f"Błąd sprawdzania live: {e}")
 
           output = {
               "is_live": is_live,
-              "video_id": video_id
+              "video_id": video_id if is_live else ""
           }
 
           with open("youtube_live.json", "w", encoding="utf-8") as f:
               json.dump(output, f, indent=2)
 
-          print(f"Live: {is_live}, ID: {video_id}")
+          print(f"Status Live: {is_live}, ID: {video_id}")
           '
 
-      - name: Zapisz zmiany
+      - name: Zapisz zmiany w pliku JSON
         run: |
           git config --global user.name "YouTube Bot"
           git config --global user.email "bot@github.com"
           git add youtube_live.json
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Aktualizacja YouTube Live ID" && git push)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Aktualizacja statusu YouTube Live" && git push)

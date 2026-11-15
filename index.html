@@ -230,37 +230,72 @@
       </div>
     </section>
 
-    <!-- SEKCJA YOUTUBE LIVE (UKRYTA DOMYŚLNIE - POJAWIA SIĘ TYLKO GDY JEST LIVE) -->
-    <section class="section" id="youtube-live-section" style="display: none;">
-      <div class="container">
-        <div class="section-heading">
-          <div>
-            <div class="eyebrow">Relacja z serwera</div>
-            <h2>Oglądaj<br><span class="gold">transmisję na żywo.</span></h2>
-            <p id="stream-title">Wpadnij na stream z naszych światów, zobacz budowę fortec i wspólne wyprawy.</p>
-          </div>
-        </div>
-
-        <div class="yt-live-card">
-          <div class="yt-live-badge">
-            <span class="yt-live-dot"></span>
-            Transmisja na żywo
-          </div>
-
-          <div class="yt-live-frame-wrap">
-            <iframe
-              id="youtube-iframe"
-              src=""
-              title="YouTube Live"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen
-              style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-            </iframe>
-          </div>
-        </div>
+    <!-- SEKCJA YOUTUBE LIVE (Ukryta domyślnie) -->
+<section class="section" id="youtube-live-section" style="display: none;">
+  <div class="container">
+    <div class="section-heading">
+      <div>
+        <div class="eyebrow">Relacja z serwera</div>
+        <h2>Oglądaj<br><span class="gold">transmisję na żywo.</span></h2>
+        <p>Wpadnij na stream z naszych światów, zobacz budowę fortec i wspólne wyprawy.</p>
       </div>
-    </section>
+    </div>
+
+    <div class="yt-live-card">
+      <div class="yt-live-badge">
+        <span class="yt-live-dot"></span>
+        Transmisja na żywo
+      </div>
+
+      <div class="yt-live-frame-wrap">
+        <iframe
+          id="youtube-iframe"
+          src=""
+          title="YouTube Live"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  async function updateYouTubeLive() {
+    const section = document.getElementById("youtube-live-section");
+    const iframe = document.getElementById("youtube-iframe");
+    if (!section || !iframe) return;
+
+    try {
+      const res = await fetch('./youtube_live.json?t=' + Date.now());
+      if (!res.ok) {
+        section.style.display = "none";
+        return;
+      }
+
+      const data = await res.json();
+
+      // Pokazujemy sekcję TYLKO jeśli is_live to true i mamy poprawne video_id
+      if (data.is_live && data.video_id) {
+        iframe.src = `https://www.youtube-nocookie.com/embed/${data.video_id}?autoplay=0`;
+        section.style.display = "block";
+      } else {
+        // Jeśli nie ma streama, sekcja całkowicie znika ze strony!
+        iframe.src = "";
+        section.style.display = "none";
+      }
+    } catch (e) {
+      section.style.display = "none";
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    updateYouTubeLive();
+    setInterval(updateYouTubeLive, 30000); // Sprawdza co 30 sekund
+  });
+</script>
 
     <!-- SPOŁECZNOŚĆ -->
     <section class="section home-people home-people-epic" id="spolecznosc">
@@ -377,73 +412,6 @@
       <a class="discord-link" href="https://discord.gg/jmFhmU2VWR" target="_blank">Spotkajmy się na Discordzie ↗</a>
     </div>
   </footer>
-
-  <!-- SKRYPTY SPRAWDZAJĄCE STATUSY (SERWER I YOUTUBE LIVE) -->
-  <script>
-    lucide.createIcons();
-
-    // Sprawdzanie statusu serwera Conan Exiles
-    async function updateConanStatus() {
-      const statusEl = document.getElementById("conan-status");
-      if (!statusEl) return;
-
-      try {
-        const res = await fetch('./status.json?t=' + Date.now());
-        if (!res.ok) throw new Error("Błąd pliku statusu");
-
-        const data = await res.json();
-
-        if (data.online) {
-          statusEl.className = "status online";
-          statusEl.innerHTML = `<span class="dot"></span> Online (${data.players})`;
-        } else {
-          statusEl.className = "status offline";
-          statusEl.innerHTML = `<span class="dot"></span> Offline`;
-        }
-
-      } catch (e) {
-        console.error("Błąd odczytu statusu:", e);
-        statusEl.className = "status offline";
-        statusEl.innerHTML = `<span class="dot"></span> Offline`;
-      }
-    }
-
-    // Sprawdzanie statusu YouTube Live z pliku youtube_live.json
-    async function updateYouTubeLive() {
-      const section = document.getElementById("youtube-live-section");
-      const iframe = document.getElementById("youtube-iframe");
-      if (!section || !iframe) return;
-
-      try {
-        const res = await fetch('./youtube_live.json?t=' + Date.now());
-        if (!res.ok) return;
-
-        const data = await res.json();
-
-        if (data.is_live && data.video_id) {
-          iframe.src = `https://www.youtube-nocookie.com/embed/${data.video_id}?autoplay=0`;
-          if (data.title) {
-            const titleEl = document.getElementById("stream-title");
-            if (titleEl) titleEl.textContent = data.title;
-          }
-          section.style.display = "block"; // Pokazuje sekcję TYLKO gdy leci prawdziwy live
-        } else {
-          section.style.display = "none"; // Ukrywa sekcję, gdy nie ma transmisji
-        }
-      } catch (e) {
-        section.style.display = "none"; // W razie błędu / braku pliku sekcja pozostaje ukryta
-      }
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      updateConanStatus();
-      updateYouTubeLive();
-
-      // Odświeżanie co 30 sekund
-      setInterval(updateConanStatus, 30000);
-      setInterval(updateYouTubeLive, 30000);
-    });
-  </script>
 </body>
 </html>
 ```[cite: 7]
