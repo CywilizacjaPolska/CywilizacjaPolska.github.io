@@ -225,7 +225,6 @@
       filterButtons.forEach(btn => {
         btn.addEventListener("click", () => {
           filterButtons.forEach(b => b.classList.remove("active"));
-          btn.classList.0 = "active";
           btn.classList.add("active");
           currentFilter = btn.dataset.filter;
           applyFilters();
