@@ -4,8 +4,8 @@
     "players": "0/0"
   },
   "conan": {
-    "online": false,
-    "players": "0/0"
+    "online": true,
+    "players": "0/10"
   },
   "enshrouded": {
     "online": false,
