@@ -234,7 +234,7 @@
     </section>
 
     <!-- SEKCJA YOUTUBE LIVE -->
-    <section class="section" id="live">
+    <section class="section" id="live" hidden>
       <div class="container">
         <div class="section-heading">
           <div>
@@ -409,9 +409,75 @@
       }
     }
 
+    // YouTube LIVE — bez klucza API i bez dostępu do właściciela kanału.
+    const YOUTUBE_CHANNEL_ID = "UCRKaPKrCc3IQQVcy_jq95HA";
+
+    // Publiczne instancje Invidious. Jeśli jedna nie odpowiada, próbujemy kolejnej.
+    // Lista instancji jest publikowana w dokumentacji Invidious.
+    const INVIDIOUS_INSTANCES = [
+      "https://inv.nadeko.net",
+      "https://invidious.nerdvpn.de",
+      "https://invidious.tiekoetter.com",
+      "https://yt.chocolatemoo53.com"
+    ];
+
+    async function checkInstanceForLive(instance) {
+      const url = `${instance}/api/v1/channels/${encodeURIComponent(YOUTUBE_CHANNEL_ID)}/streams`;
+
+      const response = await fetch(url, {
+        method: "GET",
+        headers: { "Accept": "application/json" },
+        cache: "no-store"
+      });
+
+      if (!response.ok) {
+        throw new Error(`Invidious ${instance}: HTTP ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      // Zależnie od wersji instancji odpowiedź może być tablicą
+      // albo obiektem zawierającym tablicę "videos".
+      const videos = Array.isArray(data)
+        ? data
+        : (Array.isArray(data.videos) ? data.videos : []);
+
+      return videos.some(video => video && video.liveNow === true);
+    }
+
+    async function updateYouTubeLiveStatus() {
+      const liveSection = document.getElementById("live");
+      if (!liveSection) return;
+
+      // Domyślnie ukrywamy sekcję. Pokażemy ją dopiero po potwierdzeniu LIVE.
+      liveSection.hidden = true;
+
+      for (const instance of INVIDIOUS_INSTANCES) {
+        try {
+          const isLive = await checkInstanceForLive(instance);
+
+          liveSection.hidden = !isLive;
+          console.info(
+            isLive ? "YouTube LIVE wykryty." : "Brak aktywnej transmisji YouTube.",
+            `Źródło: ${instance}`
+          );
+          return;
+        } catch (error) {
+          console.warn("Nie udało się sprawdzić instancji Invidious:", error);
+        }
+      }
+
+      // Jeśli wszystkie instancje zawiodą, sekcja pozostaje ukryta.
+      console.warn("Nie udało się sprawdzić statusu YouTube LIVE — sekcja pozostaje ukryta.");
+    }
+
     document.addEventListener("DOMContentLoaded", () => {
       updateConanStatus();
       setInterval(updateConanStatus, 30000);
+
+      updateYouTubeLiveStatus();
+      // Kontrola co 3 minuty.
+      setInterval(updateYouTubeLiveStatus, 3 * 60 * 1000);
     });
   </script>
 </body>
