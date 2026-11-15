@@ -80,7 +80,7 @@
       <div class="container">
         <div class="eyebrow" style="color: var(--gold); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 0.5rem;">Cywilizacja to my</div>
         <h1>Poznaj swoją <span>ekipę.</span></h1>
-        <p>Wspólna gra buduje relacje. Sprawdź najaktywniejszych graczy naszej społeczności[cite: 8].</p>
+        <p>Wspólna gra buduje relacje. Sprawdź najaktywniejszych graczy naszej społeczności.</p>
       </div>
     </section>
 
@@ -210,7 +210,7 @@
         if (currentFilter === "online") {
           filtered = filtered.filter(m => m.status === "online");
         } else if (currentFilter === "admin") {
-          filtered = filtered.filter(m => m.role.toLowerCase().includes("wódz") || m.role.toLowerCase().includes("admin") || m.role.toLowerCase().includes("moderator"));
+          filtered = filtered.filter(m => m.role.toLowerCase().includes("wódz") || m.role.toLowerCase().includes("admin") || m.role.toLowerCase().includes("moderator") || m.role.toLowerCase().includes("właściciel"));
         }
 
         // Wyszukiwarka tekstowa
@@ -225,6 +225,7 @@
       filterButtons.forEach(btn => {
         btn.addEventListener("click", () => {
           filterButtons.forEach(b => b.classList.remove("active"));
+          btn.classList.0 = "active";
           btn.classList.add("active");
           currentFilter = btn.dataset.filter;
           applyFilters();
