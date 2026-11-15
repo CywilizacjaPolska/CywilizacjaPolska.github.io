@@ -391,35 +391,59 @@
   </footer>
 
   <!-- SKRYPTY INTEGRACYJNE -->
-  <script>
+<script>
     lucide.createIcons();
 
-    // 1. Sprawdzanie statusu serwera Conan Exiles
-    async function updateConanStatus() {
-      const statusEl = document.getElementById("conan-status");
-      if (!statusEl) return;
-
+    // Pobieranie statusów wszystkich serwerów na stronie głównej
+    async function updateAllHomeStatuses() {
       try {
         const res = await fetch('./status.json?t=' + Date.now());
         if (!res.ok) throw new Error("Błąd pliku statusu");
 
         const data = await res.json();
 
-        if (data.online) {
-          statusEl.className = "status online";
-          statusEl.innerHTML = `<span class="dot"></span> Online (${data.players})`;
-        } else {
-          statusEl.className = "status offline";
-          statusEl.innerHTML = `<span class="dot"></span> Offline`;
+        // 1. Valheim
+        const valheimEl = document.getElementById("valheim-status");
+        if (valheimEl && data.valheim) {
+          if (data.valheim.online) {
+            valheimEl.className = "status online";
+            valheimEl.innerHTML = `<span class="dot"></span> Online (${data.valheim.players || '0'})`;
+          } else {
+            valheimEl.className = "status offline";
+            valheimEl.innerHTML = `<span class="dot"></span> Offline`;
+          }
         }
+
+        // 2. Conan Exiles
+        const conanEl = document.getElementById("conan-status");
+        if (conanEl && data.conan) {
+          if (data.conan.online) {
+            conanEl.className = "status online";
+            conanEl.innerHTML = `<span class="dot"></span> Online (${data.conan.players || '0'})`;
+          } else {
+            conanEl.className = "status offline";
+            conanEl.innerHTML = `<span class="dot"></span> Offline`;
+          }
+        }
+
+        // 3. Enshrouded
+        const enshroudedEl = document.getElementById("enshrouded-status");
+        if (enshroudedEl && data.enshrouded) {
+          if (data.enshrouded.online) {
+            enshroudedEl.className = "status online";
+            enshroudedEl.innerHTML = `<span class="dot"></span> Online (${data.enshrouded.players || '0'})`;
+          } else {
+            enshroudedEl.className = "status offline";
+            enshroudedEl.innerHTML = `<span class="dot"></span> Offline`;
+          }
+        }
+
       } catch (e) {
-        console.error("Błąd odczytu statusu:", e);
-        statusEl.className = "status offline";
-        statusEl.innerHTML = `<span class="dot"></span> Offline`;
+        console.error("Błąd odczytu statusów:", e);
       }
     }
 
-    // 2. Globalna funkcja ręcznego odświeżania (wyprowadzona poza DOMContentLoaded)
+    // Ręczne odświeżanie
     async function manualRefresh() {
       const btn = document.getElementById("refresh-btn");
       const timeEl = document.getElementById("last-checked");
@@ -429,7 +453,7 @@
         btn.textContent = "Odświeżanie...";
       }
 
-      await updateConanStatus();
+      await updateAllHomeStatuses();
 
       const now = new Date();
       const timeString = now.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' });
@@ -447,8 +471,8 @@
     }
 
     document.addEventListener("DOMContentLoaded", () => {
-      updateConanStatus();
-      setInterval(updateConanStatus, 30000);
+      updateAllHomeStatuses();
+      setInterval(updateAllHomeStatuses, 30000);
     });
   </script>
 </body>
