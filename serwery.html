@@ -63,29 +63,33 @@
       border-color: var(--gold, #d4a017);
     }
 
-    /* Siatka kart w stylu gamingowym */
+    /* Siatka szczegółowych kart serwerów z banerami */
     .detailed-server-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
       gap: 2rem;
       margin: 4rem 0;
     }
-
-    .gaming-server-card {
-      background: linear-gradient(145deg, rgba(22, 27, 38, 0.95), rgba(13, 17, 23, 0.98));
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 14px;
-      overflow: hidden;
+    .detailed-card {
+      background: linear-gradient(145deg, rgba(22, 27, 38, 0.9), rgba(11, 15, 23, 0.95));
+      border: 1px solid rgba(212, 160, 23, 0.2);
+      border-radius: 16px;
+      padding: 2.2rem;
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
       transition: transform 0.2s, border-color 0.2s;
     }
-    .gaming-server-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(212, 160, 23, 0.4);
+    .detailed-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(212, 160, 23, 0.5);
     }
-    .gaming-card-header {
+
+    /* Baner w górnej części karty */
+    .card-banner {
       position: relative;
       height: 140px;
       background-size: cover;
@@ -94,20 +98,23 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
+      margin: -2.2rem -2.2rem 1.5rem -2.2rem;
     }
-    .gaming-card-header::after {
+    .card-banner::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(13,17,23,0.95) 100%);
+      background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(11,15,23,0.95) 100%);
     }
+
+    /* Status badge nad banerem */
     .online-badge {
       position: relative;
       z-index: 2;
       background: rgba(15, 23, 42, 0.85);
       border: 1px solid rgba(34, 197, 94, 0.3);
       color: #22c55e;
-      padding: 0.25rem 0.75rem;
+      padding: 0.3rem 0.8rem;
       border-radius: 999px;
       font-size: 0.75rem;
       font-weight: 700;
@@ -116,6 +123,10 @@
       gap: 0.4rem;
       letter-spacing: 0.5px;
     }
+    .online-badge.offline {
+      border-color: rgba(148, 163, 184, 0.3);
+      color: #94a3b8;
+    }
     .online-badge .dot {
       width: 6px;
       height: 6px;
@@ -123,36 +134,42 @@
       border-radius: 50%;
       box-shadow: 0 0 8px #22c55e;
     }
-    
-    .gaming-card-title-area {
-      position: relative;
-      z-index: 2;
-      margin-top: -35px;
-      padding: 0 1.25rem;
+    .online-badge.offline .dot {
+      background: #94a3b8;
+      box-shadow: none;
     }
-    .gaming-map-tag {
-      font-size: 0.8rem;
-      color: var(--gold, #d4a017);
-      font-weight: 600;
+
+    .detailed-card h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.8rem;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+    .detailed-card .server-desc {
+      color: #94a3b8;
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+    .features-list {
+      list-style: none;
+      padding: 0;
+      margin: 1.5rem 0;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 1rem 0;
+    }
+    .features-list li {
+      color: #cbd5e1;
+      font-size: 0.9rem;
+      margin-bottom: 0.6rem;
       display: flex;
       align-items: center;
-      gap: 0.4rem;
-      margin-bottom: 0.2rem;
+      gap: 0.5rem;
     }
-    .gaming-server-name {
-      font-family: 'Cinzel', serif;
-      font-size: 1.4rem;
-      color: #fff;
-      font-weight: 700;
-      margin-bottom: 0.75rem;
-    }
-    .gaming-card-body {
-      padding: 1rem 1.25rem 1.25rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      flex-grow: 1;
-      justify-content: flex-end;
+    .features-list li::before {
+      content: "•";
+      color: var(--gold, #d4a017);
+      font-weight: bold;
     }
     .ip-box {
       background: rgba(0, 0, 0, 0.4);
@@ -165,6 +182,7 @@
       color: #e2e8f0;
       font-family: monospace;
       font-size: 0.9rem;
+      margin-bottom: 1rem;
     }
     .copy-btn {
       background: transparent;
@@ -174,43 +192,6 @@
       transition: color 0.2s;
     }
     .copy-btn:hover { color: var(--gold, #d4a017); }
-    
-    .gaming-action-row {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 0.5rem;
-    }
-    .btn-connect {
-      background: linear-gradient(135deg, #f59e0b 0%, #d4a017 100%);
-      color: #0f172a;
-      border: none;
-      border-radius: 8px;
-      padding: 0.75rem;
-      font-family: 'Manrope', sans-serif;
-      font-weight: 700;
-      text-align: center;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      box-shadow: 0 4px 15px rgba(212, 160, 23, 0.3);
-      transition: filter 0.2s;
-    }
-    .btn-connect:hover { filter: brightness(1.1); }
-    .btn-info {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: #cbd5e1;
-      border-radius: 8px;
-      width: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .btn-info:hover { background: rgba(255, 255, 255, 0.1); color: #fff; }
   </style>
 </head>
 <body class="furia-world-site">
@@ -264,77 +245,92 @@
       <div class="detailed-server-grid" id="servers-grid">
         
         <!-- KARTA 1: VALHEIM -->
-        <article class="gaming-server-card" data-category="survival combat">
-          <div class="gaming-card-header" style="background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=900&q=80');">
-            <span class="online-badge"><span class="dot"></span> ONLINE</span>
+        <article class="detailed-card" data-category="survival combat">
+          <div class="card-banner" style="background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=900&q=80');">
+            <span id="valheim-badge" class="online-badge offline"><span class="dot"></span> Offline</span>
+            <span style="position: relative; z-index: 2; color: #94a3b8; font-size: 0.8rem; font-weight: 600; background: rgba(15,23,42,0.8); padding: 0.2rem 0.6rem; border-radius: 6px;">ŚWIAT / 01</span>
           </div>
-          <div class="gaming-card-title-area">
-            <div class="gaming-map-tag"><i data-lucide="axe" style="width:14px;height:14px;"></i> Valheim PVE</div>
-            <h3 class="gaming-server-name">Dziedzictwo Odyna</h3>
-          </div>
-          <div class="gaming-card-body">
-            <div class="home-world-live" style="display: flex; justify-content: space-between; background: rgba(0,0,0,0.3); padding: 0.6rem 1rem; border-radius: 8px; font-size: 0.85rem;">
-              <div><small style="color: #94a3b8;">Dostępność</small><span id="valheim-status" class="status online" style="color: #22c55e;"><span class="dot"></span> Online</span></div>
-              <div><small style="color: #94a3b8;">Wersja gry</small><strong id="valheim-version" style="color: #fff;">v0.217.46</strong></div>
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+              <span class="tag" style="background: rgba(212,160,23,0.15); color: var(--gold); padding: 0.2rem 0.8rem; border-radius: 6px; font-size: 0.75rem; font-weight: 700;">VALHEIM PVE</span>
             </div>
+            <h3>Valheim</h3>
+            <p class="server-desc">Dziedzictwo Odyna w Twoich rękach. Buduj drakkary i rzuć wyzwanie mitycznym bossom.</p>
+            
+            <p style="font-size: 0.85rem; color: var(--gold); font-weight: 600; margin-bottom: 0.5rem;">DLA TWORCÓW I ODKRYWCÓW</p>
+            <ul class="features-list">
+              <li>Budowanie monumentalnych osad i hal</li>
+              <li>Eksploracja proceduralnie generowanego świata</li>
+              <li>Wspólne rajdy i polowania na bossów</li>
+            </ul>
+          </div>
+
+          <div>
             <div class="ip-box">
               <span>51.83.239.219:28700</span>
               <button class="copy-btn" onclick="copyIP('51.83.239.219:28700', this)" title="Kopiuj IP"><i data-lucide="copy" style="width:16px;height:16px;"></i></button>
             </div>
-            <div class="gaming-action-row">
-              <a class="btn-connect" href="steam://connect/51.83.239.219:28700"><i data-lucide="play" style="width:16px;height:16px;"></i> POŁĄCZ</a>
-              <button class="btn-info" title="Informacje o serwerze"><i data-lucide="info" style="width:18px;height:18px;"></i></button>
-            </div>
+            <a class="home-world-cta" href="steam://connect/51.83.239.219:28700" style="display: block; text-align: center; background: linear-gradient(135deg, #f59e0b 0%, #d4a017 100%); padding: 0.8rem; border-radius: 8px; color: #0f172a; text-decoration: none; font-weight: 700; box-shadow: 0 4px 15px rgba(212,160,23,0.3);">Wejdź do Valheim →</a>
           </div>
         </article>
 
         <!-- KARTA 2: CONAN EXILES -->
-        <article class="gaming-server-card" data-category="combat">
-          <div class="gaming-card-header" style="background-image: url('https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=900&q=80');">
-            <span class="online-badge"><span class="dot"></span> ONLINE</span>
+        <article class="detailed-card" data-category="combat">
+          <div class="card-banner" style="background-image: url('https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=900&q=80');">
+            <span id="conan-badge" class="online-badge offline"><span class="dot"></span> Sprawdzanie...</span>
+            <span style="position: relative; z-index: 2; color: #94a3b8; font-size: 0.8rem; font-weight: 600; background: rgba(15,23,42,0.8); padding: 0.2rem 0.6rem; border-radius: 6px;">ŚWIAT / 02</span>
           </div>
-          <div class="gaming-card-title-area">
-            <div class="gaming-map-tag"><i data-lucide="sword" style="width:14px;height:14px;"></i> Ziemia Wygnańców</div>
-            <h3 class="gaming-server-name">Conan Exiles</h3>
-          </div>
-          <div class="gaming-card-body">
-            <div class="home-world-live" style="display: flex; justify-content: space-between; background: rgba(0,0,0,0.3); padding: 0.6rem 1rem; border-radius: 8px; font-size: 0.85rem;">
-              <div><small style="color: #94a3b8;">Dostępność</small><span id="conan-status" class="status offline" style="color: #94a3b8;"><span class="dot"></span> Sprawdzanie...</span></div>
-              <div><small style="color: #94a3b8;">Wersja gry</small><strong id="conan-version" style="color: #fff;">v3.0+</strong></div>
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+              <span class="tag" style="background: rgba(239,68,68,0.15); color: #ef4444; padding: 0.2rem 0.8rem; border-radius: 6px; font-size: 0.75rem; font-weight: 700;">CONAN EXILES</span>
             </div>
+            <h3>Conan Exiles</h3>
+            <p class="server-desc">Zostaw trwały ślad na ziemi wygnańców. Surowy świat pełen niebezpieczeństw.</p>
+            
+            <p style="font-size: 0.85rem; color: var(--gold); font-weight: 600; margin-bottom: 0.5rem;">DLA WOJOWNIKÓW I BUDOWNICZYCH</p>
+            <ul class="features-list">
+              <li>Potężne twierdze i system bóstw</li>
+              <li>Zaawansowane rzemiosło i niewolnicy</li>
+              <li>Klimatyczne, mroczne fantasy</li>
+            </ul>
+          </div>
+
+          <div>
             <div class="ip-box">
               <span>146.59.1.3:20800</span>
               <button class="copy-btn" onclick="copyIP('146.59.1.3:20800', this)" title="Kopiuj IP"><i data-lucide="copy" style="width:16px;height:16px;"></i></button>
             </div>
-            <div class="gaming-action-row">
-              <a class="btn-connect" href="steam://connect/146.59.1.3:20800"><i data-lucide="play" style="width:16px;height:16px;"></i> POŁĄCZ</a>
-              <button class="btn-info" title="Informacje o serwerze"><i data-lucide="info" style="width:18px;height:18px;"></i></button>
-            </div>
+            <a class="home-world-cta" href="steam://connect/146.59.1.3:20800" style="display: block; text-align: center; background: linear-gradient(135deg, #f59e0b 0%, #d4a017 100%); padding: 0.8rem; border-radius: 8px; color: #0f172a; text-decoration: none; font-weight: 700; box-shadow: 0 4px 15px rgba(212,160,23,0.3);">Poznaj ten świat →</a>
           </div>
         </article>
 
         <!-- KARTA 3: ENSHROUDED -->
-        <article class="gaming-server-card" data-category="survival">
-          <div class="gaming-card-header" style="background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=80');">
-            <span class="online-badge"><span class="dot"></span> ONLINE</span>
+        <article class="detailed-card" data-category="survival">
+          <div class="card-banner" style="background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=80');">
+            <span id="enshrouded-badge" class="online-badge offline"><span class="dot"></span> Offline</span>
+            <span style="position: relative; z-index: 2; color: #94a3b8; font-size: 0.8rem; font-weight: 600; background: rgba(15,23,42,0.8); padding: 0.2rem 0.6rem; border-radius: 6px;">ŚWIAT / 03</span>
           </div>
-          <div class="gaming-card-title-area">
-            <div class="gaming-map-tag"><i data-lucide="compass" style="width:14px;height:14px;"></i> Embervale PVE</div>
-            <h3 class="gaming-server-name">Enshrouded</h3>
-          </div>
-          <div class="gaming-card-body">
-            <div class="home-world-live" style="display: flex; justify-content: space-between; background: rgba(0,0,0,0.3); padding: 0.6rem 1rem; border-radius: 8px; font-size: 0.85rem;">
-              <div><small style="color: #94a3b8;">Dostępność</small><span id="enshrouded-status" class="status offline" style="color: #94a3b8;"><span class="dot"></span> Offline</span></div>
-              <div><small style="color: #94a3b8;">Wersja gry</small><strong id="enshrouded-version" style="color: #fff;">v1.0+</strong></div>
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+              <span class="tag" style="background: rgba(59,130,246,0.15); color: #3b82f6; padding: 0.2rem 0.8rem; border-radius: 6px; font-size: 0.75rem; font-weight: 700;">ENSHROUDED PVE</span>
             </div>
+            <h3>Enshrouded</h3>
+            <p class="server-desc">Przetrwaj w spowitej zgubną mgle krainie. Odbuduj dawną świetność królestwa Embervale.</p>
+            
+            <p style="font-size: 0.85rem; color: var(--gold); font-weight: 600; margin-bottom: 0.5rem;">DLA ODKRYWCÓW</p>
+            <ul class="features-list">
+              <li>Walka ze skażeniem w spowitej mgle</li>
+              <li>W pełni zniszczalne otoczenie i voxelowe budowanie</li>
+              <li>Eksploracja z użyciem szybowca i haka</li>
+            </ul>
+          </div>
+
+          <div>
             <div class="ip-box">
               <span>51.83.239.219:28710</span>
               <button class="copy-btn" onclick="copyIP('51.83.239.219:28710', this)" title="Kopiuj IP"><i data-lucide="copy" style="width:16px;height:16px;"></i></button>
             </div>
-            <div class="gaming-action-row">
-              <a class="btn-connect" href="steam://connect/51.83.239.219:28710"><i data-lucide="play" style="width:16px;height:16px;"></i> POŁĄCZ</a>
-              <button class="btn-info" title="Informacje o serwerze"><i data-lucide="info" style="width:18px;height:18px;"></i></button>
-            </div>
+            <a class="home-world-cta" href="steam://connect/51.83.239.219:28710" style="display: block; text-align: center; background: linear-gradient(135deg, #f59e0b 0%, #d4a017 100%); padding: 0.8rem; border-radius: 8px; color: #0f172a; text-decoration: none; font-weight: 700; box-shadow: 0 4px 15px rgba(212,160,23,0.3);">Wejdź do Enshrouded →</a>
           </div>
         </article>
 
@@ -403,10 +399,9 @@
       });
     }
 
-    // Sprawdzanie statusu serwera Conan Exiles z pliku status.json
+    // Sprawdzanie statusu serwera z pliku status.json
     async function updateConanStatus() {
-      const statusEl = document.getElementById("conan-status");
-      if (!statusEl) return;
+      const conanBadge = document.getElementById("conan-badge");
 
       try {
         const res = await fetch('./status.json?t=' + Date.now());
@@ -414,20 +409,21 @@
 
         const data = await res.json();
 
-        if (data.online) {
-          statusEl.className = "status online";
-          statusEl.innerHTML = `<span class="dot"></span> Online (${data.players})`;
-          statusEl.style.color = "#22c55e";
-        } else {
-          statusEl.className = "status offline";
-          statusEl.innerHTML = `<span class="dot"></span> Offline`;
-          statusEl.style.color = "#94a3b8";
+        if (conanBadge) {
+          if (data.online) {
+            conanBadge.className = "online-badge";
+            conanBadge.innerHTML = `<span class="dot"></span> Online (${data.players || 0})`;
+          } else {
+            conanBadge.className = "online-badge offline";
+            conanBadge.innerHTML = `<span class="dot"></span> Offline`;
+          }
         }
       } catch (e) {
         console.error("Błąd odczytu statusu:", e);
-        statusEl.className = "status offline";
-        statusEl.innerHTML = `<span class="dot"></span> Offline`;
-        statusEl.style.color = "#94a3b8";
+        if (conanBadge) {
+          conanBadge.className = "online-badge offline";
+          conanBadge.innerHTML = `<span class="dot"></span> Offline`;
+        }
       }
     }
 
@@ -437,7 +433,7 @@
       buttons.forEach(btn => btn.classList.remove('active'));
       event.target.classList.add('active');
 
-      const cards = document.querySelectorAll('.gaming-server-card');
+      const cards = document.querySelectorAll('.detailed-card');
       cards.forEach(card => {
         if (category === 'all' || card.dataset.category.includes(category)) {
           card.style.display = 'flex';
