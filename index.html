@@ -233,7 +233,7 @@
       </div>
     </section>
 
-    <!-- SEKCJA YOUTUBE LIVE (Ukryta, dopóki nie ruszy transmisja) -->
+    <!-- SEKCJA YOUTUBE LIVE (Ukryta domyślnie, pojawia się tylko podczas transmisji) -->
 <section class="section" id="youtube-live-section" style="display: none;">
   <div class="container">
     <div class="section-heading">
@@ -265,6 +265,7 @@
   </div>
 </section>
 
+<!-- SKRYPT SPRAWDZAJĄCY CZY NAPRAWDĘ JEST LIVE -->
 <script>
   document.addEventListener("DOMContentLoaded", async () => {
     try {
@@ -272,6 +273,7 @@
       if (!res.ok) return;
       const data = await res.json();
 
+      // Sprawdza czy zmienna is_live ma wartość true oraz czy pobrało ID wideo
       if (data.is_live && data.video_id) {
         const section = document.getElementById("youtube-live-section");
         const iframe = document.getElementById("youtube-iframe");
@@ -281,10 +283,10 @@
         if (data.title) {
           titleEl.textContent = data.title;
         }
-        section.style.display = "block";
+        section.style.display = "block"; // Pokazuje sekcję tylko wtedy, gdy leci prawdziwy live!
       }
     } catch (e) {
-      console.log("Brak aktywnej transmisji.");
+      console.log("Brak aktywnej transmisji - sekcja ukryta.");
     }
   });
 </script>
