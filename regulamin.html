@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Regulamin — Cywilizacja Polska</title>
+  
+  <!-- FAVICON -->
+  <link rel="icon" type="image/png" href="favicon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Style dla podstrony z regulaminem */
+    .rules-hero {
+      position: relative;
+      padding: 6rem 0 3rem;
+      background: linear-gradient(180deg, rgba(11, 15, 23, 0.95) 0%, rgba(15, 23, 42, 0.9) 100%), url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+      border-bottom: 1px solid rgba(212, 160, 23, 0.2);
+    }
+    .rules-hero h1 {
+      font-family: 'Cinzel', serif;
+      font-size: 3rem;
+      color: #fff;
+      margin-bottom: 0.75rem;
+    }
+    .rules-hero h1 span { color: var(--gold, #d4a017); }
+    .rules-hero p {
+      color: #94a3b8;
+      max-width: 650px;
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+
+    /* Układ główny z bocznym menu i treścią */
+    .rules-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 2.5rem;
+      align-items: start;
+      margin: 3rem 0 5rem;
+    }
+
+    @media (max-width: 900px) {
+      .rules-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Sticky Sidebar z nawigacją po regulaminie */
+    .rules-sidebar {
+      position: sticky;
+      top: 100px;
+      background: linear-gradient(145deg, rgba(22, 27, 38, 0.95), rgba(13, 17, 23, 0.98));
+      border: 1px solid rgba(212, 160, 23, 0.2);
+      border-radius: 14px;
+      padding: 1.5rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .rules-sidebar-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--gold, #d4a017);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .rules-nav-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .rules-nav-link {
+      display: block;
+      color: #cbd5e1;
+      text-decoration: none;
+      padding: 0.6rem 0.8rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .rules-nav-link:hover, .rules-nav-link.active {
+      background: rgba(212, 160, 23, 0.1);
+      color: var(--gold, #d4a017);
+      padding-left: 1rem;
+    }
+
+    /* Kontener kart z regulaminem */
+    .rules-content-area {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .rule-card {
+      background: linear-gradient(145deg, rgba(22, 27, 38, 0.9), rgba(11, 15, 23, 0.95));
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 2.2rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      scroll-margin-top: 100px;
+    }
+    .rule-card-tag {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--gold, #d4a017);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .rule-card h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.6rem;
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+    .rule-card p, .rule-card li {
+      color: #cbd5e1;
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+    .rule-list {
+      list-style: decimal;
+      padding-left: 1.2rem;
+      margin: 1rem 0 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .rule-list li {
+      padding-left: 0.25rem;
+    }
+  </style>
+</head>
+<body class="furia-world-site">
+
+  <!-- GÓRNA NAWIGACJA -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="brand">
+        <div class="brand-shield"><i data-lucide="shield"></i></div>
+        <div class="brand-text">
+          <span class="brand-title">CYWILIZACJA</span>
+          <span class="brand-subtitle">POLSKA</span>
+        </div>
+      </a>
+
+      <nav class="main-nav">
+        <a href="index.html"><i data-lucide="home" class="nav-symbol"></i> Strona główna</a>
+        <a href="serwery.html"><i data-lucide="server" class="nav-symbol"></i> Serwery</a>
+        <a href="ekipa.html" class="button button-secondary"><i data-lucide="users" class="nav-symbol"></i> Społeczność</a>
+        <a href="regulamin.html" class="active"><i data-lucide="book-open" class="nav-symbol"></i> Regulamin</a>
+        <a href="index.html#wsparcie" class="nav-support"><i data-lucide="heart" class="nav-symbol"></i> Wsparcie</a>
+      </nav>
+
+      <a href="https://discord.gg/jmFhmU2VWR" target="_blank" class="button button-discord">
+        <i data-lucide="gamepad-2"></i> <span>Dołącz do ekipy</span> <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- HERO REGULAMINU -->
+    <section class="rules-hero">
+      <div class="container">
+        <div class="eyebrow" style="color: var(--gold); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 0.5rem;">Zasady społeczności</div>
+        <h1>Gramy razem. <br><span>Gramy fair.</span></h1>
+        <p>Obowiązujące zasady na serwerach Cywilizacja Polska. Przeczytaj je przed rozpoczęciem rozgrywki.</p>
+      </div>
+    </section>
+
+    <!-- GŁÓWNA TREŚĆ Z BOCZNYM MENU -->
+    <div class="container rules-layout">
+      
+      <!-- BOCZNA NAWIGACJA (STICKY) -->
+      <aside class="rules-sidebar">
+        <div class="rules-sidebar-title">Spis treści</div>
+        <ul class="rules-nav-list">
+          <li><a href="#ogolne" class="rules-nav-link active">Postanowienia ogólne</a></li>
+          <li><a href="#zakazy" class="rules-nav-link">Na serwerach obowiązuje zakaz</a></li>
+          <li><a href="#nakazy" class="rules-nav-link">Nakazy gracza</a></li>
+          <li><a href="#prawa" class="rules-nav-link">Prawa gracza</a></li>
+          <li><a href="#conan" class="rules-nav-link">Dodatkowy regulamin Conan Exiles</a></li>
+          <li><a href="#informacje" class="rules-nav-link">Dodatkowe informacje</a></li>
+        </ul>
+      </aside>
+
+      <!-- KARTY Z ZASADAMI -->
+      <div class="rules-content-area">
+        
+        <!-- KARTA 1: POSTANOWIENIA OGÓLNE -->
+        <article class="rule-card" id="ogolne">
+          <div class="rule-card-tag">Rozdział I</div>
+          <h3>Postanowienia ogólne</h3>
+          <p>Wejście na serwer jest jednoznaczne z akceptacją postanowień zawartych w regulaminie.</p>
+          <ol class="rule-list">
+            <li>Nieznajomość regulaminu nie zwalnia z jego przestrzegania, a każda próba ominięcia zasady będzie surowo karana.</li>
+            <li>Wszelkie kwestie sporne nierozstrzygnięte w niniejszym regulaminie rozstrzyga administracja serwera.</li>
+            <li>Każdy gracz zobowiązany jest do szanowania innych uczestników społeczności oraz ich pracy.</li>
+          </ol>
+        </article>
+
+        <!-- KARTA 2: NA SERWERACH OBOWIĄZUJE ZAKAZ -->
+        <article class="rule-card" id="zakazy">
+          <div class="rule-card-tag">Rozdział II</div>
+          <h3>Na serwerach obowiązuje zakaz</h3>
+          <p>Dla zachowania zdrowej atmosfery na serwerach bezwzględnie zabrania się:</p>
+          <ol class="rule-list">
+            <li>Używania oprogramowania wspomagającego (cheatów, wspomagaczy celowania itp.).</li>
+            <li>Niszczenia mienia innych graczy, kradzieży w strefach PVE oraz griefingu.</li>
+            <li>Używania wulgaryzmów w stopniu nadmiernym, obrażania innych graczy i prowokacji.</li>
+            <li>Posługiwania się nickami rasistowskimi, obraźliwymi bądź podszywającymi się pod administrację.</li>
+            <li>Budowania w sposób utrudniający dostęp do zasobów naturalnych lub blokujący drogi główne.</li>
+            <li>Wykorzystywania błędów gry (bugów, glitchy) do celów osiągnięcia nieuczciwej przewagi.</li>
+            <li>Spamu oraz reklamy innych serwisów, projektów lub serwerów bez zgody administracji.</li>
+          </ol>
+        </article>
+
+        <!-- KARTA 3: NAKAZY GRACZA -->
+        <article class="rule-card" id="nakazy">
+          <div class="rule-card-tag">Rozdział III</div>
+          <h3>Nakazy gracza</h3>
+          <ol class="rule-list">
+            <li>Zgłaszanie wszelkich napotkanych błędów, problemów lub graczy łamiących regulamin administracji.</li>
+            <li>Kultura osobista podczas komunikacji głosowej oraz na czacie tekstowym.</li>
+            <li>Posiadanie porządku wokół własnej bazy i usuwanie opuszczonych konstrukcji.</li>
+          </ol>
+        </article>
+
+        <!-- KARTA 4: PRAWA GRACZA -->
+        <article class="rule-card" id="prawa">
+          <div class="rule-card-tag">Rozdział IV</div>
+          <h3>Prawa gracza</h3>
+          <ol class="rule-list">
+            <li>Gracz ma prawo do obrony swojej własności na zasadach określonych dla danego trybu gry.</li>
+            <li>Gracz ma prawo do odwołania się od decyzji administracji na naszym serwerze Discord.</li>
+            <li>Gracz ma prawo do pomocy ze strony administracji w sytuacjach losowych i technicznych.</li>
+          </ol>
+        </article>
+
+        <!-- KARTA 5: DODATKOWY REGULAMIN CONAN EXILES -->
+        <article class="rule-card" id="conan">
+          <div class="rule-card-tag">Rozdział V</div>
+          <h3>Dodatkowy regulamin Conan Exiles</h3>
+          <p>Zasady specyficzne dla świata wygnańców:</p>
+          <ol class="rule-list">
+            <li>Zabrania się blokowania wejść do lochów, bossów oraz głównych szlaków handlowych.</li>
+            <li>Limit budynków w jednym klanie musi być konsultowany z administracją przy wielkich projektach.</li>
+            <li>Zabrania się zostawiania samych fundamentów w celach rezerwacji terenu (tzw. pillars spam).</li>
+          </ol>
+        </article>
+
+        <!-- KARTA 6: DODATKOWE INFORMACJE -->
+        <article class="rule-card" id="informacje">
+          <div class="rule-card-tag">Rozdział VI</div>
+          <h3>Dodatkowe informacje</h3>
+          <ol class="rule-list">
+            <li>Wszystkie zmiany w regulaminie będą ogłaszane na kanale informacyjnym Discord.</li>
+            <li>Administracja zastrzega sobie prawo do zmiany kar w zależności od szkodliwości czynu gracza.</li>
+          </ol>
+        </article>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-top">
+      <div class="footer-brand">
+        <div class="brand-shield" style="margin-bottom: 12px;"><i data-lucide="shield"></i></div>
+        <p>Różne światy. Jedna społeczność.<br>Twoje miejsce do wspólnego przetrwania.</p>
+      </div>
+      <div>
+        <h2>Odkrywaj</h2>
+        <a href="serwery.html">Nasze serwery</a>
+        <a href="ekipa.html">Społeczność</a>
+        <a href="regulamin.html">Regulamin</a>
+      </div>
+      <div>
+        <h2>Cywilizacja Polska</h2>
+        <a href="ekipa.html">O społeczności</a>
+        <a href="index.html#wsparcie">Wesprzyj serwery</a>
+      </div>
+      <div>
+        <h2>Gramy fair</h2>
+        <a href="regulamin.html">Regulamin</a>
+        <a href="#">Polityka prywatności</a>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <span>© 2026 Cywilizacja Polska</span>
+      <span>Valheim · Conan Exiles · Enshrouded</span>
+      <a class="discord-link" href="https://discord.gg/jmFhmU2VWR" target="_blank">Spotkajmy się na Discordzie ↗</a>
+    </div>
+  </footer>
+
+  <!-- SKRYPTY INTERAKTYWNE -->
+  <script>
+    lucide.createIcons();
+
+    // Podświetlanie aktywnego elementu w menu bocznym podczas przewijania
+    window.addEventListener('scroll', () => {
+      const sections = document.querySelectorAll('.rule-card');
+      const navLinks = document.querySelectorAll('.rules-nav-link');
+      
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (pageYOffset >= sectionTop - 120) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href').includes(current)) {
+          link.classList.add('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
