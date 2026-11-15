@@ -233,14 +233,14 @@
       </div>
     </section>
 
-    <!-- SEKCJA YOUTUBE LIVE (Ukryta domyślnie, pojawia się tylko podczas transmisji) -->
+    <!-- SEKCJA YOUTUBE LIVE (Ukryta, dopóki plik JSON nie potwierdzi aktywnego streama) -->
 <section class="section" id="youtube-live-section" style="display: none;">
   <div class="container">
     <div class="section-heading">
       <div>
         <div class="eyebrow">Relacja z serwera</div>
         <h2>Oglądaj<br><span class="gold">transmisję na żywo.</span></h2>
-        <p id="stream-title">Wpadnij na stream z naszych światów.</p>
+        <p>Wpadnij na stream z naszych światów.</p>
       </div>
     </div>
 
@@ -265,7 +265,6 @@
   </div>
 </section>
 
-<!-- SKRYPT SPRAWDZAJĄCY CZY NAPRAWDĘ JEST LIVE -->
 <script>
   document.addEventListener("DOMContentLoaded", async () => {
     try {
@@ -273,20 +272,16 @@
       if (!res.ok) return;
       const data = await res.json();
 
-      // Sprawdza czy zmienna is_live ma wartość true oraz czy pobrało ID wideo
+      // Wstawia iframe i pokazuje sekcję TYLKO jeśli skrypt znalazł prawdziwe ID trwającego live'a
       if (data.is_live && data.video_id) {
         const section = document.getElementById("youtube-live-section");
         const iframe = document.getElementById("youtube-iframe");
-        const titleEl = document.getElementById("stream-title");
 
         iframe.src = `https://www.youtube-nocookie.com/embed/${data.video_id}?autoplay=0`;
-        if (data.title) {
-          titleEl.textContent = data.title;
-        }
-        section.style.display = "block"; // Pokazuje sekcję tylko wtedy, gdy leci prawdziwy live!
+        section.style.display = "block";
       }
     } catch (e) {
-      console.log("Brak aktywnej transmisji - sekcja ukryta.");
+      console.log("Brak aktywnego streama.");
     }
   });
 </script>
