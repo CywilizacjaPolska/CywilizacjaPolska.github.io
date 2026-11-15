@@ -1,0 +1,73 @@
+name: Sprawdź status Live YouTube (bez API)
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  check-youtube:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Sprawdź stronę /live kanału YouTube
+        run: |
+          python3 -c '
+          import urllib.request
+          import re
+          import json
+
+          channel_id = "UCRKaPKrCc3IQQVcy_jq95HA"
+          url = f"https://www.youtube.com/channel/{channel_id}/live"
+
+          is_live = False
+          video_id = ""
+          title = ""
+
+          try:
+              req = urllib.request.Request(
+                  url,
+                  headers={
+                      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+                      "Accept-Language": "pl-PL,pl;q=0.9,en;q=0.8"
+                  }
+              )
+              with urllib.request.urlopen(req, timeout=15) as response:
+                  html = response.read().decode("utf-8", errors="ignore")
+
+              # Sprawdzenie w kodzie strony, czy transmisja jest aktywna teraz (nie zaplanowana na przyszłość)
+              if "\"isLive\":true" in html or "\"isLiveNow\":true" in html:
+                  vid_match = re.search(r"\"videoId\":\"([a-zA-Z0-9_-]{11})\"", html)
+                  if vid_match:
+                      is_live = True
+                      video_id = vid_match.group(1)
+                      
+                      title_match = re.search(r"<meta property=\"og:title\" content=\"([^\"]+)\"", html)
+                      if title_match:
+                          title = title_match.group(1)
+
+          except Exception as e:
+              print(f"Błąd pobierania strony YouTube: {e}")
+
+          output = {
+              "is_live": is_live,
+              "video_id": video_id,
+              "title": title
+          }
+
+          with open("youtube_live.json", "w", encoding="utf-8") as f:
+              json.dump(output, f, indent=2, ensure_ascii=False)
+
+          print(f"Status Live: {is_live}, Video ID: {video_id}, Tytuł: {title}")
+          '
+
+      - name: Zapisz wynik w repozytorium
+        run: |
+          git config --global user.name "YouTube Bot"
+          git config --global user.email "bot@github.com"
+          git add youtube_live.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Aktualizacja statusu YouTube Live" && git push)

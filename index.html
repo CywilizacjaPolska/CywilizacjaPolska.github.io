@@ -233,36 +233,61 @@
       </div>
     </section>
 
-    <!-- SEKCJA YOUTUBE LIVE -->
-    <section class="section" id="live">
-      <div class="container">
-        <div class="section-heading">
-          <div>
-            <div class="eyebrow">Relacja z serwera</div>
-            <h2>Oglądaj<br><span class="gold">transmisję na żywo.</span></h2>
-            <p>Wpadnij na stream z naszych światów, zobacz budowę fortec i wspólne wyprawy.</p>
-          </div>
-        </div>
-
-        <div class="yt-live-card">
-          <div class="yt-live-badge">
-            <span class="yt-live-dot"></span>
-            Transmisja na żywo
-          </div>
-
-          <div class="yt-live-frame-wrap">
-            <iframe
-              src="https://www.youtube.com/embed/live_stream?channel=UCRKaPKrCc3IQQVcy_jq95HA"
-              title="YouTube Live"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen
-              style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-            </iframe>
-          </div>
-        </div>
+    <!-- SEKCJA YOUTUBE LIVE (Ukryta, dopóki nie ruszy transmisja) -->
+<section class="section" id="youtube-live-section" style="display: none;">
+  <div class="container">
+    <div class="section-heading">
+      <div>
+        <div class="eyebrow">Relacja z serwera</div>
+        <h2>Oglądaj<br><span class="gold">transmisję na żywo.</span></h2>
+        <p id="stream-title">Wpadnij na stream z naszych światów.</p>
       </div>
-    </section>
+    </div>
+
+    <div class="yt-live-card">
+      <div class="yt-live-badge">
+        <span class="yt-live-dot"></span>
+        Transmisja na żywo
+      </div>
+
+      <div class="yt-live-frame-wrap">
+        <iframe
+          id="youtube-iframe"
+          src=""
+          title="YouTube Live"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    try {
+      const res = await fetch('./youtube_live.json?t=' + Date.now());
+      if (!res.ok) return;
+      const data = await res.json();
+
+      if (data.is_live && data.video_id) {
+        const section = document.getElementById("youtube-live-section");
+        const iframe = document.getElementById("youtube-iframe");
+        const titleEl = document.getElementById("stream-title");
+
+        iframe.src = `https://www.youtube-nocookie.com/embed/${data.video_id}?autoplay=0`;
+        if (data.title) {
+          titleEl.textContent = data.title;
+        }
+        section.style.display = "block";
+      }
+    } catch (e) {
+      console.log("Brak aktywnej transmisji.");
+    }
+  });
+</script>
 
     <!-- SPOŁECZNOŚĆ -->
     <section class="section home-people home-people-epic" id="spolecznosc">
