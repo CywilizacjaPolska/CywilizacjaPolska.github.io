@@ -1,0 +1,82 @@
+name: Synchronizacja członków Discord
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+jobs:
+  sync-members:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Zainstaluj bibliotekę Discord
+        run: pip install discord.py
+
+      - name: Pobierz prawdziwych użytkowników z Discorda
+        env:
+          TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          GUILD_ID: ${{ secrets.DISCORD_GUILD_ID }}
+        run: |
+          python3 -c '
+          import discord, json, os
+
+          intents = discord.Intents.default()
+          intents.members = True
+          intents.presences = True
+
+          client = discord.Client(intents=intents)
+          guild_id = int(os.environ["GUILD_ID"])
+
+          @client.event
+          async def on_ready():
+              guild = client.get_guild(guild_id)
+              if not guild:
+                  print("Nie znaleziono serwera!")
+                  await client.close()
+                  return
+
+              members_list = []
+              rank = 1
+
+              sorted_members = sorted(
+                  [m for m in guild.members if not m.bot],
+                  key=lambda m: (-m.top_role.position, m.display_name.lower())
+              )
+
+              for member in sorted_members:
+                  role_name = member.top_role.name if member.top_role.name != "@everyone" else "Gracz"
+                  status_str = "online" if str(member.status) in ["online", "idle", "dnd"] else "offline"
+                  avatar_url = member.display_avatar.url if member.display_avatar else "https://cdn.discordapp.com/embed/avatars/0.png"
+
+                  lvl = max(1, member.top_role.position)
+                  xp = lvl * 150
+
+                  members_list.append({
+                      "id": str(member.id),
+                      "name": member.display_name,
+                      "handle": f"@{member.name}",
+                      "avatar": avatar_url,
+                      "status": status_str,
+                      "role": role_name,
+                      "level": lvl,
+                      "xp": xp,
+                      "rank": rank
+                  })
+                  rank += 1
+
+              with open("members.json", "w", encoding="utf-8") as f:
+                  json.dump(members_list, f, indent=2, ensure_ascii=False)
+
+              print(f"Zsynchronizowano {len(members_list)} prawdziwych graczy!")
+              await client.close()
+
+          client.run(os.environ["TOKEN"])
+          '
+
+      - name: Zapisz prawdziwych użytkowników w repozytorium
+        run: |
+          git config --global user.name "Status Bot"
+          git config --global user.email "bot@github.com"
+          git add members.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Aktualizacja listy graczy z Discorda" && git push)
