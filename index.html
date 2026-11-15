@@ -174,7 +174,7 @@
             </div>
           </article>
 
-          <!-- KARTA 2: CONAN EXILES (W STYLU VALHEIM - CZYSTY DESIGN) -->
+          <!-- KARTA 2: CONAN EXILES -->
           <article class="home-world-card card-conan" style="--card-bg: url('https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=900&q=80');">
             <div class="card-bg-layer"></div>
             <div class="home-world-art">
@@ -191,7 +191,6 @@
             <div class="home-world-body">
               <div class="home-world-tags"><span>Twierdze</span><span>Bóstwa</span><span>Rzemiosło</span></div>
               
-              <!-- Identyczny boks statusu jak w Valheim -->
               <div class="home-world-live">
                 <div><small>Dostępność</small><span id="conan-status" class="status offline"><span class="dot"></span> Sprawdzanie...</span></div>
                 <div><small>Wersja gry</small><strong id="conan-version">v3.0+</strong></div>
@@ -393,10 +392,11 @@
     </div>
   </footer>
 
-  <!-- CZYSTY SKRYPT ODCZYTUJĄCY PLIK status.json -->
+  <!-- SKRYPTY INTEGRACYJNE -->
   <script>
     lucide.createIcons();
 
+    // 1. Sprawdzanie statusu serwera Conan Exiles
     async function updateConanStatus() {
       const statusEl = document.getElementById("conan-status");
       if (!statusEl) return;
@@ -414,7 +414,6 @@
           statusEl.className = "status offline";
           statusEl.innerHTML = `<span class="dot"></span> Offline`;
         }
-
       } catch (e) {
         console.error("Błąd odczytu statusu:", e);
         statusEl.className = "status offline";
@@ -422,41 +421,36 @@
       }
     }
 
+    // 2. Globalna funkcja ręcznego odświeżania (wyprowadzona poza DOMContentLoaded)
+    async function manualRefresh() {
+      const btn = document.getElementById("refresh-btn");
+      const timeEl = document.getElementById("last-checked");
+      
+      if (btn) {
+        btn.style.opacity = "0.7";
+        btn.textContent = "Odświeżanie...";
+      }
+
+      await updateConanStatus();
+
+      const now = new Date();
+      const timeString = now.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' });
+      
+      if (timeEl) {
+        timeEl.textContent = `Sprawdzono o ${timeString}`;
+      }
+
+      if (btn) {
+        setTimeout(() => {
+          btn.style.opacity = "1";
+          btn.textContent = "Odśwież statusy 🔄";
+        }, 400);
+      }
+    }
+
     document.addEventListener("DOMContentLoaded", () => {
       updateConanStatus();
       setInterval(updateConanStatus, 30000);
-      
-      async function manualRefresh() {
-  const btn = document.getElementById("refresh-btn");
-  const timeEl = document.getElementById("last-checked");
-  
-  // Efekt kliknięcia / ładowania
-  btn.style.opacity = "0.7";
-  btn.textContent = "Odświeżanie...";
-
-  // Wywołanie Twoich funkcji sprawdzających statusy
-  if (typeof updateConanStatus === 'function') {
-    await updateConanStatus();
-  }
-  if (typeof updateYouTubeLive === 'function') {
-    await updateYouTubeLive();
-  }
-
-  // Pobranie aktualnego czasu w formacie HH:MM
-  const now = new Date();
-  const timeString = now.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' });
-  
-  if (timeEl) {
-    timeEl.textContent = `Sprawdzono o ${timeString}`;
-  }
-
-  // Przywrócenie wyglądu przycisku
-  setTimeout(() => {
-    btn.style.opacity = "1";
-    btn.textContent = "Odśwież statusy 🔄";
-  }, 400);
-}
-
     });
   </script>
 </body>
