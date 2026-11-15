@@ -1,4 +1,14 @@
 {
-  "online": true,
-  "players": "1/10"
+  "valheim": {
+    "online": false,
+    "players": "0/0"
+  },
+  "conan": {
+    "online": false,
+    "players": "0/0"
+  },
+  "enshrouded": {
+    "online": false,
+    "players": "0/0"
+  }
 }
