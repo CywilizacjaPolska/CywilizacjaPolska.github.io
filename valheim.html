@@ -115,6 +115,29 @@
     }
     .gallery-img { height: 180px; background-size: cover; background-position: center; }
     .gallery-body { padding: 1rem; color: #94a3b8; font-size: 0.85rem; }
+
+    /* Stylowany przycisk dołączenia */
+    .game-cta-btn {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.85rem 1.25rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-family: 'Manrope', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+      color: #fff;
+    }
+    .game-cta-valheim {
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+    .game-cta-valheim:hover {
+      background: rgba(16, 185, 129, 0.16);
+      border-color: rgba(16, 185, 129, 0.6);
+    }
   </style>
 </head>
 <body class="furia-world-site">
@@ -122,7 +145,7 @@
   <!-- GÓRNA NAWIGACJA -->
   <header class="site-header">
     <div class="header-inner">
-      <a href="index.html" class="brand">
+      <a href="https://cywilizacjapolska.github.io/" class="brand">
         <div class="brand-shield"><i data-lucide="shield"></i></div>
         <div class="brand-text">
           <span class="brand-title">CYWILIZACJA</span>
@@ -152,11 +175,6 @@
         <div class="eyebrow" style="color: var(--gold); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 0.5rem;">Świat Cywilizacja Polska · Valheim PVE</div>
         <h1 class="server-title">Valheim</h1>
         <p class="server-subtitle">Dziedzictwo Odyna w Twoich rękach. Buduj drakkary i rzuć wyzwanie mitycznym bossom w nordyckim świecie.</p>
-        
-        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-          <a href="https://discord.gg/jmFhmU2VWR" target="_blank" class="button button-discord"><i data-lucide="message-square"></i> Informacje o powrocie serwera ↗</a>
-          <a href="#kroki" class="cat-btn" style="background: rgba(255,255,255,0.06); text-decoration: none; display: inline-flex; align-items: center;">Jak zacząć? ↓</a>
-        </div>
       </div>
     </section>
 
@@ -165,7 +183,7 @@
       <div class="status-bar-grid">
         <div class="status-item">
           <small>Status serwera</small>
-          <strong id="valheim-status-badge" style="color: #22c55e;"><span style="display:inline-block;width:8px;height:8px;background:#22c55e;border-radius:50%;margin-right:6px;"></span> Online (12/32)</strong>
+          <strong id="valheim-status-badge" style="color: #94a3b8;"><span style="display:inline-block;width:8px;height:8px;background:#94a3b8;border-radius:50%;margin-right:6px;"></span> Sprawdzanie...</strong>
         </div>
         <div class="status-item">
           <small>Wersja gry</small>
@@ -243,7 +261,7 @@
               51.83.239.219:28700
             </div>
 
-            <a href="steam://connect/51.83.239.219:28700" class="game-cta-btn game-cta-valheim" style="text-align: center; justify-content: center; display: flex; margin-bottom: 1.5rem;">
+            <a href="steam://connect/51.83.239.219:28700" class="game-cta-btn game-cta-valheim" style="margin-bottom: 1.5rem;">
               <span>Połącz przez Steam</span> <span>→</span>
             </a>
 
@@ -315,6 +333,37 @@
     </div>
   </footer>
 
-  <script>lucide.createIcons();</script>
+  <script>
+    lucide.createIcons();
+
+    // Pobieranie i aktualizacja statusu z status.json
+    async function updateServerStatus() {
+      const badge = document.getElementById("valheim-status-badge");
+      if (!badge) return;
+
+      try {
+        const res = await fetch('./status.json?t=' + Date.now());
+        if (!res.ok) throw new Error("Błąd pliku statusu");
+        const data = await res.json();
+
+        if (data.online) {
+          badge.style.color = "#22c55e";
+          badge.innerHTML = `<span style="display:inline-block;width:8px;height:8px;background:#22c55e;border-radius:50%;margin-right:6px;box-shadow:0 0 8px #22c55e;"></span> Online (${data.players || 0})`;
+        } else {
+          badge.style.color = "#94a3b8";
+          badge.innerHTML = `<span style="display:inline-block;width:8px;height:8px;background:#94a3b8;border-radius:50%;margin-right:6px;"></span> Offline`;
+        }
+      } catch (e) {
+        console.error("Błąd odczytu statusu:", e);
+        badge.style.color = "#94a3b8";
+        badge.innerHTML = `<span style="display:inline-block;width:8px;height:8px;background:#94a3b8;border-radius:50%;margin-right:6px;"></span> Offline`;
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      updateServerStatus();
+      setInterval(updateServerStatus, 30000);
+    });
+  </script>
 </body>
 </html>
