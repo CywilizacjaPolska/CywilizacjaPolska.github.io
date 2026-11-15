@@ -274,7 +274,7 @@
     </div>
   </footer>
 
-  <script>
+<script>
     lucide.createIcons();
 
     async function updateServerStatus() {
@@ -285,16 +285,16 @@
         const res = await fetch('./status.json?t=' + Date.now());
         if (!res.ok) throw new Error("Błąd pliku statusu");
         const data = await res.json();
+        const server = data.conan || {};
 
-        if (data.online) {
+        if (server.online) {
           badge.style.color = "#22c55e";
-          badge.innerHTML = `<span style="display:inline-block;width:8px;height:8px;background:#22c55e;border-radius:50%;margin-right:6px;box-shadow:0 0 8px #22c55e;"></span> Online (${data.players || 0})`;
+          badge.innerHTML = `<span style="display:inline-block;width:8px;height:8px;background:#22c55e;border-radius:50%;margin-right:6px;box-shadow:0 0 8px #22c55e;"></span> Online (${server.players || '0'})`;
         } else {
           badge.style.color = "#94a3b8";
           badge.innerHTML = `<span style="display:inline-block;width:8px;height:8px;background:#94a3b8;border-radius:50%;margin-right:6px;"></span> Offline`;
         }
       } catch (e) {
-        console.error("Błąd odczytu statusu:", e);
         badge.style.color = "#94a3b8";
         badge.innerHTML = `<span style="display:inline-block;width:8px;height:8px;background:#94a3b8;border-radius:50%;margin-right:6px;"></span> Offline`;
       }
