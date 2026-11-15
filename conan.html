@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Conan Exiles — Cywilizacja Polska</title>
+  
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .server-hero {
+      position: relative;
+      padding: 8rem 0 5rem;
+      background: linear-gradient(180deg, rgba(11, 15, 23, 0.85) 0%, rgba(15, 23, 42, 0.95) 100%), url('https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+      border-bottom: 1px solid rgba(212, 160, 23, 0.2);
+    }
+    .breadcrumb { display: flex; gap: 0.5rem; align-items: center; color: #94a3b8; font-size: 0.85rem; margin-bottom: 1rem; }
+    .breadcrumb a { color: #94a3b8; text-decoration: none; transition: color 0.2s; }
+    .breadcrumb a:hover { color: var(--gold, #d4a017); }
+    
+    .server-title { font-family: 'Cinzel', serif; font-size: 3.5rem; color: #fff; margin-bottom: 0.75rem; }
+    .server-subtitle { font-size: 1.2rem; color: #94a3b8; max-width: 600px; margin-bottom: 2rem; }
+    
+    .status-bar-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      background: linear-gradient(145deg, rgba(22, 27, 38, 0.95), rgba(13, 17, 23, 0.98));
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 1.5rem 2rem;
+      margin: 3rem 0;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+    .status-item small { display: block; color: #94a3b8; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.25rem; }
+    .status-item strong { color: #fff; font-size: 1.05rem; }
+    
+    .content-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 2.5rem; margin: 3rem 0; }
+    @media (max-width: 900px) { .content-grid { grid-template-columns: 1fr; } }
+
+    .feature-card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.5rem; }
+    @media (max-width: 768px) { .feature-card-grid { grid-template-columns: 1fr; } }
+    .mini-feature-card { background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 10px; padding: 1.25rem; }
+    .mini-feature-card i { color: var(--gold, #d4a017); margin-bottom: 0.75rem; }
+    .mini-feature-card h4 { color: #fff; font-size: 1rem; margin-bottom: 0.4rem; font-family: 'Cinzel', serif; }
+    .mini-feature-card p { color: #94a3b8; font-size: 0.85rem; line-height: 1.5; }
+
+    .sidebar-box { background: linear-gradient(145deg, rgba(22, 27, 38, 0.95), rgba(13, 17, 23, 0.98)); border: 1px solid rgba(212, 160, 23, 0.2); border-radius: 14px; padding: 2rem; }
+    .sidebar-box h3 { font-family: 'Cinzel', serif; color: #fff; font-size: 1.4rem; margin-bottom: 1rem; }
+    
+    .steps-list { display: flex; flex-direction: column; gap: 1.25rem; margin: 1.5rem 0; }
+    .step-row { display: flex; gap: 1rem; align-items: flex-start; }
+    .step-num { font-family: 'Cinzel', serif; font-size: 1.5rem; color: var(--gold, #d4a017); font-weight: 800; line-height: 1; }
+    .step-content h4 { color: #fff; font-size: 1rem; margin-bottom: 0.2rem; }
+    .step-content p { color: #94a3b8; font-size: 0.85rem; line-height: 1.5; }
+
+    .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin: 2rem 0; }
+    @media (max-width: 768px) { .gallery-grid { grid-template-columns: 1fr; } }
+    .gallery-card { background: rgba(22, 27, 38, 0.8); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; overflow: hidden; }
+    .gallery-img { height: 180px; background-size: cover; background-position: center; }
+    .gallery-body { padding: 1rem; color: #94a3b8; font-size: 0.85rem; }
+  </style>
+</head>
+<body class="furia-world-site">
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="brand">
+        <div class="brand-shield"><i data-lucide="shield"></i></div>
+        <div class="brand-text">
+          <span class="brand-title">CYWILIZACJA</span>
+          <span class="brand-subtitle">POLSKA</span>
+        </div>
+      </a>
+
+      <nav class="main-nav">
+        <a href="index.html"><i data-lucide="home" class="nav-symbol"></i> Strona główna</a>
+        <a href="serwery.html" class="active"><i data-lucide="server" class="nav-symbol"></i> Serwery</a>
+        <a href="ekipa.html" class="button button-secondary"><i data-lucide="users" class="nav-symbol"></i> Społeczność</a>
+        <a href="regulamin.html"><i data-lucide="book-open" class="nav-symbol"></i> Regulamin</a>
+        <a href="index.html#wsparcie" class="nav-support"><i data-lucide="heart" class="nav-symbol"></i> Wsparcie</a>
+      </nav>
+
+      <a href="https://discord.gg/jmFhmU2VWR" target="_blank" class="button button-discord">
+        <i data-lucide="gamepad-2"></i> <span>Dołącz do ekipy</span> <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="server-hero">
+      <div class="container">
+        <div class="breadcrumb">
+          <a href="index.html">Strona główna</a> / <a href="serwery.html">Serwery</a> / <span>Conan Exiles</span>
+        </div>
+        <div class="eyebrow" style="color: var(--gold); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 0.5rem;">Świat Cywilizacja Polska · Conan Exiles</div>
+        <h1 class="server-title">Conan Exiles</h1>
+        <p class="server-subtitle">Zostaw trwały ślad na ziemi wygnańców. Surowy świat pełen niebezpieczeństw, potężnych bóstw i wielkich bitew.</p>
+        
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <a href="https://discord.gg/jmFhmU2VWR" target="_blank" class="button button-discord"><i data-lucide="message-square"></i> Informacje o powrocie serwera ↗</a>
+          <a href="#kroki" class="cat-btn" style="background: rgba(255,255,255,0.06); text-decoration: none; display: inline-flex; align-items: center;">Jak zacząć? ↓</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="status-bar-grid">
+        <div class="status-item">
+          <small>Status serwera</small>
+          <strong id="conan-status-badge" style="color: #22c55e;"><span style="display:inline-block;width:8px;height:8px;background:#22c55e;border-radius:50%;margin-right:6px;"></span> Online (1/40)</strong>
+        </div>
+        <div class="status-item">
+          <small>Wersja gry</small>
+          <strong>v3.0+</strong>
+        </div>
+        <div class="status-item">
+          <small>Tryb rozgrywki</small>
+          <strong>Combat / Survival</strong>
+        </div>
+        <div class="status-item">
+          <small>Adres IP</small>
+          <strong style="font-family: monospace; color: var(--gold);">146.59.1.3:20800</strong>
+        </div>
+      </div>
+
+      <div class="content-grid">
+        <div>
+          <h2 style="font-family: 'Cinzel', serif; color: #fff; font-size: 1.8rem; margin-bottom: 0.5rem;">Ziemia Wygnańców czeka.</h2>
+          <p style="color: #94a3b8; font-size: 0.95rem;">Buduj potężne zamki, ujarzmiaj bóstwa i walcz o dominację na surowych pustkowiach.</p>
+          
+          <div class="feature-card-grid">
+            <div class="mini-feature-card">
+              <i data-lucide="shield"></i>
+              <h4>Potężne twierdze</h4>
+              <p>Stwórz niezdobyte bastiony i systemy obronne dla swojego klanu.</p>
+            </div>
+            <div class="mini-feature-card">
+              <i data-lucide="sword"></i>
+              <h4>System bóstw</h4>
+              <p>Wzywaj awatary gigantycznych bogów, by zniszczyć wrogów.</p>
+            </div>
+            <div class="mini-feature-card">
+              <i data-lucide="users"></i>
+              <h4>Klanowe intrygi</h4>
+              <p>Polityka, handel i honorowe walki z innymi graczami.</p>
+            </div>
+          </div>
+
+          <div id="kroki" style="margin-top: 4rem;">
+            <h3 style="font-family: 'Cinzel', serif; color: #fff; font-size: 1.5rem; margin-bottom: 1.5rem;">Zacznij w trzech krokach.</h3>
+            <div class="steps-list">
+              <div class="step-row">
+                <div class="step-num">01</div>
+                <div class="step-content">
+                  <h4>Poznaj zasady</h4>
+                  <p>Przeczytaj regulamin dotyczący budowania baz oraz zasad PvP/PvE na serwerze.</p>
+                </div>
+              </div>
+              <div class="step-row">
+                <div class="step-num">02</div>
+                <div class="step-content">
+                  <h4>Przygotuj grę</h4>
+                  <p>Wyszukaj nasz serwer w przeglądarce gier Conan Exiles lub połącz się przez IP.</p>
+                </div>
+              </div>
+              <div class="step-row">
+                <div class="step-num">03</div>
+                <div class="step-content">
+                  <h4>Dołącz do klanu</h4>
+                  <p>Odwiedź naszego Discorda, by znaleźć sojuszników do wspólnej gry.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="sidebar-box">
+            <h3>Adres i dołączenie</h3>
+            <p style="color: #94a3b8; font-size: 0.85rem; margin-bottom: 1.25rem;">Kliknij poniższy przycisk, aby połączyć się z serwerem Conan Exiles.</p>
+            
+            <div style="background: rgba(0,0,0,0.4); padding: 0.75rem; border-radius: 8px; font-family: monospace; font-size: 0.85rem; color: #cbd5e1; margin-bottom: 1rem; word-break: break-all;">
+              146.59.1.3:20800
+            </div>
+
+            <a href="steam://connect/146.59.1.3:20800" class="game-cta-btn game-cta-conan" style="text-align: center; justify-content: center; display: flex; margin-bottom: 1.5rem;">
+              <span>Połącz przez Steam</span> <span>→</span>
+            </a>
+
+            <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1.25rem;">
+              <h4 style="color: #fff; font-size: 0.95rem; margin-bottom: 0.75rem; font-family: 'Cinzel', serif;">Odkryj pozostałe światy</h4>
+              <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.9rem;">
+                <li><a href="valheim.html" style="color: #94a3b8; text-decoration: none; display: flex; justify-content: space-between;"><span>🪓 Valheim</span> <span>→</span></a></li>
+                <li><a href="enshrouded.html" style="color: #94a3b8; text-decoration: none; display: flex; justify-content: space-between;"><span>🌲 Enshrouded</span> <span>→</span></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section style="margin: 5rem 0;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 1.5rem;">
+          <div>
+            <span style="color: var(--gold); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 2px;">Z życia naszych graczy</span>
+            <h2 style="font-family: 'Cinzel', serif; color: #fff; font-size: 1.8rem; margin-top: 0.2rem;">Tak wygląda wspólna gra.</h2>
+          </div>
+          <a href="serwery.html" style="color: var(--gold); text-decoration: none; font-weight: 600; font-size: 0.9rem;">Wszystkie serwery →</a>
+        </div>
+
+        <div class="gallery-grid">
+          <div class="gallery-card">
+            <div class="gallery-img" style="background-image: url('https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=600&q=80');"></div>
+            <div class="gallery-body">Monumentalna twierdza na klifie</div>
+          </div>
+          <div class="gallery-card">
+            <div class="gallery-img" style="background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80');"></div>
+            <div class="gallery-body">Bitwa klanów na pustkowiach</div>
+          </div>
+          <div class="gallery-card">
+            <div class="gallery-img" style="background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80');"></div>
+            <div class="gallery-body">Eksploracja starożytnych ruin</div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-top">
+      <div class="footer-brand">
+        <div class="brand-shield" style="margin-bottom: 12px;"><i data-lucide="shield"></i></div>
+        <p>Różne światy. Jedna społeczność.<br>Twoje miejsce do wspólnego przetrwania.</p>
+      </div>
+      <div>
+        <h2>Odkrywaj</h2>
+        <a href="serwery.html">Nasze serwery</a>
+        <a href="ekipa.html">Społeczność</a>
+        <a href="regulamin.html">Regulamin</a>
+      </div>
+      <div>
+        <h2>Cywilizacja Polska</h2>
+        <a href="ekipa.html">O społeczności</a>
+        <a href="index.html#wsparcie">Wesprzyj serwery</a>
+      </div>
+      <div>
+        <h2>Gramy fair</h2>
+        <a href="regulamin.html">Regulamin</a>
+        <a href="#">Polityka prywatności</a>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <span>© 2026 Cywilizacja Polska</span>
+      <span>Valheim · Conan Exiles · Enshrouded</span>
+      <a class="discord-link" href="https://discord.gg/jmFhmU2VWR" target="_blank">Spotkajmy się na Discordzie ↗</a>
+    </div>
+  </footer>
+
+  <script>lucide.createIcons();</script>
+</body>
+</html>
