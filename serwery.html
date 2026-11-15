@@ -374,97 +374,119 @@
 
   <!-- SKRYPTY STATUSÓW ORAZ FILTRÓW -->
   <script>
-    lucide.createIcons();
+  lucide.createIcons();
 
-    // Funkcja kopiowania IP do schowka
-    function copyIP(text, btn, event) {
-      if (event) event.stopPropagation();
-      navigator.clipboard.writeText(text).then(() => {
-        const originalHTML = btn.innerHTML;
-        btn.innerHTML = '<i data-lucide="check" style="width:16px;height:16px;color:#22c55e;"></i>';
+  // Funkcja kopiowania IP do schowka
+  function copyIP(text, btn, event) {
+    if (event) event.stopPropagation();
+    navigator.clipboard.writeText(text).then(() => {
+      const originalHTML = btn.innerHTML;
+      btn.innerHTML = '<i data-lucide="check" style="width:16px;height:16px;color:#22c55e;"></i>';
+      lucide.createIcons();
+      setTimeout(() => {
+        btn.innerHTML = originalHTML;
         lucide.createIcons();
-        setTimeout(() => {
-          btn.innerHTML = originalHTML;
-          lucide.createIcons();
-        }, 1500);
-      });
-    }
+      }, 1500);
+    });
+  }
 
-    // Sprawdzanie statusu serwera z pliku status.json
-    async function updateConanStatus() {
-      const conanBadge = document.getElementById("conan-badge");
+  // Pobieranie i aktualizacja statusów wszystkich serwerów z status.json
+  async function updateAllServersStatus() {
+    try {
+      const res = await fetch('./status.json?t=' + Date.now());
+      if (!res.ok) throw new Error("Błąd pliku statusu");
 
-      try {
-        const res = await fetch('./status.json?t=' + Date.now());
-        if (!res.ok) throw new Error("Błąd pliku statusu");
+      const data = await res.json();
 
-        const data = await res.json();
-
-        if (conanBadge) {
-          if (data.online) {
-            conanBadge.className = "online-badge";
-            conanBadge.innerHTML = `<span class="dot"></span> Online (${data.players || 0})`;
-          } else {
-            conanBadge.className = "online-badge offline";
-            conanBadge.innerHTML = `<span class="dot"></span> Offline`;
-          }
+      // 1. Valheim
+      const valheimBadge = document.getElementById("valheim-badge");
+      if (valheimBadge && data.valheim) {
+        if (data.valheim.online) {
+          valheimBadge.className = "online-badge";
+          valheimBadge.innerHTML = `<span class="dot"></span> Online (${data.valheim.players || '0'})`;
+        } else {
+          valheimBadge.className = "online-badge offline";
+          valheimBadge.innerHTML = `<span class="dot"></span> Offline`;
         }
-      } catch (e) {
-        console.error("Błąd odczytu statusu:", e);
-        if (conanBadge) {
+      }
+
+      // 2. Conan Exiles
+      const conanBadge = document.getElementById("conan-badge");
+      if (conanBadge && data.conan) {
+        if (data.conan.online) {
+          conanBadge.className = "online-badge";
+          conanBadge.innerHTML = `<span class="dot"></span> Online (${data.conan.players || '0'})`;
+        } else {
           conanBadge.className = "online-badge offline";
           conanBadge.innerHTML = `<span class="dot"></span> Offline`;
         }
       }
-    }
 
-    // Filtrowanie kart serwerów wg kategorii
-    function filterServers(category) {
-      const buttons = document.querySelectorAll('.cat-btn');
-      buttons.forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
-
-      const cards = document.querySelectorAll('.detailed-card');
-      cards.forEach(card => {
-        if (category === 'all' || card.dataset.category.includes(category)) {
-          card.style.display = 'flex';
+      // 3. Enshrouded
+      const enshroudedBadge = document.getElementById("enshrouded-badge");
+      if (enshroudedBadge && data.enshrouded) {
+        if (data.enshrouded.online) {
+          enshroudedBadge.className = "online-badge";
+          enshroudedBadge.innerHTML = `<span class="dot"></span> Online (${data.enshrouded.players || '0'})`;
         } else {
-          card.style.display = 'none';
+          enshroudedBadge.className = "online-badge offline";
+          enshroudedBadge.innerHTML = `<span class="dot"></span> Offline`;
         }
-      });
+      }
+
+    } catch (e) {
+      console.error("Błąd odczytu statusu:", e);
     }
+  }
 
-    // Ręczne odświeżanie
-    async function manualRefresh() {
-      const btn = document.getElementById("refresh-btn");
-      const timeEl = document.getElementById("last-checked");
-      
-      if (btn) {
-        btn.style.opacity = "0.7";
-        btn.textContent = "Odświeżanie...";
+  // Filtrowanie kart serwerów wg kategorii
+  function filterServers(category) {
+    const buttons = document.querySelectorAll('.cat-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+
+    const cards = document.querySelectorAll('.detailed-card');
+    cards.forEach(card => {
+      if (category === 'all' || card.dataset.category.includes(category)) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
       }
-
-      await updateConanStatus();
-
-      const now = new Date();
-      const timeString = now.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' });
-      
-      if (timeEl) {
-        timeEl.textContent = `Sprawdzono o ${timeString}`;
-      }
-
-      if (btn) {
-        setTimeout(() => {
-          btn.style.opacity = "1";
-          btn.textContent = "Odśwież statusy 🔄";
-        }, 400);
-      }
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      updateConanStatus();
-      setInterval(updateConanStatus, 30000);
     });
-  </script>
+  }
+
+  // Ręczne odświeżanie
+  async function manualRefresh() {
+    const btn = document.getElementById("refresh-btn");
+    const timeEl = document.getElementById("last-checked");
+    
+    if (btn) {
+      btn.style.opacity = "0.7";
+      btn.textContent = "Odświeżanie...";
+    }
+
+    await updateAllServersStatus();
+
+    const now = new Date();
+    const timeString = now.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' });
+    
+    if (timeEl) {
+      timeEl.textContent = `Sprawdzono o ${timeString}`;
+    }
+
+    if (btn) {
+      setTimeout(() => {
+        btn.style.opacity = "1";
+        btn.textContent = "Odśwież statusy 🔄";
+      }, 400);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    updateAllServersStatus();
+    setInterval(updateAllServersStatus, 30000);
+  });
+</script>
+  
 </body>
 </html>
