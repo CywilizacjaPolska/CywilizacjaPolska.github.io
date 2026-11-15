@@ -148,7 +148,7 @@
 
               <p class="home-world-players">IP: 146.59.1.3:20800</p>
               <a class="home-world-cta" href="steam://connect/146.59.1.3:20800">Poznaj ten świat <span>→</span></a>
-              <small class="home-world-checked">Status live GameTracker</small>
+              <small class="home-world-checked">Status live GitHub</small>
             </div>
           </article>
 
@@ -298,61 +298,7 @@
     </div>
   </footer>
 
-  <!-- SKRYPT JAVASCRIPT OBSŁUGUJĄCY GAMETRACKER DLA CONAN EXILES -->
-  <script>
-    lucide.createIcons();
-
-    async function updateConanStatus() {
-      const statusEl = document.getElementById("conan-status");
-      if (!statusEl) return;
-
-      // Tutaj wklej link do swojego serwera na GameTracker
-      const gtUrl = "https://www.gametracker.com/server_info/146.59.1.3:20800/";
-      const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(gtUrl)}`;
-
-      try {
-        const res = await fetch(proxyUrl);
-        if (!res.ok) throw new Error("Błąd sieci");
-
-        const htmlText = await res.text();
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(htmlText, 'text/html');
-        const text = doc.body.textContent || "";
-
-        // GameTracker zazwyczaj ma informacje o stanie serwera
-        let isOnline = false;
-        if (text.includes("Online") && !text.toLowerCase().includes("offline")) {
-          isOnline = true;
-        }
-
-        // Wyciąganie liczby graczy (np. format "2 / 10" lub "0/40")
-        let players = "0/10";
-        const match = text.match(/(\d+)\s*\/\s*(\d+)/);
-        if (match) {
-          players = `${match[1]}/${match[2]}`;
-        }
-
-        if (isOnline) {
-          statusEl.className = "status online";
-          statusEl.innerHTML = `<span class="dot"></span> Online (${players})`;
-        } else {
-          statusEl.className = "status offline";
-          statusEl.innerHTML = `<span class="dot"></span> Offline`;
-        }
-
-      } catch (e) {
-        console.error("Błąd pobierania statusu GameTracker:", e);
-        statusEl.className = "status offline";
-        statusEl.innerHTML = `<span class="dot"></span> Offline`;
-      }
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      updateConanStatus();
-      setInterval(updateConanStatus, 120000); // Odświeżanie co 2 minuty
-    });
-  </script>
-  <!-- SKRYPT ODCZYTUJĄCY STATUS LOKALNIE -->
+  <!-- CZYSTY SKRYPT ODCZYTUJĄCY PLIK status.json -->
   <script>
     lucide.createIcons();
 
@@ -361,7 +307,6 @@
       if (!statusEl) return;
 
       try {
-        // Pobiera plik status.json bezpośrednio z Twojego folderu (zero blokad CORS!)
         const res = await fetch('./status.json?t=' + Date.now());
         if (!res.ok) throw new Error("Błąd pliku statusu");
 
@@ -384,13 +329,8 @@
 
     document.addEventListener("DOMContentLoaded", () => {
       updateConanStatus();
-      // Odświeżanie statusu co 30 sekund
       setInterval(updateConanStatus, 30000);
     });
   </script>
-  <div class="home-world-live">
-  <div><small>Dostępność</small><span id="conan-status" class="status offline"><span class="dot"></span> Sprawdzanie...</span></div>
-  <div><small>Wersja gry</small><strong id="conan-version">v3.0+</strong></div>
-</div>
 </body>
 </html>
