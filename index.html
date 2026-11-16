@@ -2,18 +2,13 @@
 <html lang="pl">
 <head>
   <script>
-    // 1. Zablokowanie domyślnego przywracania scrolla przez przeglądarkę
     if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual';
     }
-    // 2. Natychmiastowe usunięcie hasha (np. #live) z adresu URL przed renderowaniem
     if (window.location.hash) {
       history.replaceState(null, null, window.location.pathname);
     }
-    // 3. Wymuszenie pozycji 0,0 od razu na starcie
     window.scrollTo(0, 0);
-
-    // 4. Blokada skakania po załadowaniu DOM
     document.addEventListener('DOMContentLoaded', () => {
       window.scrollTo(0, 0);
     });
@@ -83,7 +78,7 @@
             </a>
             <a class="button button-secondary" href="#serwery">Wybierz serwer <span>→</span></a>
           </div>
-          <!-- MINI-KAFELKI W HERO-FOOT (PRZYWRÓCONE WSZYSTKIE 3) -->
+          <!-- MINI-KAFELKI W HERO-FOOT -->
           <div class="hero-foot">
             <div class="hero-foot-item">
               <i data-lucide="axe"></i>
@@ -277,14 +272,12 @@
             <span id="yt-badge-text">Sprawdzanie statusu streamu...</span>
           </div>
 
-          <div class="yt-live-frame-wrap" id="youtube-frame-container">
-            <!-- Dynamicznie wstrzykiwane przez JS -->
-          </div>
+          <div class="yt-live-frame-wrap" id="youtube-frame-container"></div>
         </div>
       </div>
     </section>
 
-    <!-- SPOŁECZNOŚĆ (PRZYWRÓCONE WSZYSTKIE 3 KAFELKI ZE SCREENA) -->
+    <!-- SPOŁECZNOŚĆ -->
     <section class="section home-people home-people-epic" id="spolecznosc">
       <div class="container home-crew-layout">
         <div class="home-people-copy">
@@ -371,7 +364,7 @@
       </div>
     </section>
 
-    <!-- BANER DISCORD Z GRAFIKĄ W TLE (PRZYWRÓCONY NA DOŁECZEK) -->
+    <!-- BANER DISCORD -->
     <section class="section" id="wsparcie">
       <div class="container">
         <div class="discord-banner discord-banner-illustrated">
@@ -420,7 +413,7 @@
     </div>
   </footer>
 
-  <!-- SKRYPTY INTEGRACYJNE I MENU MOBILNE -->
+  <!-- SKRYPTY -->
   <script>
     lucide.createIcons();
 
@@ -439,11 +432,10 @@
       });
     }
 
-    // Sprawdzanie statusu YouTube Live z pliku youtube_live.json
     async function updateYouTubeLive() {
       try {
         const res = await fetch('./youtube_live.json?t=' + Date.now());
-        if (!res.ok) throw new Error("Brak pliku youtube_live.json");
+        if (!res.ok) throw new Error();
 
         const data = await res.json();
         const frameContainer = document.getElementById('youtube-frame-container');
@@ -503,54 +495,24 @@
             }
           }
         }
-      } catch (e) {
-        console.error("Błąd odczytu statusu YouTube:", e);
-      }
+      } catch (e) {}
     }
 
     async function updateAllHomeStatuses() {
       try {
         const res = await fetch('./status.json?t=' + Date.now());
-        if (!res.ok) throw new Error("Błąd pliku statusu");
+        if (!res.ok) throw new Error();
 
         const data = await res.json();
 
-        const valheimEl = document.getElementById("valheim-status");
-        if (valheimEl && data.valheim) {
-          if (data.valheim.online) {
-            valheimEl.className = "status online";
-            valheimEl.innerHTML = `<span class="dot"></span> Online (${data.valheim.players || '0'})`;
-          } else {
-            valheimEl.className = "status offline";
-            valheimEl.innerHTML = `<span class="dot"></span> Offline`;
+        ['valheim', 'conan', 'enshrouded'].forEach(game => {
+          const el = document.getElementById(game + "-status");
+          if (el && data[game]) {
+            el.className = data[game].online ? "status online" : "status offline";
+            el.innerHTML = `<span class="dot"></span> ${data[game].online ? 'Online (' + (data[game].players || '0') + ')' : 'Offline'}`;
           }
-        }
-
-        const conanEl = document.getElementById("conan-status");
-        if (conanEl && data.conan) {
-          if (data.conan.online) {
-            conanEl.className = "status online";
-            conanEl.innerHTML = `<span class="dot"></span> Online (${data.conan.players || '0'})`;
-          } else {
-            conanEl.className = "status offline";
-            conanEl.innerHTML = `<span class="dot"></span> Offline`;
-          }
-        }
-
-        const enshroudedEl = document.getElementById("enshrouded-status");
-        if (enshroudedEl && data.enshrouded) {
-          if (data.enshrouded.online) {
-            enshroudedEl.className = "status online";
-            enshroudedEl.innerHTML = `<span class="dot"></span> Online (${data.enshrouded.players || '0'})`;
-          } else {
-            enshroudedEl.className = "status offline";
-            enshroudedEl.innerHTML = `<span class="dot"></span> Offline`;
-          }
-        }
-
-      } catch (e) {
-        console.error("Błąd odczytu statusów serwerów:", e);
-      }
+        });
+      } catch (e) {}
     }
 
     async function manualRefresh() {
