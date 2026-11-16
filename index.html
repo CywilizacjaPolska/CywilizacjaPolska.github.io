@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
+  <script>
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
@@ -11,7 +16,63 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
-  <link rel="stylesheet" href="style.css?v=1.1.2" />
+  <link rel="stylesheet" href="style.css?v=1.1.3" />
+  <style>
+    /* Styl dla podświetlonego napisu "Twoja ekipa." z poświatą */
+    .hero-content h1 em {
+      color: var(--gold, #d4a017);
+      text-shadow: 0 0 25px rgba(212, 160, 23, 0.45), 0 0 10px rgba(212, 160, 23, 0.25);
+      font-style: normal;
+    }
+
+    /* Poprawiona czytelność tekstu w przyciskach Discorda (czarny kolor tekstu na złotym tle) */
+    .button-discord {
+      background: linear-gradient(135deg, #d4a017, #b8860b) !important;
+      color: #0b0f17 !important;
+      border: 1px solid rgba(212, 160, 23, 0.6);
+      font-weight: 700;
+    }
+    .button-discord:hover {
+      background: linear-gradient(135deg, #e5b32e, #c99512) !important;
+      color: #0b0f17 !important;
+    }
+    .button-discord i, .button-discord span {
+      color: #0b0f17 !important;
+    }
+
+    /* Styl mini-kafelków w stopce sekcji Hero (hero-foot) */
+    .hero-foot {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+    .hero-foot-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(22, 27, 38, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-left: 3px solid var(--gold, #d4a017);
+      padding: 0.6rem 1rem;
+      border-radius: 10px;
+      color: #e2e8f0;
+      font-size: 0.88rem;
+      font-weight: 500;
+      backdrop-filter: blur(8px);
+      transition: all 0.2s ease;
+    }
+    .hero-foot-item:hover {
+      border-color: rgba(212, 160, 23, 0.4);
+      background: rgba(30, 38, 54, 0.9);
+      transform: translateY(-2px);
+    }
+    .hero-foot-item i {
+      color: var(--gold, #d4a017);
+      width: 18px;
+      height: 18px;
+    }
+  </style>
 </head>
 <body class="furia-world-site">
 
@@ -60,10 +121,20 @@
             </a>
             <a class="button button-secondary" href="#serwery">Wybierz serwer <span>→</span></a>
           </div>
+          <!-- PRZYWRÓCONE MINI-KAFELKI W HERO-FOOT -->
           <div class="hero-foot">
-            <span><b><i data-lucide="axe"></i></b> Buduj i odkrywaj</span>
-            <span><b><i data-lucide="shield-check"></i></b> Graj fair</span>
-            <span><b><i data-lucide="users"></i></b> Znajdź swoją ekipę</span>
+            <div class="hero-foot-item">
+              <i data-lucide="axe"></i>
+              <span>Buduj i odkrywaj</span>
+            </div>
+            <div class="hero-foot-item">
+              <i data-lucide="shield-check"></i>
+              <span>Graj fair</span>
+            </div>
+            <div class="hero-foot-item">
+              <i data-lucide="users"></i>
+              <span>Znajdź ekipę</span>
+            </div>
           </div>
         </div>
 
@@ -291,7 +362,7 @@
           </div>
         </div>
 
-        <!-- STREFA GŁOSOWA (ZASTĄPIONE KANAŁY SPOŁECZNOŚCIOWE Z WERSJI ZE SCREENA) -->
+        <!-- STREFA GŁOSOWA -->
         <div class="voice-zone-box">
           <div class="voice-zone-header">
             <h3><i data-lucide="message-square" style="color: var(--gold, #d4a017); width: 18px; height: 18px;"></i> Strefa Głosowa</h3>
@@ -398,16 +469,15 @@
 
   <!-- SKRYPTY INTEGRACYJNE I MENU MOBILNE -->
   <script>
-    // Wymuszenie startu strony na samej górze i wyczyszczenie hasha #live
     if (window.location.hash) {
       history.replaceState(null, null, window.location.pathname);
     }
     window.scrollTo(0, 0);
     
-    // Dodatkowe zabezpieczenie po pełnym załadowaniu zasobów (np. iframe)
     window.addEventListener('load', () => {
       window.scrollTo(0, 0);
     });
+    
     lucide.createIcons();
 
     const menuToggle = document.getElementById('menu-toggle');
