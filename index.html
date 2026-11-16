@@ -2,9 +2,16 @@
 <html lang="pl">
 <head>
   <script>
+    // 1. Zablokowanie domyślnego przywracania scrolla przez przeglądarkę
     if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual';
     }
+    // 2. Natychmiastowe usunięcie hasha (np. #live) z adresu URL przed renderowaniem
+    if (window.location.hash) {
+      history.replaceState(null, null, window.location.pathname);
+    }
+    // 3. Wymuszenie pozycji 0,0
+    window.scrollTo(0, 0);
   </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
