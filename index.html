@@ -28,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
-  <link rel="stylesheet" href="style.css?v=1.1.7" />
+  <link rel="stylesheet" href="style.css?v=1.1.8" />
   <style>
     /* Styl dla podświetlonego napisu "Twoja ekipa." z poświatą */
     .hero-content h1 em {
@@ -133,7 +133,7 @@
             </a>
             <a class="button button-secondary" href="#serwery">Wybierz serwer <span>→</span></a>
           </div>
-          <!-- PRZYWRÓCONE MINI-KAFELKI W HERO-FOOT -->
+          <!-- MINI-KAFELKI W HERO-FOOT -->
           <div class="hero-foot">
             <div class="hero-foot-item">
               <i data-lucide="axe"></i>
@@ -310,7 +310,7 @@
       </div>
     </div>
 
-    <!-- SEKCJA YOUTUBE LIVE (IFRAME ŁADOWANY DYNAMICZNIE) -->
+    <!-- SEKCJA YOUTUBE LIVE (SPRAWDZANA PRZEZ youtube_live.json) -->
     <section class="section" id="live">
       <div class="container">
         <div class="section-heading">
@@ -322,13 +322,13 @@
         </div>
 
         <div class="yt-live-card">
-          <div class="yt-live-badge">
-            <span class="yt-live-dot"></span>
-            Transmisja na żywo
+          <div class="yt-live-badge" id="yt-badge-container" style="background: rgba(212, 160, 23, 0.1); border: 1px solid rgba(212, 160, 23, 0.3); color: var(--gold, #d4a017);">
+            <span class="yt-live-dot" id="yt-dot" style="display: none; background: #22c55e; box-shadow: 0 0 8px #22c55e;"></span>
+            <span id="yt-badge-text">Sprawdzanie statusu streamu...</span>
           </div>
 
           <div class="yt-live-frame-wrap" id="youtube-frame-container">
-            <!-- Iframe zostanie wstrzyknięty przez JS po załadowaniu strony, żeby przeglądarka do niego nie skakała -->
+            <!-- Dynamicznie wstrzykiwane przez JS: odtwarzacz YouTube lub elegancki baner offline -->
           </div>
         </div>
       </div>
@@ -476,27 +476,6 @@
   <script>
     lucide.createIcons();
 
-    // Wstrzyknięcie ramki YouTube dopiero po ułamku sekundy, żeby przeglądarka nie próbowała do niej skakać przy starcie
-    window.addEventListener('DOMContentLoaded', () => {
-      window.scrollTo(0, 0);
-      setTimeout(() => {
-        const frameContainer = document.getElementById('youtube-frame-container');
-        if (frameContainer && !frameContainer.hasChildNodes()) {
-          frameContainer.innerHTML = `
-            <iframe
-              src="https://www.youtube.com/embed/live_stream?channel=UCRKaPKrCc3IQQVcy_jq95HA"
-              title="YouTube Live"
-              frameborder="0"
-              loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen
-              style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-            </iframe>
-          `;
-        }
-      }, 150);
-    });
-
     const menuToggle = document.getElementById('menu-toggle');
     const mainNav = document.getElementById('main-nav');
 
@@ -510,6 +489,75 @@
           mainNav.classList.remove('active');
         });
       });
+    }
+
+    // Sprawdzanie statusu YouTube Live z pliku youtube_live.json
+    async function updateYouTubeLive() {
+      try {
+        const res = await fetch('./youtube_live.json?t=' + Date.now());
+        if (!res.ok) throw new Error("Brak pliku youtube_live.json");
+
+        const data = await res.json();
+        const frameContainer = document.getElementById('youtube-frame-container');
+        const badgeText = document.getElementById('yt-badge-text');
+        const ytDot = document.getElementById('yt-dot');
+        const ytBadgeContainer = document.getElementById('yt-badge-container');
+
+        if (data.is_live && data.video_id) {
+          // STAN: LIVE JEST WŁĄCZONY
+          if (ytBadgeContainer) {
+            ytBadgeContainer.style.background = "rgba(239, 68, 68, 0.15)";
+            ytBadgeContainer.style.borderColor = "rgba(239, 68, 68, 0.35)";
+            ytBadgeContainer.style.color = "#ef4444";
+          }
+          if (ytDot) ytDot.style.display = "inline-block";
+          if (badgeText) badgeText.textContent = data.title ? `Transmisja: ${data.title}` : "Transmisja na żywo";
+
+          // Wstrzykujemy iframe YouTube
+          if (frameContainer && !frameContainer.querySelector('iframe')) {
+            frameContainer.innerHTML = `
+              <iframe
+                src="https://www.youtube.com/embed/${data.video_id}"
+                title="YouTube Live"
+                frameborder="0"
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+              </iframe>
+            `;
+          }
+        } else {
+          // STAN: STREAM OFFLINE (BANER ZASTĘPCZY)
+          if (ytBadgeContainer) {
+            ytBadgeContainer.style.background = "rgba(212, 160, 23, 0.1)";
+            ytBadgeContainer.style.borderColor = "rgba(212, 160, 23, 0.3)";
+            ytBadgeContainer.style.color = "var(--gold, #d4a017)";
+          }
+          if (ytDot) ytDot.style.display = "none";
+          if (badgeText) badgeText.textContent = "Stream offline";
+
+          if (frameContainer) {
+            frameContainer.innerHTML = `
+              <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(145deg, rgba(15, 20, 30, 0.95), rgba(8, 12, 18, 0.98)); text-align: center; padding: 2rem; box-sizing: border-box;">
+                <div style="width: 60px; height: 60px; background: rgba(212, 160, 23, 0.1); border: 1px solid rgba(212, 160, 23, 0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; color: var(--gold, #d4a017);">
+                  <i data-lucide="tv-off" style="width: 28px; height: 28px;"></i>
+                </div>
+                <h3 style="font-family: 'Cinzel', serif; color: #fff; font-size: 1.25rem; margin: 0 0 0.5rem 0;">Aktualnie nie jest prowadzony żaden live</h3>
+                <p style="color: var(--text-muted, #94a3b8); font-size: 0.9rem; max-width: 400px; margin: 0 0 1.5rem 0; line-height: 1.5;">Obserwuj nasz kanał Discord, aby dowiedzieć się, kiedy ruszy kolejna wyprawa lub budowa fortecy.</p>
+                <a href="https://discord.gg/jmFhmU2VWR" target="_blank" class="button button-discord" style="padding: 0.6rem 1.2rem; font-size: 0.85rem;">
+                  <i data-lucide="gamepad-2"></i> Sprawdź Discord <span>↗</span>
+                </a>
+              </div>
+            `;
+            if (typeof lucide !== 'undefined') {
+              lucide.createIcons();
+            }
+          }
+        }
+      } catch (e) {
+        console.error("Błąd odczytu statusu YouTube:", e);
+      }
     }
 
     async function updateAllHomeStatuses() {
@@ -553,7 +601,7 @@
         }
 
       } catch (e) {
-        console.error("Błąd odczytu statusów:", e);
+        console.error("Błąd odczytu statusów serwerów:", e);
       }
     }
 
@@ -566,7 +614,7 @@
         btn.textContent = "Odświeżanie...";
       }
 
-      await updateAllHomeStatuses();
+      await Promise.all([updateAllHomeStatuses(), updateYouTubeLive()]);
 
       const now = new Date();
       const timeString = now.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' });
@@ -584,8 +632,13 @@
     }
 
     document.addEventListener("DOMContentLoaded", () => {
+      window.scrollTo(0, 0);
       updateAllHomeStatuses();
-      setInterval(updateAllHomeStatuses, 30000);
+      updateYouTubeLive();
+      setInterval(() => {
+        updateAllHomeStatuses();
+        updateYouTubeLive();
+      }, 30000);
     });
   </script>
 
