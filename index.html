@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
-  <link rel="stylesheet" href="style.css?v=1.0.1" />
+  <link rel="stylesheet" href="style.css?v=1.0.4" />
   <style>
     @keyframes livePulse {
       0% { transform: scale(0.95); opacity: 0.8; }
@@ -64,6 +64,9 @@
     }
 
     /* Układ dwukolumnowy dla sekcji Hero */
+    .world-hero {
+      padding-top: 7rem;
+    }
     .world-hero .hero-inner {
       display: grid;
       grid-template-columns: 1.25fr 0.85fr;
@@ -92,21 +95,22 @@
     .world-hero .button-row,
     .world-hero .hero-foot {
       justify-content: flex-start !important;
+      flex-wrap: wrap;
     }
 
     /* Okienko kontakt / widgety Discorda po prawej stronie */
     .hero-discord-box {
-  background: linear-gradient(145deg, rgba(18, 24, 36, 0.88), rgba(10, 14, 22, 0.94));
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(212, 160, 23, 0.28);
-  border-radius: 16px;
-  padding: 1.15rem; /* Zmniejszono wewnętrzne marginesy całego boksu */
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
-  width: 100%;
-  max-width: 440px;  /* Opcjonalnie: ograniczenie maksymalnej szerokości, żeby boks był zgrabniejszy */
-  margin-left: auto; /* Wyśrodkowanie w prawej kolumnie */
-}
+      background: linear-gradient(145deg, rgba(18, 24, 36, 0.88), rgba(10, 14, 22, 0.94));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(212, 160, 23, 0.28);
+      border-radius: 16px;
+      padding: 1.15rem;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+      width: 100%;
+      max-width: 440px;
+      margin-left: auto;
+    }
     .hero-discord-header {
       display: flex;
       justify-content: space-between;
@@ -125,63 +129,116 @@
       gap: 0.5rem;
     }
     .discord-widget-slot {
-  background: rgba(9, 13, 20, 0.65);
-  border: 1px dashed rgba(255, 255, 255, 0.15);
-  border-radius: 10px;
-  padding: 0.5rem;   /* Znacznie zmniejszony odstęp wokół samego widgetu (ciaśniejsza ramka) */
-  margin-top: 0.75rem;
-  margin-bottom: 0.75rem;
-  min-height: auto;  /* Dopasuje wysokość bezpośrednio do zawartości */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  color: #e2e8f0;
-  font-size: 0.85rem;
-  text-align: center;
-}
+      background: rgba(9, 13, 20, 0.65);
+      border: 1px dashed rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      padding: 0.5rem;
+      margin-top: 0.75rem;
+      margin-bottom: 0.75rem;
+      min-height: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      color: #e2e8f0;
+      font-size: 0.85rem;
+      text-align: center;
+    }
 
     .custom-card {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    background: linear-gradient(145deg, rgba(168, 67, 0, 0.22), rgba(15, 20, 30, 0.92));
-    border: 1px solid rgba(168, 67, 0, 0.55);
-    box-shadow: inset 0 0 24px rgba(168, 67, 0, 0.08), 0 8px 24px rgba(0, 0, 0, 0.4);
-    border-radius: 12px;
-    background-color: #1a1c23; /* Ciemne tło elementu */
-    border: 1.5px solid #a843008c; /* Złoto-żółte obramowanie */
-    border-radius: 12px; /* Zaokrąglone rogi */
-    padding: 2px 0px;
-    color: #ffffff;
-    font-family: 'Inter', sans-serif;
-    width: fit-content;
-    box-sizing: border-box;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: linear-gradient(145deg, rgba(168, 67, 0, 0.22), rgba(15, 20, 30, 0.92));
+      border: 1px solid rgba(168, 67, 0, 0.55);
+      box-shadow: inset 0 0 24px rgba(168, 67, 0, 0.08), 0 8px 24px rgba(0, 0, 0, 0.4);
+      border-radius: 12px;
+      padding: 2px 0px;
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      width: fit-content;
+      box-sizing: border-box;
     }
-        .custom-card1 {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    background: linear-gradient(145deg, rgba(194, 176, 45, 0.22), rgba(15, 20, 30, 0.92));
-    border: 1px solid rgba(194, 176, 45, 0.55);
-    box-shadow: inset 0 0 24px rgba(194, 176, 45, 0.08), 0 8px 24px rgba(0, 0, 0, 0.4);
-    border-radius: 12px;
-    background-color: #1a1c23; /* Ciemne tło elementu */
-    border: 1.5px solid #d4af37; /* Złoto-żółte obramowanie */
-    border-radius: 12px; /* Zaokrąglone rogi */
-    padding: 2px 0px;
-    color: #ffffff;
-    font-family: 'Inter', sans-serif;
-    width: fit-content;
-    box-sizing: border-box;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    .custom-card1 {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: linear-gradient(145deg, rgba(194, 176, 45, 0.22), rgba(15, 20, 30, 0.92));
+      border: 1px solid rgba(194, 176, 45, 0.55);
+      box-shadow: inset 0 0 24px rgba(194, 176, 45, 0.08), 0 8px 24px rgba(0, 0, 0, 0.4);
+      border-radius: 12px;
+      padding: 2px 0px;
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      width: fit-content;
+      box-sizing: border-box;
     }
+
+    /* Grafika w tle dla dolnego banera Discorda */
+    .discord-banner-illustrated {
+      position: relative;
+      background: linear-gradient(135deg, rgba(11, 15, 23, 0.85) 0%, rgba(15, 23, 42, 0.90) 100%), 
+                  url('https://images.unsplash.com/photo-1511447333015-45b65e60f6d5?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat !important;
+      border: 1px solid rgba(212, 160, 23, 0.3);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Przycisk hamburgera dla urządzeń mobilnych */
+    .mobile-menu-toggle {
+      display: none;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #fff;
+      padding: 0.5rem 0.75rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.25rem;
+      align-items: center;
+      justify-content: center;
+    }
+
     @media (max-width: 960px) {
+      .world-hero {
+        padding-top: 6rem;
+      }
       .world-hero .hero-inner {
         grid-template-columns: 1fr;
         gap: 2.5rem;
+      }
+      .hero-discord-box {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 100%;
+      }
+      
+      /* Obsługa mobilnego menu */
+      .mobile-menu-toggle {
+        display: flex;
+      }
+      .main-nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(11, 15, 23, 0.98);
+        backdrop-filter: blur(16px);
+        flex-direction: column;
+        padding: 1.25rem;
+        border-bottom: 1px solid rgba(212, 160, 23, 0.2);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        gap: 0.75rem;
+        z-index: 1000;
+      }
+      .main-nav.active {
+        display: flex;
+      }
+      .site-header .header-inner {
+        position: relative;
+        flex-wrap: wrap;
       }
     }
   </style>
@@ -199,7 +256,12 @@
         </div>
       </a>
 
-      <nav class="main-nav">
+      <!-- PRZYCISK MENU MOBILNEGO -->
+      <button class="mobile-menu-toggle" id="menu-toggle" aria-label="Otwórz menu">
+        <i data-lucide="menu"></i>
+      </button>
+
+      <nav class="main-nav" id="main-nav">
         <a href="https://cywilizacjapolska.github.io/" class="active"><i data-lucide="home" class="nav-symbol"></i> Strona główna</a>
         <a href="serwery.html"><i data-lucide="server" class="nav-symbol"></i> Serwery</a>
         <a href="ekipa.html" class="button button-secondary"><i data-lucide="users" class="nav-symbol"></i> Społeczność</a>
@@ -250,14 +312,14 @@
             Masz pytanie do administracji lub szukasz ekipy do gry? Zobacz kto jest online i dołącz bezpośrednio na nasz serwer głosowy.
           </p>
 
-          <!-- WIDGET DISCORDA (Wklej tutaj swój iframe z ustawień Discorda) -->
+          <!-- WIDGET DISCORDA -->
           <div class="discord-widget-slot" id="discord-widgets-container">
             <div class="custom-card1">
-            <img src="https://statusbanner.com/widget/theme-4/879347951506440222.png" alt="Discord status">
+              <img src="https://statusbanner.com/widget/theme-4/879347951506440222.png" alt="Discord status">
             </div>
             <br>
             <div class="custom-card">
-            <img src="https://statusbanner.com/widget/theme-4/634884694248259584.png" alt="Discord status">
+              <img src="https://statusbanner.com/widget/theme-4/634884694248259584.png" alt="Discord status">
             </div>
           </div>
 
@@ -496,7 +558,7 @@
       </div>
     </section>
 
-    <!-- BANER DISCORD -->
+    <!-- BANER DISCORD Z GRAFIKĄ W TLE -->
     <section class="section" id="wsparcie">
       <div class="container">
         <div class="discord-banner discord-banner-illustrated">
@@ -545,9 +607,25 @@
     </div>
   </footer>
 
-  <!-- SKRYPTY INTEGRACYJNE -->
+  <!-- SKRYPTY INTEGRACYJNE I MENU MOBILNE -->
   <script>
     lucide.createIcons();
+
+    // Obsługa rozwijanego menu na telefonach
+    const menuToggle = document.getElementById('menu-toggle');
+    const mainNav = document.getElementById('main-nav');
+
+    if (menuToggle && mainNav) {
+      menuToggle.addEventListener('click', () => {
+        mainNav.classList.toggle('active');
+      });
+
+      mainNav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mainNav.classList.remove('active');
+        });
+      });
+    }
 
     // Pobieranie statusów wszystkich serwerów na stronie głównej
     async function updateAllHomeStatuses() {
