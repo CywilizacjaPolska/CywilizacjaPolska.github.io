@@ -212,7 +212,7 @@
           <div class="discord-widget-slot" id="discord-widgets-container">
             <i data-lucide="gamepad-2" style="width: 32px; height: 32px; margin-bottom: 0.5rem; opacity: 0.6;"></i>
             <span>Miejsce na widget Discorda<br><small>(wklej tutaj kod &lt;iframe&gt;)</small></span>
-            <iframe src="https://lanyard.cnrad.dev/api/634884694248259584?theme=dark&bg=2f3136&animated=true" width="100%" height="150" style="border:none; border-radius:10px;" title="Discord Status"></iframe>
+            <img src="https://statusbanner.com/widget/theme-4/634884694248259584.png" alt="Discord status">
           </div>
 
           <a href="https://discord.gg/jmFhmU2VWR" target="_blank" class="button button-discord" style="width: 100%; justify-content: center; margin-top: 1rem;">
@@ -584,71 +584,6 @@
       setInterval(updateAllHomeStatuses, 30000);
     });
   </script>
-
-  <script>
-    const DISCORD_ID = "634884694248259584";
-
-    async function updateLanyardWidget() {
-        try {
-            const response = await fetch(`https://api.lanyard.rest/v1/users/${DISCORD_ID}`);
-            const result = await response.json();
-
-            if (!result.success) return;
-            const data = result.data;
-
-            // 1. Aktualizacja nazwy użytkownika
-            const usernameEl = document.querySelector('.username');
-            if (usernameEl && data.discord_user.display_name) {
-                usernameEl.textContent = data.discord_user.display_name;
-            }
-
-            // 2. Aktualizacja awatara
-            const avatarImg = document.querySelector('.avatar img');
-            if (avatarImg && data.discord_user.avatar) {
-                const ext = data.discord_user.avatar.startsWith('a_') ? 'gif' : 'png';
-                avatarImg.src = `https://cdn.discordapp.com/avatars/${data.discord_user.id}/${data.discord_user.avatar}.${ext}`;
-            }
-
-            // 3. Kolor kropki statusu (.status)
-            const statusDot = document.querySelector('.status');
-            if (statusDot) {
-                const colors = {
-                    online: '#43b581',
-                    idle: '#faa61a',
-                    dnd: '#f04747',
-                    offline: '#747f8d'
-                };
-                statusDot.style.backgroundColor = colors[data.discord_status] || '#747f8d';
-            }
-
-            // 4. Obsługa aktywności (np. gra lub program)
-            const activityContainer = document.querySelector('.activity div');
-            if (activityContainer) {
-                if (data.activities && data.activities.length > 0) {
-                    // Szukamy aktywnej aplikacji lub gry
-                    const mainActivity = data.activities.find(act => act.type === 0 || act.type === 1 || act.type === 2);
-                    
-                    if (mainActivity) {
-                        let details = mainActivity.details ? `<br><span style="font-size: 11px; color: #b9bbbe;">${mainActivity.details}</span>` : '';
-                        activityContainer.innerHTML = `<b>${mainActivity.name}</b>${details}`;
-                        activityContainer.parentElement.style.display = 'block';
-                    } else {
-                        activityContainer.parentElement.style.display = 'none';
-                    }
-                } else {
-                    activityContainer.parentElement.style.display = 'none';
-                }
-            }
-
-        } catch (error) {
-            console.error("Błąd podczas pobierania danych z Lanyard:", error);
-        }
-    }
-
-    // Uruchom od razu i odświeżaj co 10 sekund
-    updateLanyardWidget();
-    setInterval(updateLanyardWidget, 10000);
-</script>
 
 </body>
 </html>
