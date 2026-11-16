@@ -12,6 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
   <link rel="stylesheet" href="style.css?v=1.0.7" />
+  <link rel="stylesheet" href="eventy.css?v=1.0.0" />
   <style>
     @keyframes livePulse {
       0% { transform: scale(0.95); opacity: 0.8; }
@@ -141,7 +142,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap: 2px; /* <--- Ustawienie odstępu 2px między elementami flexboxa */
+      gap: 5px; /* <--- Ustawienie odstępu 5px między elementami flexboxa */
       overflow: hidden;
       color: #e2e8f0;
       font-size: 0.85rem;
@@ -525,9 +526,28 @@
           <div class="eyebrow">Cywilizacja to my</div>
           <h2>Jedna ekipa.<br><span class="gold">Setki historii.</span></h2>
           <p>Wspólna gra zaczyna się od ludzi. Poznaj ekipę, znajdź swój świat i dopisz własną historię na serwerze.</p>
-          <div class="home-crew-proof">
-            <span><i data-lucide="users"></i></span>
-            <strong>Aktywni gracze</strong><span>wspólne budowanie i rajdy<br><small>miejsce dla Ciebie w ekipie.</small></span>
+          <div class="community-features-grid">
+            <div class="comm-feature-card">
+              <i data-lucide="shield-check"></i>
+              <div>
+                <strong>Bezpieczna baza</strong>
+                <small>Ochrona pracy i surowców przed griefingiem</small>
+              </div>
+            </div>
+            <div class="comm-feature-card">
+              <i data-lucide="heart-handshake"></i>
+              <div>
+                <strong>Zgrana ekipa</strong>
+                <small>Pomocni gracze i zero toksyczności</small>
+              </div>
+            </div>
+            <div class="comm-feature-card">
+              <i data-lucide="trophy"></i>
+              <div>
+                <strong>Epickie eventy</strong>
+                <small>Rajdy na bossów i wspólne budowanie</small>
+              </div>
+            </div>
           </div>
           <div class="home-people-actions">
             <a class="button button-discord" href="https://discord.gg/jmFhmU2VWR" target="_blank">

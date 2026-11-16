@@ -1,0 +1,40 @@
+/* Kafelki cech społeczności */
+.community-features-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin: 1.5rem 0;
+}
+.comm-feature-card {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  background: linear-gradient(145deg, rgba(22, 27, 38, 0.8), rgba(13, 17, 23, 0.95));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  transition: all 0.2s ease;
+}
+.comm-feature-card:hover {
+  border-color: rgba(212, 160, 23, 0.4);
+  transform: translateX(4px);
+  background: linear-gradient(145deg, rgba(30, 38, 54, 0.9), rgba(15, 21, 32, 0.98));
+}
+.comm-feature-card i {
+  color: var(--gold, #d4a017);
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+}
+.comm-feature-card strong {
+  display: block;
+  color: #fff;
+  font-size: 0.95rem;
+  font-family: 'Cinzel', serif;
+  margin-bottom: 0.15rem;
+}
+.comm-feature-card small {
+  color: #94a3b8;
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
