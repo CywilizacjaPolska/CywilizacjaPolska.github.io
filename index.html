@@ -6,14 +6,14 @@
     if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual';
     }
-    // 2. Natychmiastowe usunięcie hasha (np. #live) z adresu URL przed renderowaniem
+    // 2. Natychmiastowe usunięcie hasha z adresu URL przed renderowaniem
     if (window.location.hash) {
       history.replaceState(null, null, window.location.pathname);
     }
     // 3. Wymuszenie pozycji 0,0 od razu na starcie
     window.scrollTo(0, 0);
 
-    // 4. Dodatkowe zabezpieczenie po załadowaniu DOM
+    // 4. Blokada skakania po załadowaniu DOM
     document.addEventListener('DOMContentLoaded', () => {
       window.scrollTo(0, 0);
     });
@@ -28,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
-  <link rel="stylesheet" href="style.css?v=1.1.6" />
+  <link rel="stylesheet" href="style.css?v=1.1.7" />
   <style>
     /* Styl dla podświetlonego napisu "Twoja ekipa." z poświatą */
     .hero-content h1 em {
@@ -310,7 +310,7 @@
       </div>
     </div>
 
-    <!-- SEKCJA YOUTUBE LIVE -->
+    <!-- SEKCJA YOUTUBE LIVE (IFRAME ŁADOWANY DYNAMICZNIE) -->
     <section class="section" id="live">
       <div class="container">
         <div class="section-heading">
@@ -327,18 +327,8 @@
             Transmisja na żywo
           </div>
 
-          <!-- Dodano tabindex="-1", aby odtwarzacz nie przejmował fokusu przy ładowaniu -->
-          <div class="yt-live-frame-wrap" tabindex="-1">
-            <iframe
-              src="https://www.youtube.com/embed/live_stream?channel=UCRKaPKrCc3IQQVcy_jq95HA"
-              title="YouTube Live"
-              frameborder="0"
-              loading="lazy"
-              tabindex="-1"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen
-              style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-            </iframe>
+          <div class="yt-live-frame-wrap" id="youtube-frame-container">
+            <!-- Iframe zostanie wstrzyknięty przez JS po załadowaniu strony, żeby przeglądarka do niego nie skakała -->
           </div>
         </div>
       </div>
@@ -485,6 +475,27 @@
   <!-- SKRYPTY INTEGRACYJNE I MENU MOBILNE -->
   <script>
     lucide.createIcons();
+
+    // Wstrzyknięcie ramki YouTube dopiero po ułamku sekundy, żeby przeglądarka nie próbowała do niej skakać przy starcie
+    window.addEventListener('DOMContentLoaded', () => {
+      window.scrollTo(0, 0);
+      setTimeout(() => {
+        const frameContainer = document.getElementById('youtube-frame-container');
+        if (frameContainer && !frameContainer.hasChildNodes()) {
+          frameContainer.innerHTML = `
+            <iframe
+              src="https://www.youtube.com/embed/live_stream?channel=UCRKaPKrCc3IQQVcy_jq95HA"
+              title="YouTube Live"
+              frameborder="0"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+              style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+            </iframe>
+          `;
+        }
+      }, 150);
+    });
 
     const menuToggle = document.getElementById('menu-toggle');
     const mainNav = document.getElementById('main-nav');
