@@ -167,6 +167,13 @@ body.cywilizacja-world-site {
   color: #fff;
   margin: 1rem 0;
 }
+/* PRZYWRÓCONY KOLOR I POŚWIATA DLA NAPISU "TWÓJA EKIPA" */
+.hero-content h1 em {
+  color: var(--gold);
+  font-style: normal;
+  text-shadow: 0 0 25px rgba(212, 160, 23, 0.45);
+}
+
 .hero-content p {
   color: var(--text-muted);
   font-size: 1.05rem;
