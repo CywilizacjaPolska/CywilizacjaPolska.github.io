@@ -28,35 +28,27 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
-  <link rel="stylesheet" href="style.css?v=1.2.0" />
+  <link rel="stylesheet" href="style.css?v=1.2.1" />
   <style>
-    /* Atmosferyczne poświaty tła (Ambient Glow) dla głębi strony */
+    /* Atmosferyczne poświaty tła (Ambient Glow) gwarantujące widoczny efekt */
     body.cywilizacja-world-site {
+      background-color: #0b0f17 !important;
+      background-image: 
+        radial-gradient(circle at 20% 15%, rgba(212, 160, 23, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 80% 50%, rgba(30, 58, 138, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 40% 85%, rgba(212, 160, 23, 0.05) 0%, transparent 45%);
       position: relative;
-      background-color: #0b0f17;
       overflow-x: hidden;
-    }
-    body.cywilizacja-world-site::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 1000px;
-      height: 700px;
-      background: radial-gradient(circle, rgba(212, 160, 23, 0.07) 0%, rgba(15, 23, 42, 0) 70%);
-      pointer-events: none;
-      z-index: 0;
     }
 
     /* Styl dla podświetlonego napisu "Twoja ekipa." z poświatą */
     .hero-content h1 em {
       color: var(--gold, #d4a017);
-      text-shadow: 0 0 30px rgba(212, 160, 23, 0.5), 0 0 12px rgba(212, 160, 23, 0.3);
+      text-shadow: 0 0 30px rgba(212, 160, 23, 0.6), 0 0 12px rgba(212, 160, 23, 0.35);
       font-style: normal;
     }
 
-    /* Poprawiona czytelność tekstu w przyciskach Discorda (czarny kolor tekstu na złotym tle) */
+    /* Poprawiona czytelność tekstu w przyciskach Discorda */
     .button-discord {
       background: linear-gradient(135deg, #d4a017, #b8860b) !important;
       color: #0b0f17 !important;
@@ -84,7 +76,7 @@
       display: flex;
       align-items: center;
       gap: 0.6rem;
-      background: rgba(22, 27, 38, 0.75);
+      background: rgba(22, 27, 38, 0.85);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-left: 3px solid var(--gold, #d4a017);
       padding: 0.6rem 1rem;
@@ -97,7 +89,7 @@
     }
     .hero-foot-item:hover {
       border-color: rgba(212, 160, 23, 0.4);
-      background: rgba(30, 38, 54, 0.9);
+      background: rgba(30, 38, 54, 0.95);
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(0,0,0,0.3);
     }
@@ -106,9 +98,69 @@
       width: 18px;
       height: 18px;
     }
+
+    /* PŁYWAJĄCY PRZYCISK DISCORDA (FAB) */
+    .floating-discord-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 9999;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #d4a017, #b8860b);
+      color: #0b0f17;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 25px rgba(212, 160, 23, 0.5);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      text-decoration: none;
+      animation: pulse-gold 3s infinite;
+    }
+    .floating-discord-btn:hover {
+      transform: scale(1.1) translateY(-3px);
+      box-shadow: 0 8px 30px rgba(212, 160, 23, 0.7);
+    }
+    .floating-discord-btn i {
+      width: 28px;
+      height: 28px;
+      color: #0b0f17;
+    }
+    .floating-discord-btn .tooltip {
+      position: absolute;
+      right: 75px;
+      background: #0b0f17;
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      border: 1px solid rgba(212, 160, 23, 0.4);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+    .floating-discord-btn:hover .tooltip {
+      opacity: 1;
+    }
+    @keyframes pulse-gold {
+      0% { box-shadow: 0 0 0 0 rgba(212, 160, 23, 0.4); }
+      70% { box-shadow: 0 0 0 15px rgba(212, 160, 23, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(212, 160, 23, 0); }
+    }
   </style>
 </head>
 <body class="cywilizacja-world-site">
+
+  <!-- PŁYWAJĄCY PRZYCISK DISCORDA (Zastępuje nadmiar przycisków w treści) -->
+  <a href="https://discord.gg/jmFhmU2VWR" target="_blank" class="floating-discord-btn" aria-label="Dołącz na Discord">
+    <i data-lucide="gamepad-2"></i>
+    <span class="tooltip">Dołącz na Discord ↗</span>
+  </a>
 
   <!-- GÓRNA NAWIGACJA -->
   <header class="site-header">
@@ -144,7 +196,7 @@
       <div class="hero-overlay" aria-hidden="true"></div>
       <div class="container hero-inner">
         
-        <!-- LEWA KOLUMNA: NAGŁÓWEK -->
+        <!-- LEWA KOLUMNA: NAGłÓWEK -->
         <div class="hero-content">
           <div class="hero-pill"><i data-lucide="flame"></i> POLSKA SPOŁECZNOŚĆ SURVIVAL</div>
           <h1>Twój świat.<br><em>Twoja ekipa.</em></h1>
@@ -332,7 +384,7 @@
       </div>
     </div>
 
-    <!-- SEKCJA YOUTUBE LIVE (SPRAWDZANA PRZEZ youtube_live.json) -->
+    <!-- SEKCJA YOUTUBE LIVE -->
     <section class="section" id="live">
       <div class="container">
         <div class="section-heading">
@@ -410,7 +462,7 @@
       </div>
     </section>
 
-    <!-- 3 KROKI -->
+    <!-- 3 KROKI (Uproszczony 3. krok - usunięto zbędny przycisk Discorda) -->
     <section class="section" id="kroki">
       <div class="container">
         <div class="section-heading steps-heading">
@@ -437,9 +489,7 @@
             <span class="step-number">03</span>
             <h3>Przywitaj się z ekipą</h3>
             <p>Wpadnij na Discorda. Zapytaj o pomoc, znajdź klan i ruszaj w nieznane.</p>
-            <a class="button button-discord" href="https://discord.gg/jmFhmU2VWR" target="_blank">
-              <i data-lucide="gamepad-2"></i> Wejdź na Discord <span>↗</span>
-            </a>
+            <a href="https://discord.gg/jmFhmU2VWR" target="_blank" style="color: var(--gold, #d4a017); font-weight: 600; text-decoration: none;">Dołącz na Discord ↗</a>
           </article>
         </div>
       </div>
@@ -526,7 +576,6 @@
         const ytBadgeContainer = document.getElementById('yt-badge-container');
 
         if (data.is_live && data.video_id) {
-          // STAN: LIVE JEST WŁĄCZONY
           if (ytBadgeContainer) {
             ytBadgeContainer.style.background = "rgba(239, 68, 68, 0.15)";
             ytBadgeContainer.style.borderColor = "rgba(239, 68, 68, 0.35)";
@@ -549,7 +598,6 @@
             `;
           }
         } else {
-          // STAN: STREAM OFFLINE (BANER ZASTĘPCZY Z IKONĄ)
           if (ytBadgeContainer) {
             ytBadgeContainer.style.background = "rgba(212, 160, 23, 0.1)";
             ytBadgeContainer.style.borderColor = "rgba(212, 160, 23, 0.3)";
