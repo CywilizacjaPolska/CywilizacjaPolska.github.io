@@ -25,12 +25,10 @@ body.furia-world-site {
   100% { transform: scale(0.95); opacity: 0.8; }
 }
 
-/* 3. Poprawa rytmu i odstępów (Whitespace) między sekcjami */
 .section {
   padding: 6.5rem 0;
 }
 
-/* 4. Zróżnicowanie tła co drugą sekcję */
 .section:nth-of-type(even) {
   background: linear-gradient(180deg, rgba(11, 15, 23, 0.95) 0%, rgba(16, 22, 34, 0.88) 100%);
   border-top: 1px solid rgba(255, 255, 255, 0.03);
@@ -212,12 +210,18 @@ body.furia-world-site {
 .button-secondary:hover {
   background: rgba(255, 255, 255, 0.1);
 }
+
+/* ZMIANA KOLORYSTYKI PRZYCISKÓW DISCORDA NA STYL INDEXU (ZŁOTY/AMBER) */
 .button-discord {
-  background: #5865F2;
-  color: #fff;
+  background: linear-gradient(135deg, #d4a017, #b8860b);
+  color: #0b0f17;
+  border: 1px solid rgba(212, 160, 23, 0.5);
+  box-shadow: 0 4px 15px rgba(212, 160, 23, 0.25);
 }
 .button-discord:hover {
-  background: #4752C4;
+  background: linear-gradient(135deg, #e5b32e, #c99512);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 160, 23, 0.4);
 }
 
 .hero-foot {
@@ -236,18 +240,20 @@ body.furia-world-site {
   color: var(--gold);
 }
 
-/* Hero Discord Box */
+/* Naprawiono boks kontaktu w hero (żeby przycisk nie wyjeżdżał) */
 .hero-discord-box {
   background: linear-gradient(145deg, rgba(18, 24, 36, 0.92), rgba(10, 14, 22, 0.96));
   backdrop-filter: blur(12px);
   border: 1px solid rgba(212, 160, 23, 0.28);
   border-radius: 16px;
-  padding: 1.15rem;
+  padding: 1.25rem;
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
   width: 100%;
   max-width: 440px;
   margin-left: auto;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 .hero-discord-header {
   display: flex;
@@ -277,7 +283,7 @@ body.furia-world-site {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 2px; /* Odstęp 2px między widgetami użytkowników */
+  gap: 2px;
   overflow: hidden;
   color: #e2e8f0;
   font-size: 0.85rem;
@@ -397,7 +403,7 @@ body.furia-world-site {
   color: var(--gold);
 }
 
-/* 2. Efekt poświaty (Glow Effect) na kartach serwerów */
+/* Home World Cards z poświatą */
 .home-world-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
@@ -412,12 +418,12 @@ body.furia-world-site {
   display: flex;
   flex-direction: column;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-  transition: all 0.35s ease; /* Płynne przejście poświaty */
+  transition: all 0.35s ease;
 }
 .home-world-card:hover {
   transform: translateY(-8px);
   border-color: rgba(212, 160, 23, 0.7);
-  box-shadow: 0 0 35px rgba(212, 160, 23, 0.25), 0 20px 45px rgba(0, 0, 0, 0.6); /* Złota poświata */
+  box-shadow: 0 0 35px rgba(212, 160, 23, 0.25), 0 20px 45px rgba(0, 0, 0, 0.6);
 }
 .card-bg-layer {
   position: absolute;
@@ -671,34 +677,86 @@ body.furia-world-site {
   line-height: 1.4;
 }
 
-.home-compact-roster {
-  background: linear-gradient(145deg, rgba(18, 24, 36, 0.88), rgba(10, 14, 22, 0.94));
-  border: 1px solid rgba(212, 160, 23, 0.25);
+/* NOWY STYL DLA STREFY GŁOSOWEJ (ZE SCREENA) */
+.voice-zone-box {
+  background: linear-gradient(145deg, rgba(18, 24, 36, 0.92), rgba(10, 14, 22, 0.96));
+  border: 1px solid rgba(212, 160, 23, 0.28);
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
 }
-.home-roster-heading {
+.voice-zone-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 1.5rem;
   background: rgba(9, 13, 20, 0.6);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  font-size: 0.9rem;
 }
-.home-roster-heading span {
+.voice-zone-header h3 {
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  color: #fff;
+  margin: 0;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: #fff;
-  font-family: 'Cinzel', serif;
 }
-.home-roster-heading a {
-  color: var(--gold);
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 0.85rem;
+.voice-online-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #22c55e;
+  background: rgba(34, 197, 94, 0.12);
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+.voice-online-badge .dot {
+  width: 6px;
+  height: 6px;
+  background: #22c55e;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #22c55e;
+}
+.voice-zone-content {
+  padding: 2.5rem 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.voice-icon-circle {
+  width: 64px;
+  height: 64px;
+  background: rgba(212, 160, 23, 0.08);
+  border: 1px solid rgba(212, 160, 23, 0.35);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 0 25px rgba(212, 160, 23, 0.15);
+}
+.voice-zone-content h3 {
+  font-family: 'Cinzel', serif;
+  font-size: 1.25rem;
+  color: #fff;
+  margin-bottom: 0.75rem;
+  text-shadow: 0 2px 10px rgba(212, 160, 23, 0.2);
+}
+.voice-zone-content p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  max-width: 360px;
 }
 
 /* Steps Section */
