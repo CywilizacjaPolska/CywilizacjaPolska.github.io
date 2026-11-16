@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
-  <link rel="stylesheet" href="style.css?v=1.1.1" />
+  <link rel="stylesheet" href="style.css?v=1.1.2" />
 </head>
 <body class="furia-world-site">
 
@@ -289,12 +289,6 @@
               </div>
             </div>
           </div>
-
-          <div class="home-people-actions">
-            <a class="button button-discord" href="https://discord.gg/jmFhmU2VWR" target="_blank">
-              <i data-lucide="gamepad-2"></i> Dołącz do ekipy <span>↗</span>
-            </a>
-          </div>
         </div>
 
         <!-- STREFA GŁOSOWA (ZASTĄPIONE KANAŁY SPOŁECZNOŚCIOWE Z WERSJI ZE SCREENA) -->
@@ -404,6 +398,16 @@
 
   <!-- SKRYPTY INTEGRACYJNE I MENU MOBILNE -->
   <script>
+    // Wymuszenie startu strony na samej górze i wyczyszczenie hasha #live
+    if (window.location.hash) {
+      history.replaceState(null, null, window.location.pathname);
+    }
+    window.scrollTo(0, 0);
+    
+    // Dodatkowe zabezpieczenie po pełnym załadowaniu zasobów (np. iframe)
+    window.addEventListener('load', () => {
+      window.scrollTo(0, 0);
+    });
     lucide.createIcons();
 
     const menuToggle = document.getElementById('menu-toggle');
