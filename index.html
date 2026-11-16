@@ -11,8 +11,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
-  <link rel="stylesheet" href="style.css?v=1.0.7" />
-  <link rel="stylesheet" href="eventy.css?v=1.0.0" />
+  <link rel="stylesheet" href="style.css?v=1.0.8" />
+  <link rel="stylesheet" href="eventy.css?v=1.0.1" />
   <style>
     @keyframes livePulse {
       0% { transform: scale(0.95); opacity: 0.8; }
@@ -488,44 +488,16 @@
       </div>
     </div>
 
-    <!-- SEKCJA YOUTUBE LIVE -->
-    <section class="section" id="live">
-      <div class="container">
-        <div class="section-heading">
-          <div>
-            <div class="eyebrow">Relacja z serwera</div>
-            <h2>Oglądaj<br><span class="gold">transmisję na żywo.</span></h2>
-            <p>Wpadnij na stream z naszych światów, zobacz budowę fortec i wspólne wyprawy.</p>
-          </div>
-        </div>
-
-        <div class="yt-live-card">
-          <div class="yt-live-badge">
-            <span class="yt-live-dot"></span>
-            Transmisja na żywo
-          </div>
-
-          <div class="yt-live-frame-wrap">
-            <iframe
-              src="https://www.youtube.com/embed/live_stream?channel=UCRKaPKrCc3IQQVcy_jq95HA"
-              title="YouTube Live"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen
-              style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-            </iframe>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- SPOŁECZNOŚĆ -->
     <section class="section home-people home-people-epic" id="spolecznosc">
       <div class="container home-crew-layout">
+        
+        <!-- LEWA STRONA: TEKST I KAFELKI -->
         <div class="home-people-copy">
           <div class="eyebrow">Cywilizacja to my</div>
           <h2>Jedna ekipa.<br><span class="gold">Setki historii.</span></h2>
           <p>Wspólna gra zaczyna się od ludzi. Poznaj ekipę, znajdź swój świat i dopisz własną historię na serwerze.</p>
+          
           <div class="community-features-grid">
             <div class="comm-feature-card">
               <i data-lucide="shield-check"></i>
@@ -549,22 +521,34 @@
               </div>
             </div>
           </div>
-          <div class="home-people-actions">
+
+          <div class="home-people-actions" style="margin-top: 1.5rem;">
             <a class="button button-discord" href="https://discord.gg/jmFhmU2VWR" target="_blank">
               <i data-lucide="gamepad-2"></i> Dołącz do ekipy <span>↗</span>
             </a>
           </div>
         </div>
-        <div class="home-compact-roster">
+
+        <!-- PRAWA STRONA: ATRAKCYJNY WIDGET DISCORDA -->
+        <div class="home-compact-roster community-discord-box">
           <div class="home-roster-heading">
-            <span><i data-lucide="shield"></i> Kanały społecznościowe</span>
-            <a href="https://discord.gg/jmFhmU2VWR" target="_blank">Discord ↗</a>
+            <span><i data-lucide="message-square" style="color: var(--gold, #d4a017); width: 18px; height: 18px;"></i> Strefa Głosowa</span>
+            <span class="live-indicator"><span class="dot"></span> Online</span>
           </div>
-          <div style="padding: 2.25rem; text-align: center; color: var(--text-muted);">
-            <p style="font-size: 1.15rem; margin-bottom: 1rem; color: #fff; font-family: 'Cinzel', serif;">Dołącz do kanału głosowego</p>
-            <p style="font-size: 0.92rem; line-height: 1.6;">Rozmawiaj podczas zbierania surowców, walki z bossami i planowania wielkich fortyfikacji.</p>
+          
+          <div class="discord-box-inner">
+            <div class="discord-icon-glow">
+              <i data-lucide="mic" style="width: 32px; height: 32px; color: var(--gold, #d4a017);"></i>
+            </div>
+            <h3>Dołącz do kanału głosowego</h3>
+            <p>Rozmawiaj podczas zbierania surowców, walki z bossami i planowania wielkich fortyfikacji.</p>
+            
+            <a href="https://discord.gg/jmFhmU2VWR" target="_blank" class="button button-discord" style="width: 100%; justify-content: center; margin-top: 1.25rem;">
+              <i data-lucide="gamepad-2"></i> Wejdź na kanał Discord <span>↗</span>
+            </a>
           </div>
         </div>
+
       </div>
     </section>
 
