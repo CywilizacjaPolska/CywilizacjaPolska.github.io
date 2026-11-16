@@ -2,21 +2,41 @@
 <html lang="pl">
 <head>
   <script>
-    if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
-    if (window.location.hash) { history.replaceState(null, null, window.location.pathname); }
+    // 1. Zablokowanie domyślnego przywracania scrolla przez przeglądarkę
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    // 2. Natychmiastowe usunięcie hasha (np. #live) z adresu URL przed renderowaniem
+    if (window.location.hash) {
+      history.replaceState(null, null, window.location.pathname);
+    }
+    // 3. Wymuszenie pozycji 0,0 od razu na starcie
     window.scrollTo(0, 0);
-    document.addEventListener('DOMContentLoaded', () => { window.scrollTo(0, 0); });
+
+    // 4. Blokada skakania po załadowaniu DOM
+    document.addEventListener('DOMContentLoaded', () => {
+      window.scrollTo(0, 0);
+    });
   </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   <title>Cywilizacja Polska — Valheim, Conan Exiles i Enshrouded</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
-  <link rel="stylesheet" href="style.css?v=1.3.0" />
+  <link rel="stylesheet" href="style.css?v=1.3.1" />
 </head>
 <body class="cywilizacja-world-site">
+
+  <!-- PŁYWAJĄCY PRZYCISK DISCORDA -->
+  <a href="https://discord.gg/jmFhmU2VWR" target="_blank" class="floating-discord-btn" aria-label="Dołącz na Discord">
+    <i data-lucide="gamepad-2"></i>
+    <span class="tooltip">Dołącz na Discord ↗</span>
+  </a>
 
   <!-- GÓRNA NAWIGACJA -->
   <header class="site-header">
@@ -29,6 +49,7 @@
         </div>
       </a>
 
+      <!-- PRZYCISK MENU MOBILNEGO -->
       <button class="mobile-menu-toggle" id="menu-toggle" aria-label="Otwórz menu">
         <i data-lucide="menu"></i>
       </button>
@@ -44,146 +65,386 @@
   </header>
 
   <main id="main" style="position: relative; z-index: 1;">
+
+    <!-- SEKCJA HERO -->
     <section class="world-hero">
       <div class="hero-bg" aria-hidden="true"></div>
       <div class="hero-overlay" aria-hidden="true"></div>
       <div class="container hero-inner">
+        
+        <!-- LEWA KOLUMNA: NAGŁÓWEK -->
         <div class="hero-content">
           <div class="hero-pill"><i data-lucide="flame"></i> POLSKA SPOŁECZNOŚĆ SURVIVAL</div>
-          <h1>Twój świat.<br><em style="color: var(--gold); text-shadow: 0 0 25px rgba(212,160,23,0.45); font-style:normal;">Twoja ekipa.</em></h1>
-          <p>Wysokiej jakości serwery Valheim, Conan Exiles oraz Enshrouded. Surowy klimat, epickie fortece i zgrana społeczność.</p>
+          <h1>Twój świat.<br><em>Twoja ekipa.</em></h1>
+          <p>Wysokiej jakości serwery Valheim, Conan Exiles oraz Enshrouded. Surowy klimat, epickie fortece i zgrana społeczność, do której chce się wracać.</p>
           <div class="button-row">
-            <a class="button button-discord" href="https://discord.gg/jmFhmU2VWR" target="_blank"><i data-lucide="gamepad-2"></i> Dołącz na Discord <span>↗</span></a>
+            <a class="button button-discord" href="https://discord.gg/jmFhmU2VWR" target="_blank">
+              <i data-lucide="gamepad-2"></i> Dołącz na Discord <span>↗</span>
+            </a>
             <a class="button button-secondary" href="#serwery">Wybierz serwer <span>→</span></a>
           </div>
+          <!-- MINI-KAFELKI W HERO-FOOT (PRZYWRÓCONE WSZYSTKIE 3) -->
           <div class="hero-foot">
-            <div class="hero-foot-item" style="display:flex; align-items:center; gap:0.6rem; background:rgba(22,27,38,0.75); border:1px solid rgba(255,255,255,0.08); border-left:3px solid var(--gold); padding:0.6rem 1rem; border-radius:10px; color:#e2e8f0; font-size:0.88rem;"><i data-lucide="axe" style="color:var(--gold);"></i> Buduj i odkrywaj</div>
-            <div class="hero-foot-item" style="display:flex; align-items:center; gap:0.6rem; background:rgba(22,27,38,0.75); border:1px solid rgba(255,255,255,0.08); border-left:3px solid var(--gold); padding:0.6rem 1rem; border-radius:10px; color:#e2e8f0; font-size:0.88rem;"><i data-lucide="shield-check" style="color:var(--gold);"></i> Graj fair</div>
+            <div class="hero-foot-item">
+              <i data-lucide="axe"></i>
+              <span>Buduj i odkrywaj</span>
+            </div>
+            <div class="hero-foot-item">
+              <i data-lucide="shield-check"></i>
+              <span>Graj fair</span>
+            </div>
+            <div class="hero-foot-item">
+              <i data-lucide="users"></i>
+              <span>Znajdź ekipę</span>
+            </div>
           </div>
         </div>
 
+        <!-- PRAWA KOLUMNA: KONTAKT I WIDGET DISCORDA -->
         <aside class="hero-discord-box">
           <div class="hero-discord-header">
-            <h3><i data-lucide="message-square" style="color: var(--gold); width: 20px; height: 20px;"></i> Kontakt i Discord</h3>
+            <h3><i data-lucide="message-square" style="color: var(--gold, #d4a017); width: 20px; height: 20px;"></i> Kontakt i Discord</h3>
             <span style="font-size: 0.75rem; color: #22c55e; background: rgba(34, 197, 94, 0.12); padding: 0.25rem 0.65rem; border-radius: 999px; border: 1px solid rgba(34, 197, 94, 0.3);">24/7 Live</span>
           </div>
-          <p style="color: #94a3b8; font-size: 0.85rem; margin-bottom: 1rem;">Masz pytanie do administracji lub szukasz ekipy do gry?</p>
+
+          <p style="color: #94a3b8; font-size: 0.85rem; margin-bottom: 1rem; line-height: 1.5;">
+            Masz pytanie do administracji lub szukasz ekipy do gry? Zobacz kto jest online i dołącz bezpośrednio na nasz serwer głosowy.
+          </p>
+
+          <!-- WIDGET DISCORDA -->
           <div class="discord-widget-slot" id="discord-widgets-container">
-            <div class="custom-card1"><img src="https://statusbanner.com/widget/theme-4/879347951506440222.png" alt="Discord status"></div>
-            <div class="custom-card"><img src="https://statusbanner.com/widget/theme-4/634884694248259584.png" alt="Discord status"></div>
+            <div class="custom-card1">
+              <img src="https://statusbanner.com/widget/theme-4/879347951506440222.png" alt="Discord status">
+            </div>
+            <div class="custom-card">
+              <img src="https://statusbanner.com/widget/theme-4/634884694248259584.png" alt="Discord status">
+            </div>
           </div>
-          <a href="https://discord.gg/jmFhmU2VWR" target="_blank" class="button button-discord" style="width: 100%; justify-content: center; margin-top: 1rem; box-sizing: border-box;">Otwórz zaproszenie Discord <span>↗</span></a>
+
+          <a href="https://discord.gg/jmFhmU2VWR" target="_blank" class="button button-discord" style="width: 100%; justify-content: center; margin-top: 1rem; box-sizing: border-box;">
+            Otwórz zaproszenie Discord <span>↗</span>
+          </a>
         </aside>
+
       </div>
     </section>
 
+    <!-- PASEK SZYBKIEGO WYBORU -->
     <section class="world-selector container">
       <div class="world-strip">
-        <a class="world-tile" href="#serwery"><span class="cube"><i data-lucide="axe"></i></span><div><h2>Valheim</h2><p>Nordycki survival</p></div><span class="arrow">↗</span></a>
-        <a class="world-tile" href="#serwery"><span class="cube"><i data-lucide="sword"></i></span><div><h2>Conan Exiles</h2><p>Ziemia wygnańców</p></div><span class="arrow">↗</span></a>
-        <a class="world-tile" href="#serwery"><span class="cube"><i data-lucide="compass"></i></span><div><h2>Enshrouded</h2><p>Przetrwaj w mgle</p></div><span class="arrow">↗</span></a>
+        <a class="world-tile" href="#serwery">
+          <span class="cube" aria-hidden="true"><i data-lucide="axe"></i></span>
+          <div><h2>Valheim</h2><p>Nordycki survival · Adres i status serwera</p></div>
+          <span class="arrow">↗</span>
+        </a>
+        <a class="world-tile" href="#serwery">
+          <span class="cube" aria-hidden="true"><i data-lucide="sword"></i></span>
+          <div><h2>Conan Exiles</h2><p>Ziemia wygnańców · Adres i status serwera</p></div>
+          <span class="arrow">↗</span>
+        </a>
+        <a class="world-tile" href="#serwery">
+          <span class="cube" aria-hidden="true"><i data-lucide="compass"></i></span>
+          <div><h2>Enshrouded</h2><p>Przetrwaj w mgle · Adres i status serwera</p></div>
+          <span class="arrow">↗</span>
+        </a>
       </div>
     </section>
 
+    <!-- GŁÓWNA SIATKA SERWERÓW -->
     <section class="section home-worlds" id="serwery">
       <div class="container">
         <div class="section-heading">
-          <div class="eyebrow">Wybierz swoją przygodę</div>
-          <h2>Wybierz swoją<br><span class="gold">następną przygodę.</span></h2>
+          <div>
+            <div class="eyebrow">Wybierz swoją przygodę</div>
+            <h2>Wybierz swoją<br><span class="gold">następną przygodę.</span></h2>
+            <p>Buduj, walcz lub przetrwaj w mgle. Wybierz klimat, do którego chce się wracać.</p>
+          </div>
         </div>
+
         <div class="home-world-grid">
+          
+          <!-- KARTA 1: VALHEIM -->
           <article class="home-world-card card-valheim" style="--card-bg: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=900&q=80');">
             <div class="card-bg-layer"></div>
-            <div class="home-world-art"><span class="home-world-top"><span class="home-world-symbol"><i data-lucide="axe"></i></span><span class="tag">VALHEIM PVE</span></span><div class="home-world-identity"><span class="home-world-number">ŚWIAT / 01</span><h3>Valheim</h3><span>Dziedzictwo Odyna</span></div></div>
-            <div class="home-world-body"><div class="home-world-tags"><span>Drakkary</span><span>Bossowie</span></div><div class="home-world-live"><div><small>Status</small><span id="valheim-status" class="status offline"><span class="dot"></span> Offline</span></div><div><small>Wersja</small><strong>v0.217.46</strong></div></div><p class="home-world-players">IP: 51.83.239.219:28700</p><a class="home-world-cta" href="steam://connect/51.83.239.219:28700">Wejdź do Valheim <span>→</span></a></div>
+            <div class="home-world-art">
+              <span class="home-world-top">
+                <span class="home-world-symbol"><i data-lucide="axe"></i></span>
+                <span class="tag">VALHEIM PVE</span>
+              </span>
+              <div class="home-world-identity">
+                <span class="home-world-number">ŚWIAT / 01</span>
+                <h3>Valheim</h3>
+                <span>Dziedzictwo Odyna w Twoich rękach.</span>
+              </div>
+            </div>
+            <div class="home-world-body">
+              <div class="home-world-tags"><span>Drakkary</span><span>Rytuały</span><span>Bossowie</span></div>
+              <div class="home-world-live">
+                <div><small>Dostępność</small><span id="valheim-status" class="status offline"><span class="dot"></span> Offline</span></div>
+                <div><small>Wersja gry</small><strong id="valheim-version">v0.217.46</strong></div>
+              </div>
+              <p class="home-world-players">IP: 51.83.239.219:28700</p>
+              <a class="home-world-cta" href="steam://connect/51.83.239.219:28700">Wejdź do Valheim <span>→</span></a>
+              <small class="home-world-checked">Serwer PVE</small>
+            </div>
           </article>
+
+          <!-- KARTA 2: CONAN EXILES -->
           <article class="home-world-card card-conan" style="--card-bg: url('https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=900&q=80');">
             <div class="card-bg-layer"></div>
-            <div class="home-world-art"><span class="home-world-top"><span class="home-world-symbol"><i data-lucide="sword"></i></span><span class="tag">CONAN EXILES</span></span><div class="home-world-identity"><span class="home-world-number">ŚWIAT / 02</span><h3>Conan Exiles</h3><span>Ziemia wygnańców</span></div></div>
-            <div class="home-world-body"><div class="home-world-tags"><span>Twierdze</span><span>Bóstwa</span></div><div class="home-world-live"><div><small>Status</small><span id="conan-status" class="status offline"><span class="dot"></span> Sprawdzanie...</span></div><div><small>Wersja</small><strong>v3.0+</strong></div></div><p class="home-world-players">IP: 146.59.1.3:20810</p><a class="home-world-cta" href="steam://connect/146.59.1.3:20810">Poznaj ten świat <span>→</span></a></div>
+            <div class="home-world-art">
+              <span class="home-world-top">
+                <span class="home-world-symbol"><i data-lucide="sword"></i></span>
+                <span class="tag">CONAN EXILES</span>
+              </span>
+              <div class="home-world-identity">
+                <span class="home-world-number">ŚWIAT / 02</span>
+                <h3>Conan Exiles</h3>
+                <span>Zostaw ślad na ziemi wygnańców.</span>
+              </div>
+            </div>
+            <div class="home-world-body">
+              <div class="home-world-tags"><span>Twierdze</span><span>Bóstwa</span><span>Rzemiosło</span></div>
+              
+              <div class="home-world-live">
+                <div><small>Dostępność</small><span id="conan-status" class="status offline"><span class="dot"></span> Sprawdzanie...</span></div>
+                <div><small>Wersja gry</small><strong id="conan-version">v3.0+</strong></div>
+              </div>
+
+              <p class="home-world-players">IP: 146.59.1.3:20810</p>
+              <a class="home-world-cta" href="steam://connect/146.59.1.3:20810">Poznaj ten świat <span>→</span></a>
+              <small class="home-world-checked">Status live GitHub</small>
+            </div>
           </article>
+
+          <!-- KARTA 3: ENSHROUDED -->
           <article class="home-world-card card-epic" style="--card-bg: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=80');">
             <div class="card-bg-layer"></div>
-            <div class="home-world-art"><span class="home-world-top"><span class="home-world-symbol"><i data-lucide="compass"></i></span><span class="tag">ENSHROUDED PVE</span></span><div class="home-world-identity"><span class="home-world-number">ŚWIAT / 03</span><h3>Enshrouded</h3><span>Przetrwaj w mgle</span></div></div>
-            <div class="home-world-body"><div class="home-world-tags"><span>Mgła</span><span>Budowanie</span></div><div class="home-world-live"><div><small>Status</small><span id="enshrouded-status" class="status offline"><span class="dot"></span> Offline</span></div><div><small>Wersja</small><strong>v1.0+</strong></div></div><p class="home-world-players">IP: 51.83.239.219:28710</p><a class="home-world-cta" href="steam://connect/51.83.239.219:28710">Wejdź do Enshrouded <span>→</span></a></div>
+            <div class="home-world-art">
+              <span class="home-world-top">
+                <span class="home-world-symbol"><i data-lucide="compass"></i></span>
+                <span class="tag">ENSHROUDED PVE</span>
+              </span>
+              <div class="home-world-identity">
+                <span class="home-world-number">ŚWIAT / 03</span>
+                <h3>Enshrouded</h3>
+                <span>Przetrwaj w spowitej mgłą krainie.</span>
+              </div>
+            </div>
+            <div class="home-world-body">
+              <div class="home-world-tags"><span>Mgła</span><span>Budowanie</span><span>Eksploracja</span></div>
+              <div class="home-world-live">
+                <div><small>Dostępność</small><span id="enshrouded-status" class="status offline"><span class="dot"></span> Offline</span></div>
+                <div><small>Wersja gry</small><strong id="enshrouded-version">v1.0+</strong></div>
+              </div>
+              <p class="home-world-players">IP: 51.83.239.219:28710</p>
+              <a class="home-world-cta" href="steam://connect/51.83.239.219:28710">Wejdź do Enshrouded <span>→</span></a>
+              <small class="home-world-checked">Serwer PVE</small>
+            </div>
           </article>
+
         </div>
       </div>
     </section>
 
+    <!-- PASEK ODŚWIEŻANIA STATUSÓW -->
+    <div class="container" style="margin-top: 1.5rem; margin-bottom: 3rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; background: linear-gradient(145deg, rgba(30, 41, 59, 0.6), rgba(15, 23, 42, 0.8)); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 1.2rem 1.8rem;">
+        <div>
+          <p style="color: #94a3b8; font-size: 0.85rem; margin: 0 0 0.2rem 0;">Odczyt integracji może być opóźniony. Brak danych nie oznacza wyłączonego serwera.</p>
+          <small id="last-checked" style="color: var(--gold, #d4a017); font-size: 0.8rem;">Sprawdzono przed chwilą</small>
+        </div>
+        <button id="refresh-btn" onclick="manualRefresh()" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); color: #fff; padding: 0.6rem 1.2rem; border-radius: 8px; cursor: pointer; font-family: 'Manrope', sans-serif; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem; transition: 0.2s; white-space: nowrap;">
+          Odśwież statusy 🔄
+        </button>
+      </div>
+    </div>
+
+    <!-- SEKCJA YOUTUBE LIVE -->
     <section class="section" id="live">
       <div class="container">
-        <div class="section-heading"><div class="eyebrow">Relacja z serwera</div><h2>Oglądaj<br><span class="gold">transmisję na żywo.</span></h2></div>
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">Relacja z serwera</div>
+            <h2>Oglądaj<br><span class="gold">transmisję na żywo.</span></h2>
+            <p>Wpadnij na stream z naszych światów, zobacz budowę fortec i wspólne wyprawy.</p>
+          </div>
+        </div>
+
         <div class="yt-live-card">
-          <div class="yt-live-badge" id="yt-badge-container"><span class="yt-live-dot" id="yt-dot" style="display:none;"></span><span id="yt-badge-text">Sprawdzanie statusu streamu...</span></div>
-          <div class="yt-live-frame-wrap" id="youtube-frame-container"></div>
+          <div class="yt-live-badge" id="yt-badge-container" style="background: rgba(212, 160, 23, 0.1); border: 1px solid rgba(212, 160, 23, 0.3); color: var(--gold, #d4a017);">
+            <span class="yt-live-dot" id="yt-dot" style="display: none; background: #22c55e; box-shadow: 0 0 8px #22c55e;"></span>
+            <span id="yt-badge-text">Sprawdzanie statusu streamu...</span>
+          </div>
+
+          <div class="yt-live-frame-wrap" id="youtube-frame-container">
+            <!-- Dynamicznie wstrzykiwane przez JS -->
+          </div>
         </div>
       </div>
     </section>
 
+    <!-- SPOŁECZNOŚĆ (PRZYWRÓCONE WSZYSTKIE 3 KAFELKI ZE SCREENA) -->
     <section class="section home-people home-people-epic" id="spolecznosc">
       <div class="container home-crew-layout">
         <div class="home-people-copy">
           <div class="eyebrow">Cywilizacja to my</div>
           <h2>Jedna ekipa.<br><span class="gold">Setki historii.</span></h2>
+          <p>Wspólna gra zaczyna się od ludzi. Poznaj ekipę, znajdź swój świat i dopisz własną historię na serwerze.</p>
+          
           <div class="community-features-grid">
-            <div class="comm-feature-card"><i data-lucide="shield-check"></i><div><strong>Bezpieczna baza</strong><small>Ochrona pracy przed griefingiem</small></div></div>
-            <div class="comm-feature-card"><i data-lucide="heart-handshake"></i><div><strong>Zgrana ekipa</strong><small>Pomocni gracze</small></div></div>
+            <div class="comm-feature-card">
+              <i data-lucide="shield-check"></i>
+              <div>
+                <strong>Bezpieczna baza</strong>
+                <small>Ochrona pracy i surowców przed griefingiem</small>
+              </div>
+            </div>
+            <div class="comm-feature-card">
+              <i data-lucide="heart-handshake"></i>
+              <div>
+                <strong>Zgrana ekipa</strong>
+                <small>Pomocni gracze i zero toksyczności</small>
+              </div>
+            </div>
+            <div class="comm-feature-card">
+              <i data-lucide="trophy"></i>
+              <div>
+                <strong>Epickie eventy</strong>
+                <small>Rajdy na bossów i wspólne budowanie</small>
+              </div>
+            </div>
           </div>
         </div>
+
+        <!-- STREFA GŁOSOWA -->
         <div class="voice-zone-box">
-          <div class="voice-zone-header"><h3><i data-lucide="message-square" style="color:var(--gold); width:18px;height:18px;"></i> Strefa Głosowa</h3><span class="voice-online-badge"><span class="dot"></span> Online</span></div>
+          <div class="voice-zone-header">
+            <h3><i data-lucide="message-square" style="color: var(--gold, #d4a017); width: 18px; height: 18px;"></i> Strefa Głosowa</h3>
+            <span class="voice-online-badge"><span class="dot"></span> Online</span>
+          </div>
           <div class="voice-zone-content">
-            <div class="voice-icon-circle"><i data-lucide="mic" style="width:28px;height:28px;color:var(--gold);"></i></div>
+            <div class="voice-icon-circle">
+              <i data-lucide="mic" style="width: 28px; height: 28px; color: var(--gold, #d4a017);"></i>
+            </div>
             <h3>Dołącz do kanału głosowego</h3>
-            <p>Rozmawiaj podczas zbierania surowców i walki z bossami.</p>
-            <a href="https://discord.gg/jmFhmU2VWR" target="_blank" class="button button-discord" style="width:100%; justify-content:center; box-sizing:border-box;"><i data-lucide="gamepad-2"></i> Wejdź na kanał Discord <span>↗</span></a>
+            <p>Rozmawiaj podczas zbierania surowców, walki z bossami i planowania wielkich fortyfikacji.</p>
+            <a href="https://discord.gg/jmFhmU2VWR" target="_blank" class="button button-discord" style="width: 100%; justify-content: center; margin-top: 0.5rem; box-sizing: border-box;">
+              <i data-lucide="gamepad-2"></i> Wejdź na kanał Discord <span>↗</span>
+            </a>
           </div>
         </div>
+
       </div>
     </section>
 
+    <!-- 3 KROKI -->
     <section class="section" id="kroki">
       <div class="container">
-        <div class="section-heading"><div class="eyebrow">Pierwszy raz u nas?</div><h2>Zacznij od <span class="gold">trzech kroków.</span></h2></div>
+        <div class="section-heading steps-heading">
+          <div>
+            <div class="eyebrow">Pierwszy raz u nas?</div>
+            <h2>Zacznij od <span class="gold">trzech kroków.</span></h2>
+            <p>Wybierz świat, poznaj zasady i ruszaj z ekipą do walki.</p>
+          </div>
+        </div>
         <div class="steps">
-          <article class="step"><span class="step-number">01</span><h3>Wybierz świat</h3><p>Sprawdź grę, wersję i adres IP serwera.</p><a href="serwery.html">Zobacz serwery →</a></article>
-          <article class="step"><span class="step-number">02</span><h3>Poznaj zasady</h3><p>Gramy uczciwie i szanujemy pracę innych.</p><a href="regulamin.html">Przeczytaj regulamin →</a></article>
-          <article class="step"><span class="step-number">03</span><h3>Przywitaj się</h3><p>Wpadnij na Discorda i znajdź klan.</p><a href="https://discord.gg/jmFhmU2VWR" target="_blank" style="color:var(--gold); font-weight:600; text-decoration:none;">Dołącz na Discord ↗</a></article>
+          <article class="step">
+            <span class="step-number">01</span>
+            <h3>Wybierz świat</h3>
+            <p>Sprawdź grę, wersję i adres IP serwera. Wybierz przygodę dla siebie.</p>
+            <a href="serwery.html">Zobacz serwery →</a>
+          </article>
+          <article class="step">
+            <span class="step-number">02</span>
+            <h3>Poznaj zasady</h3>
+            <p>Gramy uczciwie i szanujemy pracę innych graczy. Przeczytaj regulamin.</p>
+            <a href="regulamin.html">Przeczytaj regulamin →</a>
+          </article>
+          <article class="step">
+            <span class="step-number">03</span>
+            <h3>Przywitaj się z ekipą</h3>
+            <p>Wpadnij na Discorda. Zapytaj o pomoc, znajdź klan i ruszaj w nieznane.</p>
+            <a href="https://discord.gg/jmFhmU2VWR" target="_blank" style="color: var(--gold, #d4a017); font-weight: 600; text-decoration: none;">Dołącz na Discord ↗</a>
+          </article>
         </div>
       </div>
     </section>
+
+    <!-- BANER DISCORD Z GRAFIKĄ W TLE (PRZYWRÓCONY NA DOŁECZEK) -->
+    <section class="section" id="wsparcie">
+      <div class="container">
+        <div class="discord-banner discord-banner-illustrated">
+          <div class="discord-copy">
+            <div class="eyebrow">Tu spotyka się Cywilizacja</div>
+            <h2>Twoja następna ekipa<br>jest o jedną rozmowę stąd.</h2>
+            <p>Wpadnij na Discorda. Poznaj ludzi, podziel się pomysłem na bazę i dołącz do wspólnej gry.</p>
+            <div class="button-row">
+              <a class="button button-discord" href="https://discord.gg/jmFhmU2VWR" target="_blank">
+                <i data-lucide="gamepad-2"></i> Dołącz do Cywilizacji Polska <span>↗</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
+  <!-- FOOTER -->
   <footer class="site-footer">
     <div class="container footer-top">
-      <div class="footer-brand"><div class="brand-shield" style="margin-bottom:12px;"><i data-lucide="shield"></i></div><p>Różne światy. Jedna społeczność.</p></div>
-      <div><h2>Odkrywaj</h2><a href="serwery.html">Nasze serwery</a><a href="ekipa.html">Społeczność</a></div>
-      <div><h2>Cywilizacja Polska</h2><a href="#kroki">Jak zacząć</a></div>
-      <div><h2>Gramy fair</h2><a href="regulamin.html">Regulamin</a></div>
+      <div class="footer-brand">
+        <div class="brand-shield" style="margin-bottom: 12px;"><i data-lucide="shield"></i></div>
+        <p>Różne światy. Jedna społeczność.<br>Twoje miejsce do wspólnego przetrwania.</p>
+      </div>
+      <div>
+        <h2>Odkrywaj</h2>
+        <a href="serwery.html">Nasze serwery</a>
+        <a href="ekipa.html">Społeczność</a>
+      </div>
+      <div>
+        <h2>Cywilizacja Polska</h2>
+        <a href="#kroki">Jak zacząć</a>
+      </div>
+      <div>
+        <h2>Gramy fair</h2>
+        <a href="regulamin.html">Regulamin</a>
+        <a href="#">Polityka prywatności</a>
+      </div>
     </div>
-    <div class="container footer-bottom"><span>© 2026 Cywilizacja Polska</span><a class="discord-link" href="https://discord.gg/jmFhmU2VWR" target="_blank">Spotkajmy się na Discordzie ↗</a></div>
+    <div class="container footer-bottom">
+      <span>© 2026 Cywilizacja Polska</span>
+      <span>Valheim · Conan Exiles · Enshrouded</span>
+      <a class="discord-link" href="https://discord.gg/jmFhmU2VWR" target="_blank">Spotkajmy się na Discordzie ↗</a>
+    </div>
   </footer>
 
-  <!-- PŁYWAJĄCY PRZYCISK DISCORDA (FAB) -->
-  <a href="https://discord.gg/jmFhmU2VWR" target="_blank" class="floating-discord-btn" aria-label="Dołącz na Discord">
-    <i data-lucide="gamepad-2"></i>
-    <span class="tooltip">Dołącz na Discord ↗</span>
-  </a>
-
+  <!-- SKRYPTY INTEGRACYJNE I MENU MOBILNE -->
   <script>
     lucide.createIcons();
+
     const menuToggle = document.getElementById('menu-toggle');
     const mainNav = document.getElementById('main-nav');
+
     if (menuToggle && mainNav) {
-      menuToggle.addEventListener('click', () => mainNav.classList.toggle('active'));
-      mainNav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => mainNav.classList.remove('active')));
+      menuToggle.addEventListener('click', () => {
+        mainNav.classList.toggle('active');
+      });
+
+      mainNav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mainNav.classList.remove('active');
+        });
+      });
     }
 
+    // Sprawdzanie statusu YouTube Live z pliku youtube_live.json
     async function updateYouTubeLive() {
       try {
         const res = await fetch('./youtube_live.json?t=' + Date.now());
-        if (!res.ok) throw new Error();
+        if (!res.ok) throw new Error("Brak pliku youtube_live.json");
+
         const data = await res.json();
         const frameContainer = document.getElementById('youtube-frame-container');
         const badgeText = document.getElementById('yt-badge-text');
@@ -191,43 +452,143 @@
         const ytBadgeContainer = document.getElementById('yt-badge-container');
 
         if (data.is_live && data.video_id) {
-          if (ytBadgeContainer) { ytBadgeContainer.style.background = "rgba(239, 68, 68, 0.15)"; ytBadgeContainer.style.color = "#ef4444"; }
+          if (ytBadgeContainer) {
+            ytBadgeContainer.style.background = "rgba(239, 68, 68, 0.15)";
+            ytBadgeContainer.style.borderColor = "rgba(239, 68, 68, 0.35)";
+            ytBadgeContainer.style.color = "#ef4444";
+          }
           if (ytDot) ytDot.style.display = "inline-block";
           if (badgeText) badgeText.textContent = data.title ? `Transmisja: ${data.title}` : "Transmisja na żywo";
+
           if (frameContainer && !frameContainer.querySelector('iframe')) {
-            frameContainer.innerHTML = `<iframe src="https://www.youtube.com/embed/${data.video_id}" title="YouTube Live" frameborder="0" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>`;
+            frameContainer.innerHTML = `
+              <iframe
+                src="https://www.youtube.com/embed/${data.video_id}"
+                title="YouTube Live"
+                frameborder="0"
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+              </iframe>
+            `;
           }
         } else {
-          if (ytBadgeContainer) { ytBadgeContainer.style.background = "rgba(212, 160, 23, 0.1)"; ytBadgeContainer.style.color = "var(--gold)"; }
+          if (ytBadgeContainer) {
+            ytBadgeContainer.style.background = "rgba(212, 160, 23, 0.1)";
+            ytBadgeContainer.style.borderColor = "rgba(212, 160, 23, 0.3)";
+            ytBadgeContainer.style.color = "var(--gold, #d4a017)";
+          }
           if (ytDot) ytDot.style.display = "none";
           if (badgeText) badgeText.textContent = "Stream offline";
+
           if (frameContainer) {
-            frameContainer.innerHTML = `<div style="position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(15,20,30,0.95);text-align:center;padding:2rem;"><div style="width:60px;height:60px;background:rgba(212,160,23,0.1);border:1px solid rgba(212,160,23,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:1rem;color:var(--gold);"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 16v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2m5.66 0H14a2 2 0 0 1 2 2v3.34l1 1L23 7v10"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg></div><h3 style="font-family:'Cinzel',serif;color:#fff;font-size:1.25rem;margin:0 0 0.5rem 0;">Aktualnie nie jest prowadzony żaden live</h3><p style="color:#94a3b8;font-size:0.9rem;margin:0 0 1.5rem 0;">Obserwuj nasz kanał Discord, aby dowiedzieć się, kiedy ruszy kolejny stream.</p><a href="https://discord.gg/jmFhmU2VWR" target="_blank" class="button button-discord" style="padding:0.6rem 1.2rem;font-size:0.85rem;"><i data-lucide="gamepad-2"></i> Sprawdź Discord <span>↗</span></a></div>`;
-            lucide.createIcons();
+            frameContainer.innerHTML = `
+              <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(145deg, rgba(15, 20, 30, 0.95), rgba(8, 12, 18, 0.98)); text-align: center; padding: 2rem; box-sizing: border-box;">
+                <div style="width: 60px; height: 60px; background: rgba(212, 160, 23, 0.1); border: 1px solid rgba(212, 160, 23, 0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; color: var(--gold, #d4a017);">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 16v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2m5.66 0H14a2 2 0 0 1 2 2v3.34l1 1L23 7v10"></path>
+                    <line x1="1" y1="1" x2="23" y2="23"></line>
+                  </svg>
+                </div>
+                <h3 style="font-family: 'Cinzel', serif; color: #fff; font-size: 1.25rem; margin: 0 0 0.5rem 0;">Aktualnie nie jest prowadzony żaden live</h3>
+                <p style="color: var(--text-muted, #94a3b8); font-size: 0.9rem; max-width: 400px; margin: 0 0 1.5rem 0; line-height: 1.5;">Obserwuj nasz kanał Discord, aby dowiedzieć się, kiedy ruszy kolejna wyprawa lub budowa fortecy.</p>
+                <a href="https://discord.gg/jmFhmU2VWR" target="_blank" class="button button-discord" style="padding: 0.6rem 1.2rem; font-size: 0.85rem;">
+                  <i data-lucide="gamepad-2"></i> Sprawdź Discord <span>↗</span>
+                </a>
+              </div>
+            `;
+            if (typeof lucide !== 'undefined') {
+              lucide.createIcons();
+            }
           }
         }
-      } catch (e) {}
+      } catch (e) {
+        console.error("Błąd odczytu statusu YouTube:", e);
+      }
     }
 
     async function updateAllHomeStatuses() {
       try {
         const res = await fetch('./status.json?t=' + Date.now());
-        if (!res.ok) throw new Error();
+        if (!res.ok) throw new Error("Błąd pliku statusu");
+
         const data = await res.json();
-        ['valheim', 'conan', 'enshrouded'].forEach(game => {
-          const el = document.getElementById(game + "-status");
-          if (el && data[game]) {
-            el.className = data[game].online ? "status online" : "status offline";
-            el.innerHTML = `<span class="dot"></span> ${data[game].online ? 'Online (' + (data[game].players || '0') + ')' : 'Offline'}`;
+
+        const valheimEl = document.getElementById("valheim-status");
+        if (valheimEl && data.valheim) {
+          if (data.valheim.online) {
+            valheimEl.className = "status online";
+            valheimEl.innerHTML = `<span class="dot"></span> Online (${data.valheim.players || '0'})`;
+          } else {
+            valheimEl.className = "status offline";
+            valheimEl.innerHTML = `<span class="dot"></span> Offline`;
           }
-        });
-      } catch (e) {}
+        }
+
+        const conanEl = document.getElementById("conan-status");
+        if (conanEl && data.conan) {
+          if (data.conan.online) {
+            conanEl.className = "status online";
+            conanEl.innerHTML = `<span class="dot"></span> Online (${data.conan.players || '0'})`;
+          } else {
+            conanEl.className = "status offline";
+            conanEl.innerHTML = `<span class="dot"></span> Offline`;
+          }
+        }
+
+        const enshroudedEl = document.getElementById("enshrouded-status");
+        if (enshroudedEl && data.enshrouded) {
+          if (data.enshrouded.online) {
+            enshroudedEl.className = "status online";
+            enshroudedEl.innerHTML = `<span class="dot"></span> Online (${data.enshrouded.players || '0'})`;
+          } else {
+            enshroudedEl.className = "status offline";
+            enshroudedEl.innerHTML = `<span class="dot"></span> Offline`;
+          }
+        }
+
+      } catch (e) {
+        console.error("Błąd odczytu statusów serwerów:", e);
+      }
+    }
+
+    async function manualRefresh() {
+      const btn = document.getElementById("refresh-btn");
+      const timeEl = document.getElementById("last-checked");
+      
+      if (btn) {
+        btn.style.opacity = "0.7";
+        btn.textContent = "Odświeżanie...";
+      }
+
+      await Promise.all([updateAllHomeStatuses(), updateYouTubeLive()]);
+
+      const now = new Date();
+      const timeString = now.toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit' });
+      
+      if (timeEl) {
+        timeEl.textContent = `Sprawdzono o ${timeString}`;
+      }
+
+      if (btn) {
+        setTimeout(() => {
+          btn.style.opacity = "1";
+          btn.textContent = "Odśwież statusy 🔄";
+        }, 400);
+      }
     }
 
     document.addEventListener("DOMContentLoaded", () => {
+      window.scrollTo(0, 0);
       updateAllHomeStatuses();
       updateYouTubeLive();
+      setInterval(() => {
+        updateAllHomeStatuses();
+        updateYouTubeLive();
+      }, 30000);
     });
   </script>
+
 </body>
 </html>
