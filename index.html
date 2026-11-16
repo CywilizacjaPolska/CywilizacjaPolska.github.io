@@ -12,6 +12,11 @@
     }
     // 3. Wymuszenie pozycji 0,0 od razu na starcie
     window.scrollTo(0, 0);
+
+    // 4. Dodatkowe zabezpieczenie po załadowaniu DOM
+    document.addEventListener('DOMContentLoaded', () => {
+      window.scrollTo(0, 0);
+    });
   </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -23,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
-  <link rel="stylesheet" href="style.css?v=1.1.5" />
+  <link rel="stylesheet" href="style.css?v=1.1.6" />
   <style>
     /* Styl dla podświetlonego napisu "Twoja ekipa." z poświatą */
     .hero-content h1 em {
@@ -322,12 +327,14 @@
             Transmisja na żywo
           </div>
 
-          <div class="yt-live-frame-wrap">
+          <!-- Dodano tabindex="-1", aby odtwarzacz nie przejmował fokusu przy ładowaniu -->
+          <div class="yt-live-frame-wrap" tabindex="-1">
             <iframe
               src="https://www.youtube.com/embed/live_stream?channel=UCRKaPKrCc3IQQVcy_jq95HA"
               title="YouTube Live"
               frameborder="0"
               loading="lazy"
+              tabindex="-1"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowfullscreen
               style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
