@@ -1053,4 +1053,48 @@ body.cywilizacja-world-site {
     align-items: center;
     gap: 1.5rem;
   }
+/* KOPIROWANIE IP SERWERÓW */
+.home-world-players {
+  cursor: pointer;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: color 0.2s ease;
+  user-select: none;
+}
+.home-world-players:hover {
+  color: var(--gold, #d4a017);
+}
+.home-world-players i {
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+.home-world-players:hover i {
+  opacity: 1;
+}
+.copy-tooltip {
+  position: absolute;
+  bottom: 130%;
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: #0b0f17;
+  color: #22c55e;
+  border: 1px solid rgba(34, 197, 94, 0.4);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  font-family: 'Manrope', sans-serif;
+  z-index: 10;
+}
+.home-world-players.copied .copy-tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}  
 }
