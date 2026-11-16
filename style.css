@@ -1,5 +1,5 @@
 /* ==========================================================
-   CYWILIZACJA POLSKA — ARKUSZ STYLÓW (eventy.css)
+   CYWILIZACJA POLSKA — ARKUSZ STYLÓW
    ========================================================== */
 
 :root {
@@ -10,12 +10,17 @@
 }
 
 body.cywilizacja-world-site {
-  background-color: var(--bg-dark);
+  background-color: #0b0f17 !important;
+  background-image: 
+    radial-gradient(circle at 20% 15%, rgba(212, 160, 23, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 80% 50%, rgba(30, 58, 138, 0.12) 0%, transparent 50%),
+    radial-gradient(circle at 40% 85%, rgba(212, 160, 23, 0.05) 0%, transparent 45%);
   color: var(--text-main);
   font-family: 'Manrope', sans-serif;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  position: relative;
 }
 
 /* Animacje */
@@ -23,6 +28,12 @@ body.cywilizacja-world-site {
   0% { transform: scale(0.95); opacity: 0.8; }
   50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 12px #ef4444; }
   100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+@keyframes pulse-gold {
+  0% { box-shadow: 0 0 0 0 rgba(212, 160, 23, 0.4); }
+  70% { box-shadow: 0 0 0 15px rgba(212, 160, 23, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(212, 160, 23, 0); }
 }
 
 .section {
@@ -211,7 +222,6 @@ body.cywilizacja-world-site {
   background: rgba(255, 255, 255, 0.1);
 }
 
-/* ZMIANA KOLORYSTYKI PRZYCISKÓW DISCORDA NA STYL INDEXU (ZŁOTY/AMBER) */
 .button-discord {
   background: linear-gradient(135deg, #d4a017, #b8860b);
   color: #0b0f17;
@@ -240,7 +250,6 @@ body.cywilizacja-world-site {
   color: var(--gold);
 }
 
-/* Naprawiono boks kontaktu w hero (żeby przycisk nie wyjeżdżał) */
 .hero-discord-box {
   background: linear-gradient(145deg, rgba(18, 24, 36, 0.92), rgba(10, 14, 22, 0.96));
   backdrop-filter: blur(12px);
@@ -283,7 +292,7 @@ body.cywilizacja-world-site {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 2px;
+  gap: 5px;
   overflow: hidden;
   color: #e2e8f0;
   font-size: 0.85rem;
@@ -403,7 +412,7 @@ body.cywilizacja-world-site {
   color: var(--gold);
 }
 
-/* Home World Cards z poświatą */
+/* Home World Cards */
 .home-world-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
@@ -677,7 +686,6 @@ body.cywilizacja-world-site {
   line-height: 1.4;
 }
 
-/* NOWY STYL DLA STREFY GŁOSOWEJ (ZE SCREENA) */
 .voice-zone-box {
   background: linear-gradient(145deg, rgba(18, 24, 36, 0.92), rgba(10, 14, 22, 0.96));
   border: 1px solid rgba(212, 160, 23, 0.28);
@@ -832,6 +840,55 @@ body.cywilizacja-world-site {
   font-size: 1rem;
   line-height: 1.6;
   margin-bottom: 2rem;
+}
+
+/* PŁYWAJĄCY PRZYCISK DISCORDA (FAB) */
+.floating-discord-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 9999;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #d4a017, #b8860b);
+  color: #0b0f17;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 25px rgba(212, 160, 23, 0.5);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  text-decoration: none;
+  animation: pulse-gold 3s infinite;
+}
+.floating-discord-btn:hover {
+  transform: scale(1.1) translateY(-3px);
+  box-shadow: 0 8px 30px rgba(212, 160, 23, 0.7);
+}
+.floating-discord-btn i {
+  width: 28px;
+  height: 28px;
+  color: #0b0f17;
+}
+.floating-discord-btn .tooltip {
+  position: absolute;
+  right: 75px;
+  background: #0b0f17;
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  border: 1px solid rgba(212, 160, 23, 0.4);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+.floating-discord-btn:hover .tooltip {
+  opacity: 1;
 }
 
 /* Footer */
