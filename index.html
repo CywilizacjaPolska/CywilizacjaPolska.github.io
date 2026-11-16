@@ -6,7 +6,7 @@
     if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual';
     }
-    // 2. Natychmiastowe usunięcie hasha z adresu URL przed renderowaniem
+    // 2. Natychmiastowe usunięcie hasha (np. #live) z adresu URL przed renderowaniem
     if (window.location.hash) {
       history.replaceState(null, null, window.location.pathname);
     }
@@ -28,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
-  <link rel="stylesheet" href="style.css?v=1.1.8" />
+  <link rel="stylesheet" href="style.css?v=1.1.9" />
   <style>
     /* Styl dla podświetlonego napisu "Twoja ekipa." z poświatą */
     .hero-content h1 em {
@@ -328,7 +328,7 @@
           </div>
 
           <div class="yt-live-frame-wrap" id="youtube-frame-container">
-            <!-- Dynamicznie wstrzykiwane przez JS: odtwarzacz YouTube lub elegancki baner offline -->
+            <!-- Dynamicznie wstrzykiwane przez JS -->
           </div>
         </div>
       </div>
@@ -528,7 +528,7 @@
             `;
           }
         } else {
-          // STAN: STREAM OFFLINE (BANER ZASTĘPCZY)
+          // STAN: STREAM OFFLINE (BANER ZASTĘPCZY Z IKONĄ)
           if (ytBadgeContainer) {
             ytBadgeContainer.style.background = "rgba(212, 160, 23, 0.1)";
             ytBadgeContainer.style.borderColor = "rgba(212, 160, 23, 0.3)";
@@ -541,7 +541,11 @@
             frameContainer.innerHTML = `
               <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(145deg, rgba(15, 20, 30, 0.95), rgba(8, 12, 18, 0.98)); text-align: center; padding: 2rem; box-sizing: border-box;">
                 <div style="width: 60px; height: 60px; background: rgba(212, 160, 23, 0.1); border: 1px solid rgba(212, 160, 23, 0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; color: var(--gold, #d4a017);">
-                  <i data-lucide="tv-off" style="width: 28px; height: 28px;"></i>
+                  <!-- Niezawodna ikona wideo/kamery offline w SVG -->
+                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 16v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2m5.66 0H14a2 2 0 0 1 2 2v3.34l1 1L23 7v10"></path>
+                    <line x1="1" y1="1" x2="23" y2="23"></line>
+                  </svg>
                 </div>
                 <h3 style="font-family: 'Cinzel', serif; color: #fff; font-size: 1.25rem; margin: 0 0 0.5rem 0;">Aktualnie nie jest prowadzony żaden live</h3>
                 <p style="color: var(--text-muted, #94a3b8); font-size: 0.9rem; max-width: 400px; margin: 0 0 1.5rem 0; line-height: 1.5;">Obserwuj nasz kanał Discord, aby dowiedzieć się, kiedy ruszy kolejna wyprawa lub budowa fortecy.</p>
