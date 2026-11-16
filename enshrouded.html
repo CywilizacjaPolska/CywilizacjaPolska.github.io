@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-<meta http-equiv="Pragma" content="no-cache" />
-<meta http-equiv="Expires" content="0" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   <title>Enshrouded — Cywilizacja Polska</title>
   
   <link rel="icon" type="image/png" href="favicon.png" />
@@ -88,7 +88,8 @@
       background: rgba(99, 102, 241, 0.16);
       border-color: rgba(99, 102, 241, 0.6);
     }
- /* Przycisk hamburgera dla urządzeń mobilnych */
+
+    /* Przycisk hamburgera i wycentrowanie menu */
     .mobile-menu-toggle {
       display: none;
       background: rgba(255, 255, 255, 0.06);
@@ -102,21 +103,24 @@
       justify-content: center;
     }
 
+    @media (min-width: 961px) {
+      .site-header .header-inner {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .main-nav {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+      }
+    }
+
     @media (max-width: 960px) {
-      .world-hero {
-        padding-top: 6rem;
-      }
-      .world-hero .hero-inner {
-        grid-template-columns: 1fr;
-        gap: 2.5rem;
-      }
-      .hero-discord-box {
-        margin-left: auto;
-        margin-right: auto;
-        max-width: 100%;
-      }
-      
-      /* Obsługa mobilnego menu */
       .mobile-menu-toggle {
         display: flex;
       }
@@ -128,6 +132,7 @@
         width: 100%;
         background: rgba(11, 15, 23, 0.98);
         backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
         flex-direction: column;
         padding: 1.25rem;
         border-bottom: 1px solid rgba(212, 160, 23, 0.2);
@@ -143,7 +148,6 @@
         flex-wrap: wrap;
       }
     }
-
   </style>
 </head>
 <body class="furia-world-site">
@@ -163,7 +167,7 @@
         <i data-lucide="menu"></i>
       </button>
 
-      <nav class="main-nav">
+      <nav class="main-nav" id="main-nav">
         <a href="https://cywilizacjapolska.github.io/"><i data-lucide="home" class="nav-symbol"></i> Strona główna</a>
         <a href="serwery.html" class="active"><i data-lucide="server" class="nav-symbol"></i> Serwery</a>
         <a href="ekipa.html" class="button button-secondary"><i data-lucide="users" class="nav-symbol"></i> Społeczność</a>
@@ -338,8 +342,24 @@
     </div>
   </footer>
 
-<script>
+  <script>
     lucide.createIcons();
+
+    // Obsługa rozwijanego menu na telefonach
+    const menuToggle = document.getElementById('menu-toggle');
+    const mainNav = document.getElementById('main-nav');
+
+    if (menuToggle && mainNav) {
+      menuToggle.addEventListener('click', () => {
+        mainNav.classList.toggle('active');
+      });
+
+      mainNav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mainNav.classList.remove('active');
+        });
+      });
+    }
 
     async function updateServerStatus() {
       const badge = document.getElementById("enshrouded-status-badge");
