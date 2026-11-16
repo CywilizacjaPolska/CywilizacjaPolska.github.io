@@ -10,7 +10,7 @@
     if (window.location.hash) {
       history.replaceState(null, null, window.location.pathname);
     }
-    // 3. Wymuszenie pozycji 0,0
+    // 3. Wymuszenie pozycji 0,0 od razu na starcie
     window.scrollTo(0, 0);
   </script>
   <meta charset="UTF-8" />
@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
-  <link rel="stylesheet" href="style.css?v=1.1.4" />
+  <link rel="stylesheet" href="style.css?v=1.1.5" />
   <style>
     /* Styl dla podświetlonego napisu "Twoja ekipa." z poświatą */
     .hero-content h1 em {
@@ -81,7 +81,7 @@
     }
   </style>
 </head>
-<body class="furia-world-site">
+<body class="cywilizacja-world-site">
 
   <!-- GÓRNA NAWIGACJA -->
   <header class="site-header">
@@ -477,15 +477,6 @@
 
   <!-- SKRYPTY INTEGRACYJNE I MENU MOBILNE -->
   <script>
-    if (window.location.hash) {
-      history.replaceState(null, null, window.location.pathname);
-    }
-    window.scrollTo(0, 0);
-    
-    window.addEventListener('load', () => {
-      window.scrollTo(0, 0);
-    });
-    
     lucide.createIcons();
 
     const menuToggle = document.getElementById('menu-toggle');
