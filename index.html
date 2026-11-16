@@ -136,6 +136,20 @@
       font-size: 0.85rem;
       text-align: center;
     }
+    .custom-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background-color: #1a1c23; /* Ciemne tło elementu */
+    border: 1.5px solid #d4af37; /* Złoto-żółte obramowanie */
+    border-radius: 12px; /* Zaokrąglone rogi */
+    padding: 12px 18px;
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    width: fit-content;
+    box-sizing: border-box;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
     @media (max-width: 960px) {
       .world-hero .hero-inner {
         grid-template-columns: 1fr;
@@ -210,9 +224,9 @@
 
           <!-- WIDGET DISCORDA (Wklej tutaj swój iframe z ustawień Discorda) -->
           <div class="discord-widget-slot" id="discord-widgets-container">
-            <i data-lucide="gamepad-2" style="width: 32px; height: 32px; margin-bottom: 0.5rem; opacity: 0.6;"></i>
-            <span>Miejsce na widget Discorda<br><small>(wklej tutaj kod &lt;iframe&gt;)</small></span>
+            <div class="custom-card">
             <img src="https://statusbanner.com/widget/theme-4/634884694248259584.png" alt="Discord status">
+            </div>
           </div>
 
           <a href="https://discord.gg/jmFhmU2VWR" target="_blank" class="button button-discord" style="width: 100%; justify-content: center; margin-top: 1rem;">
