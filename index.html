@@ -241,6 +241,25 @@
         flex-wrap: wrap;
       }
     }
+/* Wycentrowanie menu nawigacyjnego na komputerach */
+@media (min-width: 961px) {
+  .site-header .header-inner {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .main-nav {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+}
+
   </style>
 </head>
 <body class="furia-world-site">
