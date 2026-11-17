@@ -355,8 +355,15 @@ body.cywilizacja-world-site {
 }
 
 /* ==========================================================
-   STYLING DLA WŁASNEGO BANERA LANYARD API
+   STYLING DLA WŁASNYCH BANERÓW LANYARD API (WIELU UŻYTKOWNIKÓW)
    ========================================================== */
+.discord-banners-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
 .custom-card.discord-custom-banner {
   display: flex !important;
   flex-direction: row !important;
