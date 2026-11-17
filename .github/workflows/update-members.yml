@@ -1,25 +1,25 @@
-name: Synchronizacja członków Discord
+name: Automatyczna synchronizacja statystyk Discord
 on:
   schedule:
-    - cron: '*/15 * * * *'
-  workflow_dispatch:
+    - cron: '0 * * * *' # Uruchamia się co godzinę
+  workflow_dispatch:      # Pozwala uruchomić ręcznie w każdej chwili z poziomu GitHub Actions
 
 jobs:
-  sync-members:
+  sync:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Zainstaluj bibliotekę Discord
+      - name: Instalacja biblioteki Discord
         run: pip install discord.py
 
-      - name: Pobierz i zaktualizuj statystyki graczy
+      - name: Pobieranie danych i aktualizacja members.json
         env:
           TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
           GUILD_ID: ${{ secrets.DISCORD_GUILD_ID }}
         run: |
           python3 -c '
-          import discord, json, os, random
+          import discord, json, os
 
           intents = discord.Intents.default()
           intents.members = True
@@ -36,6 +36,7 @@ jobs:
                   await client.close()
                   return
 
+              # Wczytanie obecnego pliku members.json, aby nie stracić niestandardowych pól
               existing_data = {}
               if os.path.exists("members.json"):
                   try:
@@ -49,6 +50,7 @@ jobs:
               members_list = []
               rank = 1
 
+              # Sortowanie członków według pozycji najwyższej roli
               sorted_members = sorted(
                   [m for m in guild.members if not m.bot],
                   key=lambda m: (-m.top_role.position, m.display_name.lower())
@@ -63,15 +65,11 @@ jobs:
                   lvl = max(1, member.top_role.position)
                   old_member = existing_data.get(mid, {})
                   
-                  messages = old_member.get("messages", random.randint(10, 50))
-                  tokens = old_member.get("tokens", random.randint(1, 10))
+                  # Zachowujemy dotychczasowe statystyki wiadomości/XP lub ustawiamy domyślne
+                  messages = old_member.get("messages", 0)
+                  tokens = old_member.get("tokens", 0)
                   xp = old_member.get("xp", lvl * 150)
-                  
-                  if status_str == "online":
-                      messages += random.randint(1, 3)
-                      xp += random.randint(10, 25)
-
-                  voice_time = old_member.get("voice_time", "2h 15m")
+                  voice_time = old_member.get("voice_time", "0h 0m")
 
                   merged_member = {
                       "id": mid,
@@ -88,18 +86,15 @@ jobs:
                       "voice_time": voice_time,
                       "main_game": old_member.get("main_game", "Valheim"),
                       "motto": old_member.get("motto", "Wędrowiec w świecie surviwalu"),
-                      "equipment": old_member.get("equipment", {"weapon": "Kamienny Topór", "armor": "Skórzana Tursum", "amulet": "Brak"}),
-                      "achievements": old_member.get("achievements", [
-                          {"title": "Pierwsze Kroki", "desc": "Dołącz do społeczności Cywilizacji", "reward": "+50 XP"}
-                      ]),
-                      "recent_activity": old_member.get("recent_activity", [
-                          {"text": "Aktywny na serwerze", "time": "Przed chwilą"}
-                      ])
+                      "equipment": old_member.get("equipment", {"weapon": "Brak", "armor": "Brak", "amulet": "Brak"}),
+                      "achievements": old_member.get("achievements", []),
+                      "recent_activity": old_member.get("recent_activity", [])
                   }
 
                   members_list.append(merged_member)
                   rank += 1
 
+              # Zapis zaktualizowanej listy do members.json
               with open("members.json", "w", encoding="utf-8") as f:
                   json.dump(members_list, f, indent=2, ensure_ascii=False)
 
@@ -109,9 +104,9 @@ jobs:
           client.run(os.environ["TOKEN"])
           '
 
-      - name: Zapisz zmiany w repozytorium
+      - name: Automatyczny commit i wypchnięcie zmian na GitHub
         run: |
-          git config --global user.name "Status Bot"
+          git config --global user.name "Statystyki Bot"
           git config --global user.email "bot@github.com"
           git add members.json
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Automatyczna aktualizacja statystyk dla wszystkich graczy" && git push)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Automatyczna aktualizacja statystyk i statusów" && git push)
