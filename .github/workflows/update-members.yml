@@ -77,8 +77,6 @@ jobs:
 
               for member in sorted_members:
                   mid = str(member.id)
-                  
-                  # Rola i kolor roli (HEX)
                   top_role = member.top_role
                   role_name = top_role.name if top_role and top_role.name != "@everyone" else "Gracz"
                   role_color = str(top_role.color) if top_role and top_role.color.value != 0 else "#d4a017"
@@ -88,14 +86,17 @@ jobs:
                   status_str = "online" if str(member.status) in ["online", "idle", "dnd"] else "offline"
                   avatar_url = member.display_avatar.url if member.display_avatar else "https://cdn.discordapp.com/embed/avatars/0.png"
 
-                  # Aktywność (Gra, Spotify/YouTube Music lub Status)
+                  # Pobieranie statusu niestandardowego (Custom Status) lub aktywnej gry/muzyki
+                  custom_status = ""
                   main_game = "Brak"
+                  
                   if status_str == "online":
                       main_game = "Aktywny na Discordzie"
                       if member.activities:
                           for act in member.activities:
-                              # Sprawdzanie Spotify / Muzyki
-                              if isinstance(act, discord.Spotify):
+                              if act.type == discord.ActivityType.custom and act.state:
+                                  custom_status = act.state
+                              elif isinstance(act, discord.Spotify):
                                   main_game = f"Słucha Spotify: {act.title} - {act.artist}"
                                   break
                               elif act.type == discord.ActivityType.listening:
@@ -108,7 +109,7 @@ jobs:
                                   main_game = act.name
                                   break
 
-                  # Obliczanie dni w osadzie i stopnia weterana
+                  # Obliczanie dni i tytułu weterana
                   joined_days = 0
                   joined_str = "Brak danych"
                   veteran_title = "Podróżnik"
@@ -155,10 +156,10 @@ jobs:
                       "messages": messages,
                       "voice_time": voice_time,
                       "main_game": main_game,
+                      "custom_status": custom_status,
                       "joined": joined_str,
                       "joined_days": joined_days,
                       "veteran_title": veteran_title,
-                      "motto": old_member.get("motto", ""),
                       "equipment": old_member.get("equipment", {"weapon": "Brak", "armor": "Brak", "amulet": "Brak"}),
                       "achievements": old_member.get("achievements", []),
                       "recent_activity": old_member.get("recent_activity", [])
@@ -180,4 +181,4 @@ jobs:
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email "actions@github.com"
           git add members.json
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Automatyczna synchronizacja zaawansowanych funkcji" && git push)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Automatyczna synchronizacja statusu i rang" && git push)

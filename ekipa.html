@@ -52,7 +52,7 @@
         <div class="container">
           <div class="eyebrow">Cywilizacja to my</div>
           <h1>Poznaj swoją <span>ekipę.</span></h1>
-          <p>Wspólna gra buduje relacje. Kliknij na gracza, aby zobaczyć jego profil i status.</p>
+          <p>Wspólna gra buduje relacje. Kliknij na gracza, aby zobaczyć jego profil i postępy.</p>
         </div>
       </section>
 
@@ -183,7 +183,7 @@
       members.forEach(member => {
         const card = document.createElement("article");
         card.className = "member-card";
-        card.style.position = "relative"; // Wymagane do pozycjonowania odznaki
+        card.style.position = "relative";
         
         const isOnline = member.status === "online";
         const statusClass = isOnline ? "online" : "offline";
@@ -232,16 +232,52 @@
       const statusClass = isOnline ? "online" : "offline";
       
       const activityStatus = member.main_game || "Brak aktywnej gry";
+      const customStatus = member.custom_status ? `💬 „${member.custom_status}”` : "Brak ustawionego statusu osobistego";
       const joinedInfo = member.joined ? `W osadzie od ${member.joined} (${member.joined_days || 0} dni przetrwania)` : "Członek społeczności";
       const mainRole = member.role || "Obywatel";
       const roleColor = member.role_color || 'var(--gold)';
-      const veteranTitle = member.veteran_title || "Podróżnik";
+      const currentTitle = member.veteran_title || "Podróżnik";
+      const days = member.joined_days || 0;
+
+      // Definicja rang i wymagań do paska postępu
+      const ranksConfig = [
+        { name: "Świeżak", days: 0, nextDays: 14 },
+        { name: "Zwiadowca", days: 14, nextDays: 60 },
+        { name: "Obywatel w Sieci", days: 60, nextDays: 180 },
+        { name: "Weteran Survivalu", days: 180, nextDays: 365 },
+        { name: "Legenda Osady", days: 365, nextDays: 365 }
+      ];
+
+      let currentRankIdx = ranksConfig.findIndex(r => r.name === currentTitle);
+      if (currentRankIdx === -1) currentRankIdx = 0;
+
+      // Generowanie listy rang z postępem
+      let ranksListHtml = "";
+      ranksConfig.forEach((r, idx) => {
+        let isUnlocked = days >= r.days;
+        let isCurrent = r.name === currentTitle;
+        let dotColor = isUnlocked ? roleColor : "#475569";
+        let weight = isCurrent ? "700" : "400";
+        let badgeStyle = isCurrent ? `border: 1px solid ${roleColor}; background: rgba(212,160,23,0.1); color: ${roleColor};` : `color: ${isUnlocked ? '#cbd5e1' : '#64748b'};`;
+
+        ranksListHtml += `
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; background: rgba(255,255,255,0.02); border: 1px solid ${isCurrent ? roleColor : 'rgba(255,255,255,0.05)'}; border-radius: 6px; margin-bottom: 6px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="width: 8px; height: 8px; border-radius: 50%; background: ${dotColor}; box-shadow: 0 0 ${isCurrent ? '8px' : '0px'} ${roleColor};"></span>
+              <span style="font-size: 0.9rem; font-weight: ${weight}; color: #fff;">${r.name}</span>
+            </div>
+            <span style="font-size: 0.75rem; padding: 2px 8px; border-radius: 4px; ${badgeStyle}">
+              ${isUnlocked ? 'Odblokowano' : `Wymaga: ${r.days} dni`}
+            </span>
+          </div>
+        `;
+      });
 
       const rolesArray = (member.all_roles && member.all_roles.length > 0) ? member.all_roles : [mainRole];
-      const allRolesHtml = rolesArray.map(r => `
+      const allRolesHtml = rolesArray.map(role => `
         <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; margin-bottom: 8px;">
           <span style="display: flex; align-items: center; gap: 8px; color: #fff; font-size: 0.95rem;">
-            <i data-lucide="shield" style="width: 14px; height: 14px; color: ${roleColor};"></i> ${r}
+            <i data-lucide="shield" style="width: 14px; height: 14px; color: ${roleColor};"></i> ${role}
           </span>
           <span style="font-size: 0.75rem; color: ${roleColor}; background: rgba(212,160,23,0.1); padding: 2px 8px; border-radius: 4px;">Ranga</span>
         </div>
@@ -260,7 +296,7 @@
                 <p style="color: #94a3b8; margin: 0.3rem 0; font-size: 0.9rem;">${joinedInfo}</p>
                 <div class="profile-badges" style="margin-top: 0.5rem; display: flex; gap: 6px; flex-wrap: wrap;">
                   <span class="badge-pill" style="border-color: ${roleColor}; color: ${roleColor};"><i data-lucide="shield" style="width: 13px; height: 13px;"></i> ${mainRole}</span>
-                  <span class="badge-pill" style="background: rgba(212,160,23,0.1); color: var(--gold);">⭐ ${veteranTitle}</span>
+                  <span class="badge-pill" style="background: rgba(212,160,23,0.1); color: var(--gold);">⭐ ${currentTitle}</span>
                 </div>
               </div>
             </div>
@@ -273,19 +309,23 @@
 
         <div class="profile-grid">
           <div class="profile-col">
-            <!-- STATUS I MUZYKA / AKTYWNOŚĆ -->
+            <!-- PERSONALIZOWANY STATUS / MOTTO Z DISCORDA -->
             <div class="p-box">
               <h3 style="margin-bottom: 0.8rem; font-family: 'Cinzel', serif; color: var(--gold);">Status i Aktywność z Discorda</h3>
-              <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.2rem;">
-                Informacje w czasie rzeczywistym (gry, Spotify, YouTube Music).
+              <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1rem;">
+                Spersonalizowany opis użytkownika oraz stan w sieci.
               </p>
-              <div style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); text-align: center;">
-                <small style="color: #94a3b8; display: block; font-size: 0.75rem; margin-bottom: 4px;">AKTUALNA AKTYWNOŚĆ</small>
+              <div style="background: rgba(255,255,255,0.03); padding: 12px 15px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); margin-bottom: 10px; text-align: center;">
+                <small style="color: #94a3b8; display: block; font-size: 0.75rem; margin-bottom: 4px;">OPIS / STATUS OSOBISTY</small>
+                <strong style="color: #fff; font-size: 0.95rem; font-style: italic;">${customStatus}</strong>
+              </div>
+              <div style="background: rgba(255,255,255,0.03); padding: 12px 15px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); text-align: center;">
+                <small style="color: #94a3b8; display: block; font-size: 0.75rem; margin-bottom: 4px;">AKTUALNA AKTYWNOŚĆ / GRA</small>
                 <strong style="color: var(--gold); font-size: 1.05rem;">🎮 ${activityStatus}</strong>
               </div>
             </div>
 
-            <!-- INFORMACJE O KONCIE -->
+            <!-- CZAS W OSADZIE -->
             <div class="p-box grow">
               <h3>Czas w Osadzie</h3>
               <div class="achieve-list">
@@ -294,7 +334,7 @@
                     <strong style="color: #fff; display: block; font-size: 0.92rem;">⏳ Przeżyte dni</strong>
                     <small style="color: #94a3b8; font-size: 0.8rem;">Automatyczny licznik stażu</small>
                   </div>
-                  <span style="color: var(--gold); font-weight: 700; font-size: 0.85rem;">${member.joined_days || 0} dni</span>
+                  <span style="color: var(--gold); font-weight: 700; font-size: 0.85rem;">${days} dni</span>
                 </div>
                 <div class="achieve-item">
                   <div>
@@ -308,19 +348,22 @@
           </div>
 
           <div class="profile-col">
-            <!-- RANGI DISCORD -->
+            <!-- ZASTĄPIENIE NOTATKI: DRZEWKO RANG I WYMAGANIA -->
             <div class="p-box">
-              <h3 style="margin-bottom: 1rem; font-family: 'Cinzel', serif;">Przypisane Rangi Discord</h3>
+              <h3 style="margin-bottom: 0.8rem; font-family: 'Cinzel', serif; color: var(--gold);">Drzewko Rang i Postępy</h3>
+              <p style="color: #cbd5e1; font-size: 0.9rem; line-height: 1.5; margin-bottom: 1rem;">
+                Tytuły weterana przyznawane automatycznie na podstawie stażu przetrwania w osadzie.
+              </p>
               <div style="display: flex; flex-direction: column;">
-                ${allRolesHtml}
+                ${ranksListHtml}
               </div>
             </div>
 
-            <!-- DZIENNIK -->
+            <!-- RANGI DISCORD -->
             <div class="p-box grow">
-              <h3>Notatka Społeczności</h3>
-              <div style="padding: 15px; background: rgba(0,0,0,0.2); border-radius: 8px; color: #94a3b8; font-style: italic; font-size: 0.95rem; border-left: 3px solid ${roleColor};">
-                „${member.motto || 'Razem tworzymy historię w świecie Cywilizacji Polskiej. Dołącz do nas na kanałach głosowych!'}”
+              <h3 style="margin-bottom: 1rem; font-family: 'Cinzel', serif;">Przypisane Rangi Discord</h3>
+              <div style="display: flex; flex-direction: column;">
+                ${allRolesHtml}
               </div>
             </div>
           </div>
