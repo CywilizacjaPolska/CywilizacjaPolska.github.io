@@ -191,9 +191,9 @@
         const roleColor = member.role_color || 'var(--gold)';
 
         card.innerHTML = `
-          <div class="member-lvl" style="border-color: ${roleColor}; color: ${roleColor};">${member.veteran_title || 'Podróżnik'}</div>
-          <img src="${member.avatar || 'https://cdn.discordapp.com/embed/avatars/0.png'}" alt="${member.name}" class="member-avatar" style="border: 2px solid ${roleColor};" onerror="this.src='https://cdn.discordapp.com/embed/avatars/0.png'" />
-          <h3 class="member-name">${member.name}</h3>
+          <img src="${member.avatar || 'https://cdn.discordapp.com/embed/avatars/0.png'}" alt="${member.name}" class="member-avatar" style="border: 2px solid ${roleColor}; margin-top: 10px;" onerror="this.src='https://cdn.discordapp.com/embed/avatars/0.png'" />
+          <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; border: 1px solid ${roleColor}; color: ${roleColor}; background: rgba(212,160,23,0.08); padding: 2px 10px; border-radius: 12px; margin: 8px 0 4px 0; display: inline-block;">${member.veteran_title || 'Podróżnik'}</div>
+          <h3 class="member-name" style="margin-top: 2px;">${member.name}</h3>
           <div class="member-handle" style="color: ${roleColor};">${member.role || 'Obywatel'}</div>
           <div class="member-status ${statusClass}">
             <span class="dot"></span> ${statusText}
