@@ -239,7 +239,6 @@
       const currentTitle = member.veteran_title || "Podróżnik";
       const days = member.joined_days || 0;
 
-      // Definicja rang i wymagań do paska postępu
       const ranksConfig = [
         { name: "Świeżak", days: 0 },
         { name: "Zwiadowca", days: 14 },
@@ -279,22 +278,20 @@
         </div>
       `).join('');
 
-      // Generowanie dymku statusu (pojawia się tylko, gdy gracz ma ustawiony status na Discordzie)
       let bubbleHtml = customStatus ? `
-        <div style="position: relative; background: rgba(15, 23, 42, 0.9); border: 1px solid ${roleColor}; border-radius: 12px; padding: 10px 16px; color: #f8fafc; font-size: 0.9rem; font-style: italic; max-width: 320px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); display: flex; align-items: center; gap: 8px;">
-          <i data-lucide="message-square" style="width: 16px; height: 16px; color: ${roleColor}; flex-shrink: 0;"></i>
+        <div style="position: relative; background: rgba(15, 23, 42, 0.95); border: 1px solid ${roleColor}; border-radius: 10px; padding: 8px 14px; color: #f8fafc; font-size: 0.88rem; font-style: italic; max-width: 320px; box-shadow: 0 4px 16px rgba(0,0,0,0.4); display: inline-flex; align-items: center; gap: 8px; margin-top: 6px;">
+          <i data-lucide="message-square" style="width: 14px; height: 14px; color: ${roleColor}; flex-shrink: 0; opacity: 0.8;"></i>
           <span>„${customStatus}”</span>
         </div>
       ` : '';
 
       content.innerHTML = `
-        <!-- GÓRNA KARTA Z AWATAREM I DYMIKIEM STATUSU -->
         <div class="profile-header-card" style="border-left: 4px solid ${roleColor};">
           <div class="profile-header-top" style="align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem;">
-            <div class="profile-user-info" style="align-items: center; flex-wrap: wrap; gap: 1.5rem;">
+            <div class="profile-user-info" style="align-items: flex-start; flex-wrap: wrap; gap: 1.5rem;">
               
-              <!-- Awatar i dymek obok -->
-              <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+              <!-- Awatar i dymek pod nim po lewej stronie -->
+              <div style="display: flex; flex-direction: column; align-items: center;">
                 <img src="${member.avatar || 'https://cdn.discordapp.com/embed/avatars/0.png'}" alt="${member.name}" class="profile-big-avatar" style="border: 2px solid ${roleColor}; flex-shrink: 0;" onerror="this.src='https://cdn.discordapp.com/embed/avatars/0.png'" />
                 ${bubbleHtml}
               </div>
@@ -321,7 +318,6 @@
 
         <div class="profile-grid">
           <div class="profile-col">
-            <!-- AKTYWNA GRA / MUZYKA -->
             <div class="p-box">
               <h3 style="margin-bottom: 0.8rem; font-family: 'Cinzel', serif; color: var(--gold);">Aktywność na Discordzie</h3>
               <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.2rem;">
@@ -333,7 +329,6 @@
               </div>
             </div>
 
-            <!-- CZAS W OSADZIE -->
             <div class="p-box grow">
               <h3>Czas w Osadzie</h3>
               <div class="achieve-list">
@@ -356,7 +351,6 @@
           </div>
 
           <div class="profile-col">
-            <!-- DRZEWKO RANG I POSTĘPY -->
             <div class="p-box">
               <h3 style="margin-bottom: 0.8rem; font-family: 'Cinzel', serif; color: var(--gold);">Drzewko Rang i Postępy</h3>
               <p style="color: #cbd5e1; font-size: 0.9rem; line-height: 1.5; margin-bottom: 1rem;">
@@ -367,7 +361,6 @@
               </div>
             </div>
 
-            <!-- RANGI DISCORD -->
             <div class="p-box grow">
               <h3 style="margin-bottom: 1rem; font-family: 'Cinzel', serif;">Przypisane Rangi Discord</h3>
               <div style="display: flex; flex-direction: column;">
