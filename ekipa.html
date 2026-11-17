@@ -52,7 +52,7 @@
         <div class="container">
           <div class="eyebrow">Cywilizacja to my</div>
           <h1>Poznaj swoją <span>ekipę.</span></h1>
-          <p>Wspólna gra buduje relacje. Kliknij na gracza, aby zobaczyć jego kartę postaci i status.</p>
+          <p>Wspólna gra buduje relacje. Kliknij na gracza, aby zobaczyć jego profil i role.</p>
         </div>
       </section>
 
@@ -232,14 +232,19 @@
       const activityStatus = member.main_game || "Brak aktywnej gry";
       const joinedDate = member.joined ? `W społeczności od ${member.joined}` : "Członek społeczności";
       
-      // Dynamiczne wyświetlanie wszystkich ról z Discorda
-      const rolesList = (member.all_roles && member.all_roles.length > 0) 
-        ? member.all_roles.map(r => `<span class="badge-pill" style="margin: 2px;"><i data-lucide="shield" style="width: 12px; height: 12px;"></i> ${r}</span>`).join('')
-        : `<span class="badge-pill"><i data-lucide="shield" style="width: 12px; height: 12px;"></i> ${member.role || 'Obywatel'}</span>`;
+      // Tylko główna rola w nagłówku
+      const mainRole = member.role || "Obywatel";
 
-      const weapon = member.equipment?.weapon || "Brak";
-      const armor = member.equipment?.armor || "Brak";
-      const amulet = member.equipment?.amulet || "Brak";
+      // Wszystkie pozostałe / dodatkowe role do panelu po prawej stronie
+      const rolesArray = (member.all_roles && member.all_roles.length > 0) ? member.all_roles : [mainRole];
+      const allRolesHtml = rolesArray.map(r => `
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; margin-bottom: 8px;">
+          <span style="display: flex; align-items: center; gap: 8px; color: #fff; font-size: 0.95rem;">
+            <i data-lucide="shield" style="width: 14px; height: 14px; color: var(--gold);"></i> ${r}
+          </span>
+          <span style="font-size: 0.75rem; color: var(--gold); background: rgba(212,160,23,0.1); padding: 2px 8px; border-radius: 4px;">Ranga</span>
+        </div>
+      `).join('');
 
       content.innerHTML = `
         <div class="profile-header-card">
@@ -252,8 +257,9 @@
                   <span class="profile-status-pill ${statusClass}">● ${statusText}</span>
                 </h2>
                 <p style="color: #94a3b8; margin: 0.3rem 0; font-size: 0.9rem;">${joinedDate}</p>
-                <div class="profile-badges" style="margin-top: 0.5rem; display: flex; flex-wrap: wrap; gap: 4px;">
-                  ${rolesList}
+                <!-- TYLKO GŁÓWNA RANG W NAGŁÓWKU -->
+                <div class="profile-badges" style="margin-top: 0.5rem;">
+                  <span class="badge-pill"><i data-lucide="shield" style="width: 13px; height: 13px;"></i> ${mainRole}</span>
                 </div>
               </div>
             </div>
@@ -301,25 +307,11 @@
           </div>
 
           <div class="profile-col">
-            <!-- EKWIPUNEK BOJOWY -->
+            <!-- ZAMIAST EKWIPUNKU: WSZYSTKIE RANGI Z DISCORDA -->
             <div class="p-box">
-              <h3>Ekwipunek Bojowy</h3>
-              <div class="equip-slots">
-                <div class="equip-slot ${weapon !== 'Brak' ? 'equipped' : 'empty'}">
-                  <i data-lucide="sword"></i>
-                  Główna Broń
-                  <span>${weapon}</span>
-                </div>
-                <div class="equip-slot ${armor !== 'Brak' ? 'equipped' : 'empty'}">
-                  <i data-lucide="shield"></i>
-                  Pancerz
-                  <span>${armor}</span>
-                </div>
-                <div class="equip-slot ${amulet !== 'Brak' ? 'equipped' : 'empty'}">
-                  <i data-lucide="sparkles"></i>
-                  Talizman
-                  <span>${amulet}</span>
-                </div>
+              <h3 style="margin-bottom: 1rem; font-family: 'Cinzel', serif;">Przypisane Rangi Discord</h3>
+              <div style="display: flex; flex-direction: column;">
+                ${allRolesHtml}
               </div>
             </div>
 
