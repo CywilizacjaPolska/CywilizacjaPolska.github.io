@@ -52,7 +52,7 @@
         <div class="container">
           <div class="eyebrow">Cywilizacja to my</div>
           <h1>Poznaj swoją <span>ekipę.</span></h1>
-          <p>Wspólna gra buduje relacje. Kliknij na gracza, aby zobaczyć jego pełny profil i statystyki.</p>
+          <p>Wspólna gra buduje relacje. Kliknij na gracza, aby zobaczyć jego kartę postaci i ekwipunek.</p>
         </div>
       </section>
 
@@ -143,12 +143,6 @@
     let currentFilter = "all";
     let activeProfileId = null;
 
-    const DEFAULT_LOCKED_ACHIEVEMENTS = [
-      { title: "Pierwsza Krew", desc: "Pokonaj pierwszego bossa na serwerze", reward: "+100 XP" },
-      { title: "Gaduła Cywilizacji", desc: "Napisz 100 wiadomości na Discordzie", reward: "+50 XP" },
-      { title: "Weteran Głosowy", desc: "Spędź 10 godzin na kanałach głosowych", reward: "+150 XP" }
-    ];
-
     async function loadMembers() {
       try {
         const response = await fetch('./members.json?t=' + Date.now(), {
@@ -194,20 +188,19 @@
         const statusClass = isOnline ? "online" : "offline";
         const statusText = isOnline ? "Online" : "Offline";
         const memberId = member.id || member.name.toLowerCase().replace(/\s+/g, '-');
-        const displayXp = member.xp || 0;
 
         card.innerHTML = `
-          <div class="member-lvl">LVL ${member.level || 1}</div>
+          <div class="member-lvl">RANG ${member.level || 1}</div>
           <img src="${member.avatar || 'https://cdn.discordapp.com/embed/avatars/0.png'}" alt="${member.name}" class="member-avatar" onerror="this.src='https://cdn.discordapp.com/embed/avatars/0.png'" />
           <h3 class="member-name">${member.name}</h3>
-          <div class="member-handle">${member.role || 'Członek społeczności'}</div>
+          <div class="member-handle">${member.role || 'Obywatel'}</div>
           <div class="member-status ${statusClass}">
             <span class="dot"></span> ${statusText}
           </div>
           <div class="member-stats">
-            <div><small>Poziom</small><strong>${member.level || 1}</strong></div>
-            <div><small>Punkty XP</small><strong>${displayXp}</strong></div>
-            <div><small>Ranking</small><strong>#${member.rank || '-'}</strong></div>
+            <div><small>Pozycja</small><strong>#${member.rank || '-'}</strong></div>
+            <div><small>Świat</small><strong>${member.main_game || 'Valheim'}</strong></div>
+            <div><small>Status</small><strong style="color: var(--gold);">Aktywny</strong></div>
           </div>
         `;
 
@@ -235,29 +228,13 @@
       const isOnline = member.status === "online";
       const statusText = isOnline ? "Online" : "Offline";
       const statusClass = isOnline ? "online" : "offline";
-      const xpPercent = member.xp_percent || 65;
       
-      const tokens = member.tokens !== undefined ? member.tokens : 0;
-      const messages = member.messages !== undefined ? member.messages : 0;
-      const voiceTime = member.voice_time ? member.voice_time : "0h 0m";
-      const xpTotal = member.xp !== undefined ? member.xp : 0;
       const mainGame = member.main_game || "Valheim";
-      const joinedDate = member.joined ? `W społeczności od ${member.joined}` : "Członek społeczności";
-      const mottoText = member.motto || "Wędrowiec w świecie surviwalu";
+      const mottoText = member.motto || "Jedna społeczność, wspólny cel w świecie surviwalu.";
 
       const weapon = (member.equipment?.weapon && member.equipment.weapon !== "Brak") ? member.equipment.weapon : "Topór Bojowy";
       const armor = (member.equipment?.armor && member.equipment.armor !== "Brak") ? member.equipment.armor : "Zbroja Łuskowa";
       const amulet = (member.equipment?.amulet && member.equipment.amulet !== "Brak") ? member.equipment.amulet : "Talizman Odyna";
-
-      const unlockedAchievements = (member.achievements && member.achievements.length > 0) ? member.achievements : [
-        { title: "Rozgrzewka Skończona", desc: "Osiągnij wysoki poziom w społeczności", reward: "+50 XP" },
-        { title: "Obrońca Światów", desc: "Weź udział w wyprawach na serwerach", reward: "+100 XP" }
-      ];
-      
-      const activityHistory = member.recent_activity || [
-        { text: "Aktywny na kanale głosowym", time: "Dzisiaj" },
-        { text: "Zaktualizował statystyki profilu", time: "Przed chwilą" }
-      ];
 
       content.innerHTML = `
         <div class="profile-header-card">
@@ -269,11 +246,11 @@
                   ${member.name}
                   <span class="profile-status-pill ${statusClass}">● ${statusText}</span>
                 </h2>
-                <p style="color: #94a3b8; margin: 0.3rem 0; font-size: 0.9rem;">${joinedDate}</p>
+                <p style="color: #94a3b8; margin: 0.3rem 0; font-size: 0.9rem;">Członek społeczności Cywilizacja Polska</p>
                 <p class="profile-motto">„${mottoText}”</p>
                 <div class="profile-badges">
-                  <span class="badge-pill"><i data-lucide="shield" style="width: 13px; height: 13px;"></i> ${member.role || 'Gracz'}</span>
-                  <span class="badge-pill badge-game"><i data-lucide="axe" style="width: 13px; height: 13px;"></i> Głównie: ${mainGame}</span>
+                  <span class="badge-pill"><i data-lucide="shield" style="width: 13px; height: 13px;"></i> ${member.role || 'Obywatel'}</span>
+                  <span class="badge-pill badge-game"><i data-lucide="axe" style="width: 13px; height: 13px;"></i> Główny świat: ${mainGame}</span>
                 </div>
               </div>
             </div>
@@ -286,99 +263,74 @@
 
         <div class="profile-grid">
           <div class="profile-col">
+            <!-- STATUS OBYWATELA -->
             <div class="p-box">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
-                <span style="font-family: 'Cinzel', serif; color: #fff; font-weight: 700;">Poziom ${member.level || 1} → ${(member.level || 1) + 1}</span>
-                <span style="color: var(--gold); font-size: 0.9rem; font-weight: 600;">${xpPercent}%</span>
-              </div>
-              <div style="width: 100%; background: rgba(255,255,255,0.1); height: 10px; border-radius: 5px; overflow: hidden; margin-bottom: 1.5rem;">
-                <div style="width: ${xpPercent}%; background: var(--gold, #d4a017); height: 100%; border-radius: 5px;"></div>
-              </div>
-
-              <div class="p-stats-row">
-                <div class="p-stat-card">
-                  <small>PUNKTY XP</small>
-                  <strong>${xpTotal}</strong>
+              <h3 style="margin-bottom: 0.8rem; font-family: 'Cinzel', serif; color: var(--gold);">Karta Postaci i Status</h3>
+              <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.2rem;">
+                Oficjalny profil uczestnika wypraw survivalowych. Gotowy do eksploracji nieznanych lądów i budowy osad.
+              </p>
+              <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 120px; background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); text-align: center;">
+                  <small style="color: #94a3b8; display: block; font-size: 0.75rem;">RANG / POZIOM</small>
+                  <strong style="color: #fff; font-size: 1.1rem;">#${member.rank || '-'}</strong>
                 </div>
-                <div class="p-stat-card">
-                  <small>ŻETONY</small>
-                  <strong class="gold">${tokens}</strong>
+                <div style="flex: 1; min-width: 120px; background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); text-align: center;">
+                  <small style="color: #94a3b8; display: block; font-size: 0.75rem;">SPECJALIZACJA</small>
+                  <strong style="color: var(--gold); font-size: 1.1rem;">Wojownik</strong>
                 </div>
-                <div class="p-stat-card">
-                  <small>WIADOMOŚCI</small>
-                  <strong>${messages}</strong>
-                </div>
-                <div class="p-stat-card">
-                  <small>CZAS GŁOSOWY</small>
-                  <strong>${voiceTime}</strong>
-                </div>
-              </div>
-
-              <!-- INFORMACJA O SYNCHRONIZACJI (ZASTĄPIŁA MARTWY PRZYCISK STATBOTA) -->
-              <div style="margin-top: 1.5rem; text-align: center;">
-                <span style="display: inline-block; padding: 10px 18px; background: rgba(255, 255, 255, 0.04); color: #94a3b8; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 6px; font-size: 0.85rem;">
-                  🛡️ Profil zsynchronizowany automatycznie z systemem serwera
-                </span>
               </div>
             </div>
 
+            <!-- ODZNAKI SPOŁECZNOŚCI -->
             <div class="p-box grow">
-              <h3>Osiągnięcia <span style="font-size: 0.85rem; color: var(--gold);">(${unlockedAchievements.length} zdobytych)</span></h3>
+              <h3>Odznaki i Tytuły</h3>
               <div class="achieve-list">
-                ${unlockedAchievements.map(ach => `
-                  <div class="achieve-item">
-                    <div>
-                      <strong style="color: #fff; display: block; font-size: 0.92rem;">⭐ ${ach.title}</strong>
-                      <small style="color: #94a3b8; font-size: 0.8rem;">${ach.desc}</small>
-                    </div>
-                    <span style="color: var(--gold); font-weight: 700; font-size: 0.82rem;">${ach.reward}</span>
+                <div class="achieve-item">
+                  <div>
+                    <strong style="color: #fff; display: block; font-size: 0.92rem;">⭐ Obywatel Cywilizacji</strong>
+                    <small style="color: #94a3b8; font-size: 0.8rem;">Zweryfikowany uczestnik społeczności Discord</small>
                   </div>
-                `).join('')}
-
-                ${DEFAULT_LOCKED_ACHIEVEMENTS.map(ach => `
-                  <div class="achieve-item locked">
-                    <div>
-                      <strong style="color: #cbd5e1; display: block; font-size: 0.9rem;">🔒 ${ach.title}</strong>
-                      <small style="color: #94a3b8; font-size: 0.78rem;">${ach.desc}</small>
-                    </div>
-                    <span style="color: #94a3b8; font-weight: 600; font-size: 0.8rem;">${ach.reward}</span>
+                  <span style="color: var(--gold); font-weight: 700; font-size: 0.82rem;">Nadane</span>
+                </div>
+                <div class="achieve-item">
+                  <div>
+                    <strong style="color: #fff; display: block; font-size: 0.92rem;">⭐ Wędrowiec Północy</strong>
+                    <small style="color: #94a3b8; font-size: 0.8rem;">Gotowy do walki w surowych warunkach</small>
                   </div>
-                `).join('')}
+                  <span style="color: var(--gold); font-weight: 700; font-size: 0.82rem;">Aktywny</span>
+                </div>
               </div>
             </div>
           </div>
 
           <div class="profile-col">
+            <!-- EKWIPUNEK I STYL -->
             <div class="p-box">
-              <h3>Ekwipunek i styl</h3>
+              <h3>Ekwipunek Bojowy</h3>
               <div class="equip-slots">
-                <div class="equip-slot ${weapon ? 'equipped' : 'empty'}">
+                <div class="equip-slot equipped">
                   <i data-lucide="sword"></i>
-                  Broń
+                  Główna Broń
                   <span>${weapon}</span>
                 </div>
-                <div class="equip-slot ${armor ? 'equipped' : 'empty'}">
+                <div class="equip-slot equipped">
                   <i data-lucide="shield"></i>
-                  Zbroja
+                  Pancerz
                   <span>${armor}</span>
                 </div>
-                <div class="equip-slot ${amulet ? 'equipped' : 'empty'}">
+                <div class="equip-slot equipped">
                   <i data-lucide="sparkles"></i>
-                  Amulet
+                  Talizman
                   <span>${amulet}</span>
                 </div>
               </div>
             </div>
 
+            <!-- OSOBISTA NOTATKA -->
             <div class="p-box grow">
-              <h3>Ostatnia aktywność</h3>
-              <div class="activity-feed">
-                ${activityHistory.map(act => `
-                  <div class="activity-row">
-                    <span>${act.text}</span>
-                    <small>${act.time}</small>
-                  </div>
-                `).join('')}
+              <h3>Osobisty Dziennik</h3>
+              <div style="padding: 15px; background: rgba(0,0,0,0.2); border-radius: 8px; color: #94a3b8; font-style: italic; font-size: 0.95rem; border-left: 3px solid var(--gold);">
+                „Spotkajmy się przy wspólnym ognisku. Razem przetrwamy każdą burzę i zbudujemy potężne królestwo.”
               </div>
             </div>
           </div>
