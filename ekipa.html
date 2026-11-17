@@ -11,136 +11,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    .crew-hero { padding: 5rem 0 2rem; text-align: center; background: radial-gradient(circle at center, rgba(212,160,23,0.08) 0%, transparent 70%); }
-    .crew-hero h1 { font-family: 'Cinzel', serif; font-size: 3rem; color: #fff; margin-bottom: 1rem; }
-    .crew-hero h1 span { color: var(--gold, #d4a017); }
-    .crew-hero p { color: #94a3b8; max-width: 600px; margin: 0 auto; font-size: 1.1rem; }
-    
-    .filter-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin: 2rem 0; padding: 1rem; background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; }
-    .filter-buttons { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-    .filter-btn { background: transparent; border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; transition: 0.2s; font-family: 'Manrope', sans-serif; font-weight: 500; }
-    .filter-btn.active, .filter-btn:hover { background: var(--gold, #d4a017); color: #0f172a; border-color: var(--gold, #d4a017); }
-    
-    .search-box { position: relative; }
-    .search-box input { background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); padding: 0.6rem 1rem 0.6rem 2.5rem; border-radius: 8px; color: #fff; font-family: 'Manrope', sans-serif; outline: none; width: 240px; transition: 0.2s; }
-    .search-box input:focus { border-color: var(--gold, #d4a017); width: 280px; }
-    .search-box i { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #94a3b8; width: 16px; height: 16px; }
-
-    .members-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem; margin-bottom: 4rem; }
-    .member-card { background: linear-gradient(145deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.9)); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; padding: 1.5rem; text-align: center; position: relative; transition: transform 0.2s, border-color 0.2s; cursor: pointer; }
-    .member-card:hover { transform: translateY(-4px); border-color: rgba(212,160,23,0.4); }
-    .member-lvl { position: absolute; top: 1rem; right: 1rem; background: rgba(212,160,23,0.15); color: var(--gold, #d4a017); font-size: 0.75rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 6px; border: 1px solid rgba(212,160,23,0.3); font-family: 'Cinzel', serif; }
-    
-    .member-avatar { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin: 0 auto 1rem; border: 2px solid rgba(255,255,255,0.1); }
-    .member-name { font-family: 'Cinzel', serif; font-size: 1.15rem; color: #fff; margin-bottom: 0.2rem; }
-    .member-handle { font-size: 0.85rem; color: #94a3b8; margin-bottom: 0.8rem; }
-    
-    .member-status { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; margin-bottom: 1.2rem; padding: 0.2rem 0.8rem; border-radius: 20px; background: rgba(255,255,255,0.03); }
-    .member-status.online { color: #22c55e; }
-    .member-status.online .dot { width: 6px; height: 6px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 8px #22c55e; }
-    .member-status.offline { color: #94a3b8; }
-    .member-status.offline .dot { width: 6px; height: 6px; background: #94a3b8; border-radius: 50%; }
-
-    .member-stats { display: flex; justify-content: space-around; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1rem; font-size: 0.85rem; }
-    .member-stats div small { display: block; color: #94a3b8; font-size: 0.7rem; margin-bottom: 0.1rem; }
-    .member-stats div strong { color: #fff; font-family: 'Cinzel', serif; }
-
-    /* WIDOK SZCZEGÓŁOWY PROFILU (DASHBOARD) */
-    #profile-view { display: none; margin-bottom: 4rem; }
-    .profile-back-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 0.6rem 1.2rem; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem; font-family: 'Manrope', sans-serif; font-weight: 600; transition: 0.2s; }
-    .profile-back-btn:hover { background: var(--gold, #d4a017); color: #0f172a; border-color: var(--gold, #d4a017); }
-
-    .profile-header-card { background: linear-gradient(145deg, rgba(30, 41, 59, 0.85), rgba(15, 23, 42, 0.95)); border: 1px solid rgba(212,160,23,0.3); border-radius: 16px; padding: 2.5rem; position: relative; margin-bottom: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-    .profile-header-top { display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; justify-content: space-between; }
-    .profile-user-info { display: flex; align-items: center; gap: 1.5rem; }
-    .profile-big-avatar { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid var(--gold, #d4a017); }
-    .profile-badges { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.5rem; }
-    .badge-pill { background: rgba(212,160,23,0.15); color: var(--gold, #d4a017); font-size: 0.75rem; padding: 0.2rem 0.8rem; border-radius: 20px; border: 1px solid rgba(212,160,23,0.3); font-weight: 600; }
-    
-    .profile-rank-badge { text-align: right; }
-    .profile-rank-badge small { display: block; color: #94a3b8; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; }
-    .profile-rank-badge strong { font-family: 'Cinzel', serif; font-size: 2.5rem; color: var(--gold, #d4a017); }
-
-    .profile-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; }
-    @media(max-width: 900px) { .profile-grid { grid-template-columns: 1fr; } }
-
-    .p-box { background: linear-gradient(145deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.9)); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px; padding: 1.8rem; margin-bottom: 1.5rem; }
-    .p-box h3 { font-family: 'Cinzel', serif; font-size: 1.2rem; color: #fff; margin-bottom: 1rem; display: flex; align-items: center; justify-content: space-between; }
-    
-    .p-stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; text-align: center; margin-top: 1.5rem; }
-    .p-stat-card { background: rgba(15,23,42,0.6); border: 1px solid rgba(255,255,255,0.05); padding: 1rem; border-radius: 10px; }
-    .p-stat-card small { display: block; color: #94a3b8; font-size: 0.75rem; margin-bottom: 0.3rem; }
-    .p-stat-card strong { font-size: 1.3rem; font-family: 'Cinzel', serif; color: #fff; }
-    .p-stat-card strong.gold { color: var(--gold, #d4a017); }
-
-    .achieve-item { display: flex; align-items: center; justify-content: space-between; padding: 0.8rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
-    .achieve-item:last-child { border-bottom: none; }
-    .equip-slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; text-align: center; margin-top: 1rem; }
-    .equip-slot { background: rgba(15,23,42,0.6); border: 1px solid rgba(255,255,255,0.08); padding: 1rem; border-radius: 10px; font-size: 0.85rem; color: #94a3b8; }
-    .equip-slot span { display: block; color: #fff; font-weight: 600; margin-top: 0.3rem; font-size: 0.8rem; }
-
-    /* Przycisk hamburgera i wycentrowanie menu */
-    .mobile-menu-toggle {
-      display: none;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #fff;
-      padding: 0.5rem 0.75rem;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 1.25rem;
-      align-items: center;
-      justify-content: center;
-    }
-
-    @media (min-width: 961px) {
-      .site-header .header-inner {
-        position: relative;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-      .main-nav {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        align-items: center;
-        gap: 1.5rem;
-      }
-    }
-
-    @media (max-width: 960px) {
-      .mobile-menu-toggle {
-        display: flex;
-      }
-      .main-nav {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background: rgba(11, 15, 23, 0.98);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        flex-direction: column;
-        padding: 1.25rem;
-        border-bottom: 1px solid rgba(212, 160, 23, 0.2);
-        box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-        gap: 0.75rem;
-        z-index: 1000;
-      }
-      .main-nav.active {
-        display: flex;
-      }
-      .site-header .header-inner {
-        position: relative;
-        flex-wrap: wrap;
-      }
-    }
-  </style>
+  <script>
+    const cacheBuster = Date.now();
+    document.write('<link rel="stylesheet" href="style.css?v=' + cacheBuster + '" />');
+    document.write('<link rel="stylesheet" href="ekipa.css?v=' + cacheBuster + '" />');
+  </script>
 </head>
 <body class="cywilizacja-world-site">
 
@@ -176,13 +51,13 @@
     <div id="list-view">
       <section class="crew-hero">
         <div class="container">
-          <div class="eyebrow" style="color: var(--gold); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 0.5rem;">Cywilizacja to my</div>
+          <div class="eyebrow">Cywilizacja to my</div>
           <h1>Poznaj swoją <span>ekipę.</span></h1>
           <p>Wspólna gra buduje relacje. Kliknij na gracza, aby zobaczyć jego pełny profil i statystyki.</p>
         </div>
       </section>
 
-      <section class="section container">
+      <section class="section container" style="padding-top: 2rem;">
         <div class="filter-bar">
           <div class="filter-buttons">
             <button class="filter-btn active" data-filter="all">Wszyscy gracze</button>
@@ -204,7 +79,7 @@
     <!-- WIDOK 2: SZCZEGÓŁOWY PROFIL GRACZA -->
     <div id="profile-view" class="container">
       <button class="profile-back-btn" onclick="showListView()">
-        <i data-lucide="arrow-left"></i> Powrót do listy graczy
+        <i data-lucide="arrow-left" style="width: 18px; height: 18px;"></i> Wróć do społeczności
       </button>
 
       <div id="profile-content">
@@ -234,7 +109,7 @@
       </div>
       <div>
         <h2>Gramy fair</h2>
-        <a href="#">Regulamin</a>
+        <a href="regulamin.html">Regulamin</a>
         <a href="#">Polityka prywatności</a>
       </div>
     </div>
@@ -245,11 +120,16 @@
     </div>
   </footer>
 
+  <!-- PŁYWAJĄCY PRZYCISK DISCORDA -->
+  <a href="https://discord.gg/jmFhmU2VWR" target="_blank" class="floating-discord-btn" aria-label="Dołącz na Discord">
+    <i data-lucide="gamepad-2"></i>
+    <span class="tooltip">Dołącz na Discord ↗</span>
+  </a>
+
   <!-- SKRYPT OBSŁUGUJĄCY LISTĘ ORAZ DYNAMICZNE PROFILE -->
   <script>
     lucide.createIcons();
 
-    // Obsługa rozwijanego menu na telefonach
     const menuToggle = document.getElementById('menu-toggle');
     const mainNav = document.getElementById('main-nav');
 
@@ -266,10 +146,22 @@
     }
 
     let allMembers = [];
+    let currentFilter = "all";
+    let activeProfileId = null;
+
+    // Domyślne zablokowane osiągnięcia do podglądu zachęcającego do gry
+    const DEFAULT_LOCKED_ACHIEVEMENTS = [
+      { title: "Pierwsza Krew", desc: "Pokonaj pierwszego bossa na serwerze", reward: "+100 XP" },
+      { title: "Gaduła Cywilizacji", desc: "Napisz 100 wiadomości na Discordzie", reward: "+50 XP" },
+      { title: "Weteran Głosowy", desc: "Spędź 10 godzin na kanałach głosowych", reward: "+150 XP" }
+    ];
 
     async function loadMembers() {
       try {
-        const response = await fetch('./members.json?t=' + Date.now());
+        const response = await fetch('./members.json?t=' + Date.now(), {
+          cache: 'no-store',
+          headers: { 'Cache-Control': 'no-cache' }
+        });
         if (!response.ok) throw new Error("Brak pliku members.json");
         const rawData = await response.json();
         
@@ -279,25 +171,16 @@
           allMembers = Object.keys(rawData).map(key => ({ id: key, ...rawData[key] }));
         }
 
-        displayMembers(allMembers);
-        checkHashRoute();
+        applyFilters();
+
+        if (activeProfileId) {
+          const updatedMember = allMembers.find(m => (m.id === activeProfileId || m.name.toLowerCase().replace(/\s+/g, '-') === activeProfileId));
+          if (updatedMember) renderProfileContent(updatedMember);
+        } else {
+          checkHashRoute();
+        }
       } catch (error) {
         console.warn("Używanie danych zastępczych:", error);
-        allMembers = [
-          { 
-            id: "patryk", name: "Patryk", handle: "@patryk", avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&q=80", 
-            status: "online", role: "Właściciel · Legenda FuriaPolska", level: 13, next_level: 14, xp: 9344, rank: 1, joined: "18.06.2020",
-            xp_percent: 56, tokens: 111, messages: 8650,
-            equipment: { weapon: "Topór Bojowy Odyna", armor: "Zbroja Łuskowa Smoka", amulet: "Talizman Przetrwania" },
-            achievements: [
-              { title: "Rozgrzewka Skończona", desc: "Osiągnij poziom 10", reward: "+50 XP" },
-              { title: "Prawdziwa Gwiazda", desc: "Zdobądź 100 reakcji", reward: "+50 XP" },
-              { title: "Profesjonalny Pisarz", desc: "Wyślij 1000 wiadomości", reward: "+100 XP" }
-            ]
-          }
-        ];
-        displayMembers(allMembers);
-        checkHashRoute();
       }
     }
 
@@ -316,7 +199,7 @@
         
         const isOnline = member.status === "online";
         const statusClass = isOnline ? "online" : "offline";
-        const statusText = isOnline ? "Dostępny" : "Offline";
+        const statusText = isOnline ? "Online" : "Offline";
         const memberId = member.id || member.name.toLowerCase().replace(/\s+/g, '-');
 
         card.innerHTML = `
@@ -345,18 +228,33 @@
     }
 
     function showProfile(member) {
+      activeProfileId = member.id || member.name.toLowerCase().replace(/\s+/g, '-');
       document.getElementById("list-view").style.display = "none";
       document.getElementById("profile-view").style.display = "block";
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      renderProfileContent(member);
+    }
 
+    function renderProfileContent(member) {
       const content = document.getElementById("profile-content");
       
       const isOnline = member.status === "online";
       const statusText = isOnline ? "Online" : "Offline";
+      const statusClass = isOnline ? "online" : "offline";
       const xpPercent = member.xp_percent || 50;
       const tokens = member.tokens || member.stats?.tokens || 0;
       const messages = member.messages || member.stats?.messages || 0;
+      const voiceTime = member.voice_time || member.stats?.voice_time || "0h 0m";
       const xpTotal = member.xp || member.stats?.xp_total || 0;
+      const mainGame = member.main_game || "Valheim";
+      const joinedDate = member.joined ? `W społeczności od ${member.joined}` : "Członek społeczności";
+
+      const weapon = member.equipment?.weapon;
+      const armor = member.equipment?.armor;
+      const amulet = member.equipment?.amulet;
+
+      const unlockedAchievements = member.achievements || [];
+      const activityHistory = member.recent_activity || (member.last_activity ? [{ text: member.last_activity, time: member.last_seen || "Przed chwilą" }] : []);
 
       content.innerHTML = `
         <div class="profile-header-card">
@@ -364,12 +262,15 @@
             <div class="profile-user-info">
               <img src="${member.avatar || 'https://cdn.discordapp.com/embed/avatars/0.png'}" alt="${member.name}" class="profile-big-avatar" onerror="this.src='https://cdn.discordapp.com/embed/avatars/0.png'" />
               <div>
-                <h2 style="font-family: 'Cinzel', serif; font-size: 2.2rem; color: #fff; margin: 0; display: flex; align-items: center; gap: 0.5rem;">
-                  ${member.name} <span style="font-size: 1rem; color: var(--gold); font-family: 'Manrope', sans-serif;">● ${statusText}</span>
+                <h2 style="font-family: 'Cinzel', serif; font-size: 2.2rem; color: #fff; margin: 0; display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+                  ${member.name}
+                  <span class="profile-status-pill ${statusClass}">● ${statusText}</span>
                 </h2>
-                <p style="color: #94a3b8; margin: 0.3rem 0; font-size: 0.95rem;">Dołączył ${member.joined || 'w społeczności'}</p>
+                <p style="color: #94a3b8; margin: 0.3rem 0; font-size: 0.9rem;">${joinedDate}</p>
+                ${member.motto ? `<p class="profile-motto">„${member.motto}”</p>` : ''}
                 <div class="profile-badges">
-                  <span class="badge-pill">${member.role || 'Gracz'}</span>
+                  <span class="badge-pill"><i data-lucide="shield" style="width: 13px; height: 13px;"></i> ${member.role || 'Gracz'}</span>
+                  <span class="badge-pill badge-game"><i data-lucide="axe" style="width: 13px; height: 13px;"></i> Głównie: ${mainGame}</span>
                 </div>
               </div>
             </div>
@@ -381,7 +282,8 @@
         </div>
 
         <div class="profile-grid">
-          <div>
+          <!-- LEWA KOLUMNA -->
+          <div class="profile-col">
             <div class="p-box">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
                 <span style="font-family: 'Cinzel', serif; color: #fff; font-weight: 700;">Poziom ${member.level || 1} → ${(member.level || 1) + 1}</span>
@@ -404,45 +306,86 @@
                   <small>WIADOMOŚCI</small>
                   <strong>${messages}</strong>
                 </div>
+                <div class="p-stat-card">
+                  <small>CZAS GŁOSOWY</small>
+                  <strong>${voiceTime}</strong>
+                </div>
               </div>
             </div>
 
-            <div class="p-box">
-              <h3>Osiągnięcia <span>(${(member.achievements || []).length} zdobytych)</span></h3>
-              <div style="margin-top: 1rem;">
-                ${(member.achievements && member.achievements.length > 0) ? member.achievements.map(ach => `
+            <div class="p-box grow">
+              <h3>Osiągnięcia <span style="font-size: 0.85rem; color: var(--gold);">(${unlockedAchievements.length} zdobytych)</span></h3>
+              <div class="achieve-list">
+                ${unlockedAchievements.map(ach => `
                   <div class="achieve-item">
                     <div>
-                      <strong style="color: #fff; display: block; font-size: 0.95rem;">⭐ ${ach.title}</strong>
+                      <strong style="color: #fff; display: block; font-size: 0.92rem;">⭐ ${ach.title}</strong>
                       <small style="color: #94a3b8; font-size: 0.8rem;">${ach.desc}</small>
                     </div>
-                    <span style="color: var(--gold); font-weight: 700; font-size: 0.85rem;">${ach.reward}</span>
+                    <span style="color: var(--gold); font-weight: 700; font-size: 0.82rem;">${ach.reward}</span>
                   </div>
-                `).join('') : '<p style="color: #94a3b8; font-size: 0.9rem;">Brak odblokowanych osiągnięć.</p>'}
+                `).join('')}
+
+                ${unlockedAchievements.length === 0 ? DEFAULT_LOCKED_ACHIEVEMENTS.map(ach => `
+                  <div class="achieve-item locked">
+                    <div>
+                      <strong style="color: #cbd5e1; display: block; font-size: 0.9rem;">🔒 ${ach.title}</strong>
+                      <small style="color: #94a3b8; font-size: 0.78rem;">${ach.desc}</small>
+                    </div>
+                    <span style="color: #94a3b8; font-weight: 600; font-size: 0.8rem;">${ach.reward}</span>
+                  </div>
+                `).join('') : ''}
               </div>
             </div>
           </div>
 
-          <div>
+          <!-- PRAWA KOLUMNA -->
+          <div class="profile-col">
             <div class="p-box">
               <h3>Ekwipunek i styl</h3>
               <div class="equip-slots">
-                <div class="equip-slot">Broń<span>${member.equipment?.weapon || 'Brak'}</span></div>
-                <div class="equip-slot">Zbroja<span>${member.equipment?.armor || 'Brak'}</span></div>
-                <div class="equip-slot">Amulet<span>${member.equipment?.amulet || 'Brak'}</span></div>
+                <div class="equip-slot ${weapon ? 'equipped' : 'empty'}">
+                  <i data-lucide="sword"></i>
+                  Broń
+                  <span>${weapon || 'Brak'}</span>
+                </div>
+                <div class="equip-slot ${armor ? 'equipped' : 'empty'}">
+                  <i data-lucide="shield"></i>
+                  Zbroja
+                  <span>${armor || 'Brak'}</span>
+                </div>
+                <div class="equip-slot ${amulet ? 'equipped' : 'empty'}">
+                  <i data-lucide="sparkles"></i>
+                  Amulet
+                  <span>${amulet || 'Brak'}</span>
+                </div>
               </div>
             </div>
 
-            <div class="p-box">
+            <div class="p-box grow">
               <h3>Ostatnia aktywność</h3>
-              <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 1rem;">Aktywność na kanałach głosowych oraz tekstowych Discorda jest synchronizowana na bieżąco.</p>
+              <div class="activity-feed">
+                ${activityHistory.length > 0 ? activityHistory.map(act => `
+                  <div class="activity-row">
+                    <span>${act.text}</span>
+                    <small>${act.time}</small>
+                  </div>
+                `).join('') : `
+                  <p style="color: #94a3b8; font-size: 0.88rem; line-height: 1.5; margin: 0;">
+                    Aktywność na kanałach głosowych oraz tekstowych Discorda jest synchronizowana na bieżąco.
+                  </p>
+                `}
+              </div>
             </div>
           </div>
         </div>
       `;
+
+      lucide.createIcons();
     }
 
     function showListView() {
+      activeProfileId = null;
       document.getElementById("profile-view").style.display = "none";
       document.getElementById("list-view").style.display = "block";
       window.location.hash = "";
@@ -458,32 +401,37 @@
       }
     }
 
+    function applyFilters() {
+      let filtered = allMembers;
+
+      if (currentFilter === "online") {
+        filtered = filtered.filter(m => m.status === "online");
+      } else if (currentFilter === "admin") {
+        filtered = filtered.filter(m => {
+          const role = (m.role || "").toLowerCase();
+          return role.includes("wódz") || role.includes("admin") || role.includes("moderator") || role.includes("właściciel") || role.includes("👑");
+        });
+      }
+
+      const searchInput = document.getElementById("search-input");
+      const query = searchInput ? searchInput.value.toLowerCase().trim() : "";
+      if (query) {
+        filtered = filtered.filter(m => m.name.toLowerCase().includes(query) || (m.role || "").toLowerCase().includes(query));
+      }
+
+      displayMembers(filtered);
+    }
+
     document.addEventListener("DOMContentLoaded", () => {
       loadMembers();
 
+      // Automatyczne odświeżanie danych profilu i listy co 30 sekund bez Ctrl+F5
+      setInterval(() => {
+        loadMembers();
+      }, 30000);
+
       const searchInput = document.getElementById("search-input");
       const filterButtons = document.querySelectorAll(".filter-btn");
-      let currentFilter = "all";
-
-      function applyFilters() {
-        let filtered = allMembers;
-
-        if (currentFilter === "online") {
-          filtered = filtered.filter(m => m.status === "online");
-        } else if (currentFilter === "admin") {
-          filtered = filtered.filter(m => {
-            const role = (m.role || "").toLowerCase();
-            return role.includes("wódz") || role.includes("admin") || role.includes("moderator") || role.includes("właściciel") || role.includes("👑");
-          });
-        }
-
-        const query = searchInput.value.toLowerCase().trim();
-        if (query) {
-          filtered = filtered.filter(m => m.name.toLowerCase().includes(query) || (m.role || "").toLowerCase().includes(query));
-        }
-
-        displayMembers(filtered);
-      }
 
       filterButtons.forEach(btn => {
         btn.addEventListener("click", () => {
@@ -494,13 +442,10 @@
         });
       });
 
-      searchInput.addEventListener("input", applyFilters);
+      if (searchInput) {
+        searchInput.addEventListener("input", applyFilters);
+      }
     });
   </script>
-  <!-- PŁYWAJĄCY PRZYCISK DISCORDA -->
-  <a href="https://discord.gg/jmFhmU2VWR" target="_blank" class="floating-discord-btn" aria-label="Dołącz na Discord">
-    <i data-lucide="gamepad-2"></i>
-    <span class="tooltip">Dołącz na Discord ↗</span>
-  </a>
 </body>
 </html>
