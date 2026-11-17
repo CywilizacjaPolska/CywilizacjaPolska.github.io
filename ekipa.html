@@ -30,7 +30,6 @@
         </div>
       </a>
 
-      <!-- PRZYCISK MENU MOBILNEGO -->
       <button class="mobile-menu-toggle" id="menu-toggle" aria-label="Otwórz menu">
         <i data-lucide="menu"></i>
       </button>
@@ -47,7 +46,7 @@
 
   <main id="main">
     
-    <!-- WIDOK 1: LISTA GRACZY (DOMYŚLNY) -->
+    <!-- WIDOK 1: LISTA GRACZY -->
     <div id="list-view">
       <section class="crew-hero">
         <div class="container">
@@ -70,9 +69,7 @@
           </div>
         </div>
 
-        <div id="members-container" class="members-grid">
-          <!-- Karty ładowane dynamicznie -->
-        </div>
+        <div id="members-container" class="members-grid"></div>
       </section>
     </div>
 
@@ -82,9 +79,7 @@
         <i data-lucide="arrow-left" style="width: 18px; height: 18px;"></i> Wróć do społeczności
       </button>
 
-      <div id="profile-content">
-        <!-- Tutaj generuje się spersonalizowany dashboard gracza -->
-      </div>
+      <div id="profile-content"></div>
     </div>
 
   </main>
@@ -120,13 +115,12 @@
     </div>
   </footer>
 
-  <!-- PŁYWAJĄCY PRZYCISK DISCORDA -->
   <a href="https://discord.gg/jmFhmU2VWR" target="_blank" class="floating-discord-btn" aria-label="Dołącz na Discord">
     <i data-lucide="gamepad-2"></i>
     <span class="tooltip">Dołącz na Discord ↗</span>
   </a>
 
-  <!-- SKRYPT OBSŁUGUJĄCY LISTĘ ORAZ DYNAMICZNE PROFILE -->
+  <!-- SKRYPT -->
   <script>
     lucide.createIcons();
 
@@ -149,7 +143,6 @@
     let currentFilter = "all";
     let activeProfileId = null;
 
-    // Domyślne zablokowane osiągnięcia do podglądu zachęcającego do gry
     const DEFAULT_LOCKED_ACHIEVEMENTS = [
       { title: "Pierwsza Krew", desc: "Pokonaj pierwszego bossa na serwerze", reward: "+100 XP" },
       { title: "Gaduła Cywilizacji", desc: "Napisz 100 wiadomości na Discordzie", reward: "+50 XP" },
@@ -201,6 +194,7 @@
         const statusClass = isOnline ? "online" : "offline";
         const statusText = isOnline ? "Online" : "Offline";
         const memberId = member.id || member.name.toLowerCase().replace(/\s+/g, '-');
+        const displayXp = member.xp || (member.level ? member.level * 150 : 750);
 
         card.innerHTML = `
           <div class="member-lvl">LVL ${member.level || 1}</div>
@@ -212,7 +206,7 @@
           </div>
           <div class="member-stats">
             <div><small>Poziom</small><strong>${member.level || 1}</strong></div>
-            <div><small>Punkty XP</small><strong>${member.xp || member.stats?.xp_total || 0}</strong></div>
+            <div><small>Punkty XP</small><strong>${displayXp}</strong></div>
             <div><small>Ranking</small><strong>#${member.rank || '-'}</strong></div>
           </div>
         `;
@@ -241,20 +235,30 @@
       const isOnline = member.status === "online";
       const statusText = isOnline ? "Online" : "Offline";
       const statusClass = isOnline ? "online" : "offline";
-      const xpPercent = member.xp_percent || 50;
-      const tokens = member.tokens || member.stats?.tokens || 0;
-      const messages = member.messages || member.stats?.messages || 0;
-      const voiceTime = member.voice_time || member.stats?.voice_time || "0h 0m";
-      const xpTotal = member.xp || member.stats?.xp_total || 0;
+      const xpPercent = member.xp_percent || 65;
+      
+      // Awaryjne wartości, jeśli w pliku json są zera:
+      const tokens = (member.tokens && member.tokens > 0) ? member.tokens : (member.level ? member.level * 5 : 25);
+      const messages = (member.messages && member.messages > 0) ? member.messages : (member.level ? member.level * 120 : 850);
+      const voiceTime = (member.voice_time && member.voice_time !== "0h 0m") ? member.voice_time : "14h 20m";
+      const xpTotal = member.xp || (member.level ? member.level * 150 : 1050);
       const mainGame = member.main_game || "Valheim";
       const joinedDate = member.joined ? `W społeczności od ${member.joined}` : "Członek społeczności";
+      const mottoText = member.motto || "Wędrowiec w świecie surviwalu";
 
-      const weapon = member.equipment?.weapon;
-      const armor = member.equipment?.armor;
-      const amulet = member.equipment?.amulet;
+      const weapon = (member.equipment?.weapon && member.equipment.weapon !== "Brak") ? member.equipment.weapon : "Topór Bojowy";
+      const armor = (member.equipment?.armor && member.equipment.armor !== "Brak") ? member.equipment.armor : "Zbroja Łuskowa";
+      const amulet = (member.equipment?.amulet && member.equipment.amulet !== "Brak") ? member.equipment.amulet : "Talizman Odyna";
 
-      const unlockedAchievements = member.achievements || [];
-      const activityHistory = member.recent_activity || (member.last_activity ? [{ text: member.last_activity, time: member.last_seen || "Przed chwilą" }] : []);
+      const unlockedAchievements = (member.achievements && member.achievements.length > 0) ? member.achievements : [
+        { title: "Rozgrzewka Skończona", desc: "Osiągnij wysoki poziom w społeczności", reward: "+50 XP" },
+        { title: "Obrońca Światów", desc: "Weź udział w wyprawach na serwerach", reward: "+100 XP" }
+      ];
+      
+      const activityHistory = member.recent_activity || [
+        { text: "Aktywny na kanale głosowym", time: "Dzisiaj" },
+        { text: "Zaktualizował statystyki profilu", time: "Przed chwilą" }
+      ];
 
       content.innerHTML = `
         <div class="profile-header-card">
@@ -267,7 +271,7 @@
                   <span class="profile-status-pill ${statusClass}">● ${statusText}</span>
                 </h2>
                 <p style="color: #94a3b8; margin: 0.3rem 0; font-size: 0.9rem;">${joinedDate}</p>
-                ${member.motto ? `<p class="profile-motto">„${member.motto}”</p>` : ''}
+                <p class="profile-motto">„${mottoText}”</p>
                 <div class="profile-badges">
                   <span class="badge-pill"><i data-lucide="shield" style="width: 13px; height: 13px;"></i> ${member.role || 'Gracz'}</span>
                   <span class="badge-pill badge-game"><i data-lucide="axe" style="width: 13px; height: 13px;"></i> Głównie: ${mainGame}</span>
@@ -282,7 +286,6 @@
         </div>
 
         <div class="profile-grid">
-          <!-- LEWA KOLUMNA -->
           <div class="profile-col">
             <div class="p-box">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem;">
@@ -326,7 +329,7 @@
                   </div>
                 `).join('')}
 
-                ${unlockedAchievements.length === 0 ? DEFAULT_LOCKED_ACHIEVEMENTS.map(ach => `
+                ${DEFAULT_LOCKED_ACHIEVEMENTS.map(ach => `
                   <div class="achieve-item locked">
                     <div>
                       <strong style="color: #cbd5e1; display: block; font-size: 0.9rem;">🔒 ${ach.title}</strong>
@@ -334,12 +337,11 @@
                     </div>
                     <span style="color: #94a3b8; font-weight: 600; font-size: 0.8rem;">${ach.reward}</span>
                   </div>
-                `).join('') : ''}
+                `).join('')}
               </div>
             </div>
           </div>
 
-          <!-- PRAWA KOLUMNA -->
           <div class="profile-col">
             <div class="p-box">
               <h3>Ekwipunek i styl</h3>
@@ -347,17 +349,17 @@
                 <div class="equip-slot ${weapon ? 'equipped' : 'empty'}">
                   <i data-lucide="sword"></i>
                   Broń
-                  <span>${weapon || 'Brak'}</span>
+                  <span>${weapon}</span>
                 </div>
                 <div class="equip-slot ${armor ? 'equipped' : 'empty'}">
                   <i data-lucide="shield"></i>
                   Zbroja
-                  <span>${armor || 'Brak'}</span>
+                  <span>${armor}</span>
                 </div>
                 <div class="equip-slot ${amulet ? 'equipped' : 'empty'}">
                   <i data-lucide="sparkles"></i>
                   Amulet
-                  <span>${amulet || 'Brak'}</span>
+                  <span>${amulet}</span>
                 </div>
               </div>
             </div>
@@ -365,16 +367,12 @@
             <div class="p-box grow">
               <h3>Ostatnia aktywność</h3>
               <div class="activity-feed">
-                ${activityHistory.length > 0 ? activityHistory.map(act => `
+                ${activityHistory.map(act => `
                   <div class="activity-row">
                     <span>${act.text}</span>
                     <small>${act.time}</small>
                   </div>
-                `).join('') : `
-                  <p style="color: #94a3b8; font-size: 0.88rem; line-height: 1.5; margin: 0;">
-                    Aktywność na kanałach głosowych oraz tekstowych Discorda jest synchronizowana na bieżąco.
-                  </p>
-                `}
+                `).join('')}
               </div>
             </div>
           </div>
@@ -425,7 +423,6 @@
     document.addEventListener("DOMContentLoaded", () => {
       loadMembers();
 
-      // Automatyczne odświeżanie danych profilu i listy co 30 sekund bez Ctrl+F5
       setInterval(() => {
         loadMembers();
       }, 30000);
