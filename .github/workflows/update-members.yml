@@ -1,7 +1,7 @@
 name: Synchronizacja Discord i Statbot
 on:
   schedule:
-    - cron: '0 * * * *' # Co godzinę
+    - cron: '*/15 * * * *' # Co godzinę
   workflow_dispatch:      # Ręczne uruchomienie
 
 jobs:
