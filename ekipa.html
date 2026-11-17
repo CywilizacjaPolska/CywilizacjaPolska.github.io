@@ -52,7 +52,7 @@
         <div class="container">
           <div class="eyebrow">Cywilizacja to my</div>
           <h1>Poznaj swoją <span>ekipę.</span></h1>
-          <p>Wspólna gra buduje relacje. Kliknij na gracza, aby zobaczyć jego profil i role.</p>
+          <p>Wspólna gra buduje relacje. Kliknij na gracza, aby zobaczyć jego profil i status.</p>
         </div>
       </section>
 
@@ -188,19 +188,20 @@
         const statusClass = isOnline ? "online" : "offline";
         const statusText = isOnline ? "Online" : "Offline";
         const memberId = member.id || member.name.toLowerCase().replace(/\s+/g, '-');
+        const roleColor = member.role_color || 'var(--gold)';
 
         card.innerHTML = `
-          <div class="member-lvl">RANG ${member.rank || 1}</div>
-          <img src="${member.avatar || 'https://cdn.discordapp.com/embed/avatars/0.png'}" alt="${member.name}" class="member-avatar" onerror="this.src='https://cdn.discordapp.com/embed/avatars/0.png'" />
+          <div class="member-lvl" style="border-color: ${roleColor}; color: ${roleColor};">${member.veteran_title || 'Podróżnik'}</div>
+          <img src="${member.avatar || 'https://cdn.discordapp.com/embed/avatars/0.png'}" alt="${member.name}" class="member-avatar" style="border: 2px solid ${roleColor};" onerror="this.src='https://cdn.discordapp.com/embed/avatars/0.png'" />
           <h3 class="member-name">${member.name}</h3>
-          <div class="member-handle">${member.role || 'Obywatel'}</div>
+          <div class="member-handle" style="color: ${roleColor};">${member.role || 'Obywatel'}</div>
           <div class="member-status ${statusClass}">
             <span class="dot"></span> ${statusText}
           </div>
           <div class="member-stats">
-            <div><small>Pozycja</small><strong>#${member.rank || '-'}</strong></div>
+            <div><small>W osadzie</small><strong>${member.joined_days || 0} dni</strong></div>
             <div><small>Aktywność</small><strong style="font-size: 0.8rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 90px; display: inline-block;">${member.main_game || 'Brak'}</strong></div>
-            <div><small>Dołączył</small><strong>${member.joined || 'N/A'}</strong></div>
+            <div><small>Ranking</small><strong>#${member.rank || '-'}</strong></div>
           </div>
         `;
 
@@ -230,36 +231,35 @@
       const statusClass = isOnline ? "online" : "offline";
       
       const activityStatus = member.main_game || "Brak aktywnej gry";
-      const joinedDate = member.joined ? `W społeczności od ${member.joined}` : "Członek społeczności";
-      
-      // Tylko główna rola w nagłówku
+      const joinedInfo = member.joined ? `W osadzie od ${member.joined} (${member.joined_days || 0} dni przetrwania)` : "Członek społeczności";
       const mainRole = member.role || "Obywatel";
+      const roleColor = member.role_color || 'var(--gold)';
+      const veteranTitle = member.veteran_title || "Podróżnik";
 
-      // Wszystkie pozostałe / dodatkowe role do panelu po prawej stronie
       const rolesArray = (member.all_roles && member.all_roles.length > 0) ? member.all_roles : [mainRole];
       const allRolesHtml = rolesArray.map(r => `
         <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; margin-bottom: 8px;">
           <span style="display: flex; align-items: center; gap: 8px; color: #fff; font-size: 0.95rem;">
-            <i data-lucide="shield" style="width: 14px; height: 14px; color: var(--gold);"></i> ${r}
+            <i data-lucide="shield" style="width: 14px; height: 14px; color: ${roleColor};"></i> ${r}
           </span>
-          <span style="font-size: 0.75rem; color: var(--gold); background: rgba(212,160,23,0.1); padding: 2px 8px; border-radius: 4px;">Ranga</span>
+          <span style="font-size: 0.75rem; color: ${roleColor}; background: rgba(212,160,23,0.1); padding: 2px 8px; border-radius: 4px;">Ranga</span>
         </div>
       `).join('');
 
       content.innerHTML = `
-        <div class="profile-header-card">
+        <div class="profile-header-card" style="border-left: 4px solid ${roleColor};">
           <div class="profile-header-top">
             <div class="profile-user-info">
-              <img src="${member.avatar || 'https://cdn.discordapp.com/embed/avatars/0.png'}" alt="${member.name}" class="profile-big-avatar" onerror="this.src='https://cdn.discordapp.com/embed/avatars/0.png'" />
+              <img src="${member.avatar || 'https://cdn.discordapp.com/embed/avatars/0.png'}" alt="${member.name}" class="profile-big-avatar" style="border: 2px solid ${roleColor};" onerror="this.src='https://cdn.discordapp.com/embed/avatars/0.png'" />
               <div>
                 <h2 style="font-family: 'Cinzel', serif; font-size: 2.2rem; color: #fff; margin: 0; display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
                   ${member.name}
                   <span class="profile-status-pill ${statusClass}">● ${statusText}</span>
                 </h2>
-                <p style="color: #94a3b8; margin: 0.3rem 0; font-size: 0.9rem;">${joinedDate}</p>
-                <!-- TYLKO GŁÓWNA RANG W NAGŁÓWKU -->
-                <div class="profile-badges" style="margin-top: 0.5rem;">
-                  <span class="badge-pill"><i data-lucide="shield" style="width: 13px; height: 13px;"></i> ${mainRole}</span>
+                <p style="color: #94a3b8; margin: 0.3rem 0; font-size: 0.9rem;">${joinedInfo}</p>
+                <div class="profile-badges" style="margin-top: 0.5rem; display: flex; gap: 6px; flex-wrap: wrap;">
+                  <span class="badge-pill" style="border-color: ${roleColor}; color: ${roleColor};"><i data-lucide="shield" style="width: 13px; height: 13px;"></i> ${mainRole}</span>
+                  <span class="badge-pill" style="background: rgba(212,160,23,0.1); color: var(--gold);">⭐ ${veteranTitle}</span>
                 </div>
               </div>
             </div>
@@ -272,42 +272,42 @@
 
         <div class="profile-grid">
           <div class="profile-col">
-            <!-- DYNAMICZNY STATUS Z DISCORDA -->
+            <!-- STATUS I MUZYKA / AKTYWNOŚĆ -->
             <div class="p-box">
               <h3 style="margin-bottom: 0.8rem; font-family: 'Cinzel', serif; color: var(--gold);">Status i Aktywność z Discorda</h3>
               <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.2rem;">
-                Informacje pobierane w czasie rzeczywistym z profilu użytkownika na serwerze.
+                Informacje w czasie rzeczywistym (gry, Spotify, YouTube Music).
               </p>
               <div style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); text-align: center;">
-                <small style="color: #94a3b8; display: block; font-size: 0.75rem; margin-bottom: 4px;">AKTUALNA AKTYWNOŚĆ / GRA</small>
+                <small style="color: #94a3b8; display: block; font-size: 0.75rem; margin-bottom: 4px;">AKTUALNA AKTYWNOŚĆ</small>
                 <strong style="color: var(--gold); font-size: 1.05rem;">🎮 ${activityStatus}</strong>
               </div>
             </div>
 
             <!-- INFORMACJE O KONCIE -->
             <div class="p-box grow">
-              <h3>Informacje o koncie</h3>
+              <h3>Czas w Osadzie</h3>
               <div class="achieve-list">
                 <div class="achieve-item">
                   <div>
-                    <strong style="color: #fff; display: block; font-size: 0.92rem;">🛡️ Data dołączenia do gildii</strong>
-                    <small style="color: #94a3b8; font-size: 0.8rem;">Zarejestrowane automatycznie przez serwer</small>
+                    <strong style="color: #fff; display: block; font-size: 0.92rem;">⏳ Przeżyte dni</strong>
+                    <small style="color: #94a3b8; font-size: 0.8rem;">Automatyczny licznik stażu</small>
                   </div>
-                  <span style="color: var(--gold); font-weight: 700; font-size: 0.85rem;">${member.joined || 'Brak danych'}</span>
+                  <span style="color: var(--gold); font-weight: 700; font-size: 0.85rem;">${member.joined_days || 0} dni</span>
                 </div>
                 <div class="achieve-item">
                   <div>
-                    <strong style="color: #fff; display: block; font-size: 0.92rem;">⚡ Status połączenia</strong>
-                    <small style="color: #94a3b8; font-size: 0.8rem;">Stan w sieci Discord</small>
+                    <strong style="color: #fff; display: block; font-size: 0.92rem;">🛡️ Data dołączenia</strong>
+                    <small style="color: #94a3b8; font-size: 0.8rem;">Zarejestrowane przez serwer</small>
                   </div>
-                  <span style="color: ${isOnline ? '#22c55e' : '#94a3b8'}; font-weight: 700; font-size: 0.85rem;">${statusText}</span>
+                  <span style="color: var(--gold); font-weight: 700; font-size: 0.85rem;">${member.joined || 'Brak'}</span>
                 </div>
               </div>
             </div>
           </div>
 
           <div class="profile-col">
-            <!-- ZAMIAST EKWIPUNKU: WSZYSTKIE RANGI Z DISCORDA -->
+            <!-- RANGI DISCORD -->
             <div class="p-box">
               <h3 style="margin-bottom: 1rem; font-family: 'Cinzel', serif;">Przypisane Rangi Discord</h3>
               <div style="display: flex; flex-direction: column;">
@@ -318,7 +318,7 @@
             <!-- DZIENNIK -->
             <div class="p-box grow">
               <h3>Notatka Społeczności</h3>
-              <div style="padding: 15px; background: rgba(0,0,0,0.2); border-radius: 8px; color: #94a3b8; font-style: italic; font-size: 0.95rem; border-left: 3px solid var(--gold);">
+              <div style="padding: 15px; background: rgba(0,0,0,0.2); border-radius: 8px; color: #94a3b8; font-style: italic; font-size: 0.95rem; border-left: 3px solid ${roleColor};">
                 „${member.motto || 'Razem tworzymy historię w świecie Cywilizacji Polskiej. Dołącz do nas na kanałach głosowych!'}”
               </div>
             </div>

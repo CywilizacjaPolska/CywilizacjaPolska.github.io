@@ -19,7 +19,7 @@ jobs:
           GUILD_ID: ${{ secrets.DISCORD_GUILD_ID }}
         run: |
           python3 -c '
-          import discord, json, os, requests
+          import discord, json, os, requests, datetime
 
           guild_id = os.environ["GUILD_ID"]
           statbot_data = {}
@@ -77,27 +77,57 @@ jobs:
 
               for member in sorted_members:
                   mid = str(member.id)
-                  role_name = member.top_role.name if member.top_role.name != "@everyone" else "Gracz"
+                  
+                  # Rola i kolor roli (HEX)
+                  top_role = member.top_role
+                  role_name = top_role.name if top_role and top_role.name != "@everyone" else "Gracz"
+                  role_color = str(top_role.color) if top_role and top_role.color.value != 0 else "#d4a017"
+                  
                   all_roles = [r.name for r in member.roles if r.name != "@everyone"]
                   
                   status_str = "online" if str(member.status) in ["online", "idle", "dnd"] else "offline"
                   avatar_url = member.display_avatar.url if member.display_avatar else "https://cdn.discordapp.com/embed/avatars/0.png"
 
-                  # OKREŚLANIE AKTYWNOŚCI ZGODNIE Z WYTYCZNYMI
-                  if status_str == "offline":
-                      main_game = "Brak"
-                  else:
+                  # Aktywność (Gra, Spotify/YouTube Music lub Status)
+                  main_game = "Brak"
+                  if status_str == "online":
                       main_game = "Aktywny na Discordzie"
                       if member.activities:
                           for act in member.activities:
-                              if isinstance(act, discord.Game) or act.type == discord.ActivityType.playing:
+                              # Sprawdzanie Spotify / Muzyki
+                              if isinstance(act, discord.Spotify):
+                                  main_game = f"Słucha Spotify: {act.title} - {act.artist}"
+                                  break
+                              elif act.type == discord.ActivityType.listening:
+                                  main_game = f"Słucha: {act.name}"
+                                  break
+                              elif isinstance(act, discord.Game) or act.type == discord.ActivityType.playing:
                                   main_game = act.name
                                   break
                               elif act.name and act.type != discord.ActivityType.custom:
                                   main_game = act.name
                                   break
 
-                  joined_str = member.joined_at.strftime("%d.%m.%Y") if member.joined_at else "Brak danych"
+                  # Obliczanie dni w osadzie i stopnia weterana
+                  joined_days = 0
+                  joined_str = "Brak danych"
+                  veteran_title = "Podróżnik"
+                  
+                  if member.joined_at:
+                      joined_str = member.joined_at.strftime("%d.%m.%Y")
+                      delta = datetime.datetime.now(datetime.timezone.utc) - member.joined_at
+                      joined_days = delta.days
+                      
+                      if joined_days > 365:
+                          veteran_title = "Legenda Osady"
+                      elif joined_days > 180:
+                          veteran_title = "Weteran Survivalu"
+                      elif joined_days > 60:
+                          veteran_title = "Obywatel w Sieci"
+                      elif joined_days > 14:
+                          veteran_title = "Zwiadowca"
+                      else:
+                          veteran_title = "Świeżak"
 
                   old_member = existing_data.get(mid, {})
                   sb_user = statbot_data.get(mid, {})
@@ -116,8 +146,9 @@ jobs:
                       "avatar": avatar_url,
                       "status": status_str,
                       "role": role_name,
+                      "role_color": role_color,
                       "all_roles": all_roles if all_roles else [role_name],
-                      "level": old_member.get("level", max(1, member.top_role.position)),
+                      "level": old_member.get("level", max(1, top_role.position if top_role else 1)),
                       "xp": old_member.get("xp", messages * 2 + 750),
                       "rank": rank,
                       "tokens": old_member.get("tokens", 0),
@@ -125,6 +156,8 @@ jobs:
                       "voice_time": voice_time,
                       "main_game": main_game,
                       "joined": joined_str,
+                      "joined_days": joined_days,
+                      "veteran_title": veteran_title,
                       "motto": old_member.get("motto", ""),
                       "equipment": old_member.get("equipment", {"weapon": "Brak", "armor": "Brak", "amulet": "Brak"}),
                       "achievements": old_member.get("achievements", []),
@@ -147,4 +180,4 @@ jobs:
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email "actions@github.com"
           git add members.json
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Aktualizacja logiki aktywnosci" && git push)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Automatyczna synchronizacja zaawansowanych funkcji" && git push)
