@@ -194,7 +194,7 @@
         const statusClass = isOnline ? "online" : "offline";
         const statusText = isOnline ? "Online" : "Offline";
         const memberId = member.id || member.name.toLowerCase().replace(/\s+/g, '-');
-        const displayXp = member.xp || (member.level ? member.level * 150 : 750);
+        const displayXp = member.xp || 0;
 
         card.innerHTML = `
           <div class="member-lvl">LVL ${member.level || 1}</div>
@@ -237,11 +237,11 @@
       const statusClass = isOnline ? "online" : "offline";
       const xpPercent = member.xp_percent || 65;
       
-      // Awaryjne wartości, jeśli w pliku json są zera:
-      const tokens = (member.tokens && member.tokens > 0) ? member.tokens : (member.level ? member.level * 5 : 25);
-      const messages = (member.messages && member.messages > 0) ? member.messages : (member.level ? member.level * 120 : 850);
-      const voiceTime = (member.voice_time && member.voice_time !== "0h 0m") ? member.voice_time : "14h 20m";
-      const xpTotal = member.xp || (member.level ? member.level * 150 : 1050);
+      // Dokładne dane z pliku JSON dla każdego gracza
+      const tokens = member.tokens !== undefined ? member.tokens : 0;
+      const messages = member.messages !== undefined ? member.messages : 0;
+      const voiceTime = member.voice_time ? member.voice_time : "0h 0m";
+      const xpTotal = member.xp !== undefined ? member.xp : 0;
       const mainGame = member.main_game || "Valheim";
       const joinedDate = member.joined ? `W społeczności od ${member.joined}` : "Członek społeczności";
       const mottoText = member.motto || "Wędrowiec w świecie surviwalu";
@@ -313,6 +313,13 @@
                   <small>CZAS GŁOSOWY</small>
                   <strong>${voiceTime}</strong>
                 </div>
+              </div>
+
+              <!-- PRZEJŚCIE DO STATBOTA -->
+              <div style="margin-top: 1.5rem; text-align: center;">
+                <a href="https://statbot.net/stats/${member.id}" target="_blank" class="badge-pill" style="display: inline-block; padding: 10px 20px; background: rgba(212, 160, 23, 0.15); color: var(--gold); text-decoration: none; border: 1px solid var(--gold); border-radius: 6px;">
+                  📊 Sprawdź wykresy i statystyki na żywo w Statbot ↗
+                </a>
               </div>
             </div>
 
