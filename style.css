@@ -325,6 +325,21 @@ body.cywilizacja-world-site {
   width: 100%;
 }
 
+.custom-card1.discord-custom-banner {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 14px !important;
+  padding: 12px 16px !important;
+  background: linear-gradient(145deg, rgba(194, 176, 45, 0.22), rgba(15, 20, 30, 0.92));
+  border: 1.5px solid #d4af37;
+  border-radius: 14px !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  text-align: left !important;
+}
+
 .custom-card.discord-custom-banner {
   display: flex !important;
   flex-direction: row !important;
