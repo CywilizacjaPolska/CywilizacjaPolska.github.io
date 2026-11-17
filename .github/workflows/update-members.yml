@@ -27,7 +27,6 @@ jobs:
           try:
               url = f"https://api.statbot.net/v3/guild/{guild_id}/members"
               response = requests.get(url, timeout=10)
-              print("Statbot API Status:", response.status_code)
               if response.status_code == 200:
                   res_json = response.json()
                   members_arr = res_json.get("result", {}).get("members", [])
@@ -42,7 +41,7 @@ jobs:
                               "voice_time_mins": user.get("voice", user.get("voice_time", 0))
                           }
           except Exception as e:
-              print(f"Błąd połączenia ze Statbotem: {e}")
+              print(f"Błąd Statbota: {e}")
 
           intents = discord.Intents.default()
           intents.members = True
@@ -55,7 +54,6 @@ jobs:
           async def on_ready():
               guild = client.get_guild(guild_id_int)
               if not guild:
-                  print("Nie znaleziono serwera!")
                   await client.close()
                   return
 
@@ -66,8 +64,8 @@ jobs:
                           old_list = json.load(f)
                           if isinstance(old_list, list):
                               existing_data = {str(m["id"]): m for m in old_list}
-                  except Exception as e:
-                      print(f"Błąd odczytu members.json: {e}")
+                  except Exception:
+                      pass
 
               members_list = []
               rank = 1
@@ -80,37 +78,34 @@ jobs:
               for member in sorted_members:
                   mid = str(member.id)
                   role_name = member.top_role.name if member.top_role.name != "@everyone" else "Gracz"
-                  
-                  # Pobieranie wszystkich ról użytkownika poza @everyone
                   all_roles = [r.name for r in member.roles if r.name != "@everyone"]
                   
                   status_str = "online" if str(member.status) in ["online", "idle", "dnd"] else "offline"
                   avatar_url = member.display_avatar.url if member.display_avatar else "https://cdn.discordapp.com/embed/avatars/0.png"
 
-                  # Pobieranie aktywnej gry z Discorda
-                  main_game = "Valheim"
-                  if member.activities:
-                      for act in member.activities:
-                          if isinstance(act, discord.Game) or act.type == discord.ActivityType.playing:
-                              main_game = act.name
-                              break
-                          elif act.name:
-                              main_game = act.name
-                              break
+                  # OKREŚLANIE AKTYWNOŚCI ZGODNIE Z WYTYCZNYMI
+                  if status_str == "offline":
+                      main_game = "Brak"
+                  else:
+                      main_game = "Aktywny na Discordzie"
+                      if member.activities:
+                          for act in member.activities:
+                              if isinstance(act, discord.Game) or act.type == discord.ActivityType.playing:
+                                  main_game = act.name
+                                  break
+                              elif act.name and act.type != discord.ActivityType.custom:
+                                  main_game = act.name
+                                  break
 
-                  # Data dołączenia do gildii
                   joined_str = member.joined_at.strftime("%d.%m.%Y") if member.joined_at else "Brak danych"
 
                   old_member = existing_data.get(mid, {})
-                  
                   sb_user = statbot_data.get(mid, {})
                   messages = sb_user.get("messages", old_member.get("messages", 0))
                   
                   v_mins = sb_user.get("voice_time_mins", 0)
                   if v_mins > 0:
-                      hours = v_mins // 60
-                      mins = v_mins % 60
-                      voice_time = f"{hours}h {mins}m"
+                      voice_time = f"{v_mins // 60}h {v_mins % 60}m"
                   else:
                       voice_time = old_member.get("voice_time", "0h 0m")
 
@@ -142,7 +137,6 @@ jobs:
               with open("members.json", "w", encoding="utf-8") as f:
                   json.dump(members_list, f, indent=2, ensure_ascii=False)
 
-              print("Zaktualizowano plik members.json pomyślnie!")
               await client.close()
 
           client.run(os.environ["TOKEN"])
@@ -153,4 +147,4 @@ jobs:
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email "actions@github.com"
           git add members.json
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Automatyczna synchronizacja Discorda" && git push)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Aktualizacja logiki aktywnosci" && git push)
