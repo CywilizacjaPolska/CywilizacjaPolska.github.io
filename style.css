@@ -240,7 +240,6 @@ body.cywilizacja-world-site {
   box-shadow: 0 6px 20px rgba(212, 160, 23, 0.4);
 }
 
-/* Kafelki w stopce sekcji Hero */
 .hero-foot {
   display: flex;
   gap: 1rem;
@@ -260,13 +259,6 @@ body.cywilizacja-world-site {
   font-size: 0.88rem;
   font-weight: 500;
   backdrop-filter: blur(8px);
-  transition: all 0.2s ease;
-}
-.hero-foot-item:hover {
-  border-color: rgba(212, 160, 23, 0.4);
-  background: rgba(30, 38, 54, 0.95);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 .hero-foot-item i {
   color: var(--gold);
@@ -325,38 +317,7 @@ body.cywilizacja-world-site {
   width: 100%;
 }
 
-.custom-card, .custom-card1 {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 12px;
-  padding: 2px;
-  color: #ffffff;
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-  overflow: hidden;
-}
-.custom-card1 {
-  background: linear-gradient(145deg, rgba(194, 176, 45, 0.22), rgba(15, 20, 30, 0.92));
-  border: 1.5px solid #d4af37;
-}
-.custom-card {
-  background: linear-gradient(145deg, rgba(168, 67, 0, 0.22), rgba(15, 20, 30, 0.92));
-  border: 1.5px solid rgba(168, 67, 0, 0.85);
-}
-.custom-card img:not(.dcb-avatar), .custom-card1 img {
-  width: 100%;
-  height: auto;
-  max-width: 100%;
-  object-fit: contain;
-  display: block;
-  border-radius: 10px;
-}
-
-/* ==========================================================
-   STYLING DLA WŁASNYCH BANERÓW LANYARD API (WIELU UŻYTKOWNIKÓW)
-   ========================================================== */
+/* STYLING DLA BANERÓW LANYARD API */
 .discord-banners-grid {
   display: flex;
   flex-direction: column;

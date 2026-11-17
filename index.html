@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
-  <link rel="stylesheet" href="style.css?v=1.3.4" />
+  <link rel="stylesheet" href="style.css?v=1.3.5" />
 </head>
 <body class="cywilizacja-world-site">
 
@@ -78,7 +78,6 @@
             </a>
             <a class="button button-secondary" href="#serwery">Wybierz serwer <span>→</span></a>
           </div>
-          <!-- MINI-KAFELKI W HERO-FOOT -->
           <div class="hero-foot">
             <div class="hero-foot-item">
               <i data-lucide="axe"></i>
@@ -110,30 +109,30 @@
           <div class="discord-widget-slot" id="discord-widgets-container" style="background: transparent; border: none; padding: 0;">
             <div class="discord-banners-grid">
               
-              <!-- UŻYTKOWNIK 1 -->
+              <!-- GÓRA: EJ-DŻEJ (ID: 879347951506440222) -->
               <div class="custom-card discord-custom-banner lanyard-user-box" data-user-id="879347951506440222">
                 <div class="dcb-avatar-wrap">
-                  <img src="" alt="Avatar" class="dcb-avatar dcb-avatar-img">
+                  <img src="https://cdn.discordapp.com/embed/avatars/0.png" alt="Avatar" class="dcb-avatar dcb-avatar-img">
                   <span class="dcb-status-dot"></span>
                 </div>
                 <div class="dcb-info">
                   <div class="dcb-top-row">
-                    <span class="dcb-username">Ładowanie...</span>
+                    <span class="dcb-username">Ej-dżej</span>
                     <span class="dcb-tag">💀 GOAT</span>
                   </div>
                   <div class="dcb-activity">Pobieranie statusu...</div>
                 </div>
               </div>
 
-              <!-- UŻYTKOWNIK 2 -->
+              <!-- DÓŁ: PSYCHO (ID: 634884694248259584) -->
               <div class="custom-card discord-custom-banner lanyard-user-box" data-user-id="634884694248259584">
                 <div class="dcb-avatar-wrap">
-                  <img src="" alt="Avatar" class="dcb-avatar dcb-avatar-img">
+                  <img src="https://cdn.discordapp.com/embed/avatars/1.png" alt="Avatar" class="dcb-avatar dcb-avatar-img">
                   <span class="dcb-status-dot"></span>
                 </div>
                 <div class="dcb-info">
                   <div class="dcb-top-row">
-                    <span class="dcb-username">Ładowanie...</span>
+                    <span class="dcb-username">Psycho1425</span>
                     <span class="dcb-tag">🛡️ ADMIN</span>
                   </div>
                   <div class="dcb-activity">Pobieranie statusu...</div>
@@ -471,7 +470,6 @@
       });
     }
 
-    // Funkcja szybkiego kopiowania IP do schowka
     function copyServerIP(element, ip) {
       navigator.clipboard.writeText(ip).then(() => {
         element.classList.add('copied');
@@ -603,7 +601,7 @@
     });
   </script>
 
-  <!-- SKRYPT API LANYARD DLA WIELU UŻYTKOWNIKÓW -->
+  <!-- SKRYPT API LANYARD DLA DWÓCH UŻYTKOWNIKÓW -->
   <script>
     async function updateSingleLanyardUser(cardElement) {
       const userId = cardElement.getAttribute("data-user-id");
@@ -617,7 +615,7 @@
 
         const user = data.data;
         
-        // 1. Pobieranie aktualnego wyświetlanego nicku (global_name), a w razie braku loginu (username)
+        // 1. Nazwa użytkownika (global_name z Discorda)
         const usernameEl = cardElement.querySelector(".dcb-username");
         if (usernameEl) {
           usernameEl.textContent = user.discord_user.global_name || user.discord_user.username;
@@ -630,7 +628,7 @@
           if (avatarImg.src !== avatarUrl) avatarImg.src = avatarUrl;
         }
 
-        // 3. Kolor kropki statusu
+        // 3. Kolor statusu
         const statusDot = cardElement.querySelector(".dcb-status-dot");
         const statusColors = {
           online: "#22c55e",
