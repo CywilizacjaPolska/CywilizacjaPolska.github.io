@@ -232,7 +232,7 @@
       const statusClass = isOnline ? "online" : "offline";
       
       const activityStatus = member.main_game || "Brak aktywnej gry";
-      const customStatus = member.custom_status ? `💬 „${member.custom_status}”` : "Brak ustawionego statusu osobistego";
+      const customStatus = member.custom_status ? member.custom_status : null;
       const joinedInfo = member.joined ? `W osadzie od ${member.joined} (${member.joined_days || 0} dni przetrwania)` : "Członek społeczności";
       const mainRole = member.role || "Obywatel";
       const roleColor = member.role_color || 'var(--gold)';
@@ -279,35 +279,42 @@
         </div>
       `).join('');
 
+      // Generowanie dymku statusu (pojawia się tylko, gdy gracz ma ustawiony status na Discordzie)
+      let bubbleHtml = customStatus ? `
+        <div style="position: relative; background: rgba(15, 23, 42, 0.9); border: 1px solid ${roleColor}; border-radius: 12px; padding: 10px 16px; color: #f8fafc; font-size: 0.9rem; font-style: italic; max-width: 320px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); display: flex; align-items: center; gap: 8px;">
+          <i data-lucide="message-square" style="width: 16px; height: 16px; color: ${roleColor}; flex-shrink: 0;"></i>
+          <span>„${customStatus}”</span>
+        </div>
+      ` : '';
+
       content.innerHTML = `
-        <!-- GÓRNA KARTA Z STATUSEM OSOBISTYM -->
+        <!-- GÓRNA KARTA Z AWATAREM I DYMIKIEM STATUSU -->
         <div class="profile-header-card" style="border-left: 4px solid ${roleColor};">
-          <div class="profile-header-top" style="flex-direction: column; align-items: flex-start; gap: 1rem;">
-            <div style="display: flex; justify-content: space-width; width: 100%; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
-              <div class="profile-user-info">
-                <img src="${member.avatar || 'https://cdn.discordapp.com/embed/avatars/0.png'}" alt="${member.name}" class="profile-big-avatar" style="border: 2px solid ${roleColor};" onerror="this.src='https://cdn.discordapp.com/embed/avatars/0.png'" />
-                <div>
-                  <h2 style="font-family: 'Cinzel', serif; font-size: 2.2rem; color: #fff; margin: 0; display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
-                    ${member.name}
-                    <span class="profile-status-pill ${statusClass}">● ${statusText}</span>
-                  </h2>
-                  <p style="color: #94a3b8; margin: 0.3rem 0; font-size: 0.9rem;">${joinedInfo}</p>
-                  <div class="profile-badges" style="margin-top: 0.5rem; display: flex; gap: 6px; flex-wrap: wrap;">
-                    <span class="badge-pill" style="border-color: ${roleColor}; color: ${roleColor};"><i data-lucide="shield" style="width: 13px; height: 13px;"></i> ${mainRole}</span>
-                    <span class="badge-pill" style="background: rgba(212,160,23,0.1); color: var(--gold);">⭐ ${currentTitle}</span>
-                  </div>
-                </div>
+          <div class="profile-header-top" style="align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem;">
+            <div class="profile-user-info" style="align-items: center; flex-wrap: wrap; gap: 1.5rem;">
+              
+              <!-- Awatar i dymek obok -->
+              <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+                <img src="${member.avatar || 'https://cdn.discordapp.com/embed/avatars/0.png'}" alt="${member.name}" class="profile-big-avatar" style="border: 2px solid ${roleColor}; flex-shrink: 0;" onerror="this.src='https://cdn.discordapp.com/embed/avatars/0.png'" />
+                ${bubbleHtml}
               </div>
-              <div class="profile-rank-badge">
-                <small>Ranking Serwera</small>
-                <strong>#${member.rank || '-'}</strong>
+
+              <div>
+                <h2 style="font-family: 'Cinzel', serif; font-size: 2.2rem; color: #fff; margin: 0; display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+                  ${member.name}
+                  <span class="profile-status-pill ${statusClass}">● ${statusText}</span>
+                </h2>
+                <p style="color: #94a3b8; margin: 0.3rem 0; font-size: 0.9rem;">${joinedInfo}</p>
+                <div class="profile-badges" style="margin-top: 0.5rem; display: flex; gap: 6px; flex-wrap: wrap;">
+                  <span class="badge-pill" style="border-color: ${roleColor}; color: ${roleColor};"><i data-lucide="shield" style="width: 13px; height: 13px;"></i> ${mainRole}</span>
+                  <span class="badge-pill" style="background: rgba(212,160,23,0.1); color: var(--gold);">⭐ ${currentTitle}</span>
+                </div>
               </div>
             </div>
 
-            <!-- STATUS OSOBISTY W GÓRNEJ KARTIE -->
-            <div style="width: 100%; background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 10px 15px; margin-top: 0.5rem; color: #cbd5e1; font-style: italic; font-size: 0.95rem; display: flex; align-items: center; gap: 10px;">
-              <span style="color: var(--gold); font-weight: 600; font-style: normal; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;">Status Osobisty:</span>
-              <span>${customStatus}</span>
+            <div class="profile-rank-badge">
+              <small>Ranking Serwera</small>
+              <strong>#${member.rank || '-'}</strong>
             </div>
           </div>
         </div>
