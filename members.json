@@ -6,6 +6,7 @@
     "avatar": "https://cdn.discordapp.com/avatars/879347951506440222/b4b6f30a9b6e4bc510f868af34105c94.png?size=1024",
     "status": "online",
     "role": "║👑║𝗪ł𝗮𝘀́𝗰𝗶𝗰𝗶𝗲𝗹",
+    "role_color": "#f1c40f",
     "all_roles": [
       "║🥴║Gracz",
       "║👑║𝗪ł𝗮𝘀́𝗰𝗶𝗰𝗶𝗲𝗹"
@@ -18,6 +19,8 @@
     "voice_time": "0h 0m",
     "main_game": "Aktywny na Discordzie",
     "joined": "08.07.2022",
+    "joined_days": 1593,
+    "veteran_title": "Legenda Osady",
     "motto": "",
     "equipment": {
       "weapon": "Brak",
@@ -34,6 +37,7 @@
     "avatar": "https://cdn.discordapp.com/avatars/1165259353209720893/9e49e22ba694b9a3cbc28b936a7b8f94.png?size=1024",
     "status": "offline",
     "role": "║💼║Moderator",
+    "role_color": "#a84300",
     "all_roles": [
       "✅Good✅",
       "║💼║Moderator"
@@ -46,6 +50,8 @@
     "voice_time": "0h 0m",
     "main_game": "Brak",
     "joined": "06.06.2025",
+    "joined_days": 529,
+    "veteran_title": "Legenda Osady",
     "motto": "",
     "equipment": {
       "weapon": "Brak",
@@ -62,6 +68,7 @@
     "avatar": "https://cdn.discordapp.com/avatars/634884694248259584/079d24a4eab24c194096a9ff66753901.png?size=1024",
     "status": "online",
     "role": "║💼║Moderator",
+    "role_color": "#a84300",
     "all_roles": [
       "✅Good✅",
       "║🥴║Gracz",
@@ -75,6 +82,8 @@
     "voice_time": "0h 0m",
     "main_game": "Visual Studio Code",
     "joined": "26.05.2026",
+    "joined_days": 175,
+    "veteran_title": "Obywatel w Sieci",
     "motto": "",
     "equipment": {
       "weapon": "Brak",
@@ -91,6 +100,7 @@
     "avatar": "https://cdn.discordapp.com/avatars/753376991813697638/a_10cf574bf6e929936f8e17d4c68ecba4.gif?size=1024",
     "status": "offline",
     "role": "║🥴║Gracz",
+    "role_color": "#1f8b4c",
     "all_roles": [
       "✅Good✅",
       "║🥴║Gracz"
@@ -103,6 +113,8 @@
     "voice_time": "0h 0m",
     "main_game": "Brak",
     "joined": "27.05.2026",
+    "joined_days": 174,
+    "veteran_title": "Obywatel w Sieci",
     "motto": "",
     "equipment": {
       "weapon": "Brak",
@@ -119,6 +131,7 @@
     "avatar": "https://cdn.discordapp.com/avatars/595151649987756032/8ed285595e3313f5f1bf3dc877058108.png?size=1024",
     "status": "offline",
     "role": "║🥴║Gracz",
+    "role_color": "#1f8b4c",
     "all_roles": [
       "✅Good✅",
       "║🥴║Gracz"
@@ -131,6 +144,8 @@
     "voice_time": "0h 0m",
     "main_game": "Brak",
     "joined": "04.06.2026",
+    "joined_days": 166,
+    "veteran_title": "Obywatel w Sieci",
     "motto": "",
     "equipment": {
       "weapon": "Brak",
@@ -147,6 +162,7 @@
     "avatar": "https://cdn.discordapp.com/embed/avatars/4.png",
     "status": "offline",
     "role": "║🥴║Gracz",
+    "role_color": "#1f8b4c",
     "all_roles": [
       "✅Good✅",
       "║🥴║Gracz"
@@ -159,6 +175,8 @@
     "voice_time": "0h 0m",
     "main_game": "Brak",
     "joined": "20.07.2026",
+    "joined_days": 119,
+    "veteran_title": "Obywatel w Sieci",
     "motto": "",
     "equipment": {
       "weapon": "Brak",
@@ -175,6 +193,7 @@
     "avatar": "https://cdn.discordapp.com/avatars/261079120559996930/fd0a184d60feab98cb8af1e9f838d3f7.png?size=1024",
     "status": "offline",
     "role": "║🥴║Gracz",
+    "role_color": "#1f8b4c",
     "all_roles": [
       "✅Good✅",
       "║🥴║Gracz"
@@ -187,6 +206,8 @@
     "voice_time": "0h 0m",
     "main_game": "Brak",
     "joined": "24.07.2026",
+    "joined_days": 116,
+    "veteran_title": "Obywatel w Sieci",
     "motto": "",
     "equipment": {
       "weapon": "Brak",
@@ -203,6 +224,7 @@
     "avatar": "https://cdn.discordapp.com/avatars/328538759085817859/407d57d79d24ceabf2618d86c7bcadef.png?size=1024",
     "status": "offline",
     "role": "║🥴║Gracz",
+    "role_color": "#1f8b4c",
     "all_roles": [
       "✅Good✅",
       "║🥴║Gracz"
@@ -215,6 +237,8 @@
     "voice_time": "0h 0m",
     "main_game": "Brak",
     "joined": "20.07.2026",
+    "joined_days": 119,
+    "veteran_title": "Obywatel w Sieci",
     "motto": "",
     "equipment": {
       "weapon": "Brak",
@@ -231,6 +255,7 @@
     "avatar": "https://cdn.discordapp.com/avatars/805329899400855572/63a99c3230b2ddacaa77625e5ff5d02e.png?size=1024",
     "status": "offline",
     "role": "║🥴║Gracz",
+    "role_color": "#1f8b4c",
     "all_roles": [
       "✅Good✅",
       "║🥴║Gracz"
@@ -243,6 +268,8 @@
     "voice_time": "0h 0m",
     "main_game": "Brak",
     "joined": "30.05.2026",
+    "joined_days": 171,
+    "veteran_title": "Obywatel w Sieci",
     "motto": "",
     "equipment": {
       "weapon": "Brak",
@@ -259,6 +286,7 @@
     "avatar": "https://cdn.discordapp.com/avatars/1410342032341336133/c8beb0bada765b4533ede27851926ff0.png?size=1024",
     "status": "offline",
     "role": "║🥴║Gracz",
+    "role_color": "#1f8b4c",
     "all_roles": [
       "✅Good✅",
       "║🥴║Gracz"
@@ -271,6 +299,8 @@
     "voice_time": "0h 0m",
     "main_game": "Brak",
     "joined": "26.05.2026",
+    "joined_days": 175,
+    "veteran_title": "Obywatel w Sieci",
     "motto": "",
     "equipment": {
       "weapon": "Brak",
@@ -287,6 +317,7 @@
     "avatar": "https://cdn.discordapp.com/avatars/729403399258505317/b1a6f6ecc799a4f32464241b585eac82.png?size=1024",
     "status": "offline",
     "role": "║🥴║Gracz",
+    "role_color": "#1f8b4c",
     "all_roles": [
       "✅Good✅",
       "║🥴║Gracz"
@@ -299,6 +330,8 @@
     "voice_time": "0h 0m",
     "main_game": "Brak",
     "joined": "26.05.2026",
+    "joined_days": 175,
+    "veteran_title": "Obywatel w Sieci",
     "motto": "",
     "equipment": {
       "weapon": "Brak",
@@ -315,6 +348,7 @@
     "avatar": "https://cdn.discordapp.com/avatars/391135232029360130/8a3d3e9afd5f0da8239dd4f4edcef012.png?size=1024",
     "status": "offline",
     "role": "║🥴║Gracz",
+    "role_color": "#1f8b4c",
     "all_roles": [
       "✅Good✅",
       "║🥴║Gracz"
@@ -327,6 +361,8 @@
     "voice_time": "0h 0m",
     "main_game": "Brak",
     "joined": "28.05.2026",
+    "joined_days": 173,
+    "veteran_title": "Obywatel w Sieci",
     "motto": "",
     "equipment": {
       "weapon": "Brak",
@@ -343,6 +379,7 @@
     "avatar": "https://cdn.discordapp.com/avatars/330743441199857675/dd40fe6b600c9e4dc616bf070ec8646d.png?size=1024",
     "status": "offline",
     "role": "║🥴║Gracz",
+    "role_color": "#1f8b4c",
     "all_roles": [
       "✅Good✅",
       "║🥴║Gracz"
@@ -355,6 +392,8 @@
     "voice_time": "0h 0m",
     "main_game": "Brak",
     "joined": "26.05.2026",
+    "joined_days": 175,
+    "veteran_title": "Obywatel w Sieci",
     "motto": "",
     "equipment": {
       "weapon": "Brak",
