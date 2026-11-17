@@ -1,8 +1,8 @@
 name: Synchronizacja Discord i Statbot
 on:
   schedule:
-    - cron: '*/15 * * * *' # Co godzinę
-  workflow_dispatch:      # Ręczne uruchomienie
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
 
 jobs:
   sync:
@@ -21,24 +21,34 @@ jobs:
           python3 -c '
           import discord, json, os, requests
 
-          # 1. Pobieramy statystyki ze Statbota (publiczne API dla Twojego serwera)
           guild_id = os.environ["GUILD_ID"]
           statbot_data = {}
+          
+          # Pobieramy dane ze Statbota z poprawnym nagłówkiem/zapytaniem
           try:
               url = f"https://api.statbot.net/v3/guild/{guild_id}/members"
               response = requests.get(url, timeout=10)
+              print("Statbot API Status:", response.status_code)
               if response.status_code == 200:
-                  data = response.json()
-                  # Przetwarzamy dane ze Statbota do słownika po ID użytkownika
-                  for user in data.get("result", {}).get("members", []):
-                      statbot_data[str(user["id"])] = {
-                          "messages": user.get("messages", 0),
-                          "voice_time_mins": user.get("voice_time", 0)
-                      }
+                  res_json = response.json()
+                  # Statbot v3 zwykle trzyma listę w "members" lub bezpośrednio w "result"
+                  members_arr = res_json.get("result", {}).get("members", [])
+                  if not members_arr and isinstance(res_json.get("result"), list):
+                      members_arr = res_json.get("result")
+                  
+                  for user in members_arr:
+                      uid = str(user.get("id") or user.get("user_id", ""))
+                      if uid:
+                          statbot_data[uid] = {
+                              "messages": user.get("messages", 0),
+                              "voice_time_mins": user.get("voice", user.get("voice_time", 0))
+                          }
+                  print(f"Pobrano statystyki Statbota dla {len(statbot_data)} użytkowników.")
+              else:
+                  print("Odpowiedź Statbota:", response.text)
           except Exception as e:
-              print(f"Nie udało się pobrać danych ze Statbota: {e}")
+              print(f"Błąd połączenia ze Statbotem: {e}")
 
-          # 2. Łączymy się z Discordem po statusy i listę członków
           intents = discord.Intents.default()
           intents.members = True
           intents.presences = True
@@ -80,11 +90,10 @@ jobs:
 
                   old_member = existing_data.get(mid, {})
                   
-                  # Pobieramy realne statystyki ze Statbota (jeśli bot je zebrał), a jak nie, zostawiamy stare/0
+                  # Pobieramy dane ze Statbota
                   sb_user = statbot_data.get(mid, {})
                   messages = sb_user.get("messages", old_member.get("messages", 0))
                   
-                  # Przeliczamy minuty z głosu na ładny format np. "14h 20m"
                   v_mins = sb_user.get("voice_time_mins", 0)
                   if v_mins > 0:
                       hours = v_mins // 60
@@ -101,13 +110,16 @@ jobs:
                       "status": status_str,
                       "role": role_name,
                       "level": old_member.get("level", max(1, member.top_role.position)),
-                      "xp": old_member.get("xp", messages * 2), # Opcjonalnie XP zależne od wiadomości
+                      "xp": old_member.get("xp", messages * 2 + 750),
                       "rank": rank,
                       "tokens": old_member.get("tokens", 0),
                       "messages": messages,
                       "voice_time": voice_time,
                       "main_game": old_member.get("main_game", "Valheim"),
-                      "motto": old_member.get("motto", "Wędrowiec w świecie surviwalu")
+                      "motto": old_member.get("motto", ""),
+                      "equipment": old_member.get("equipment", {"weapon": "Brak", "armor": "Brak", "amulet": "Brak"}),
+                      "achievements": old_member.get("achievements", []),
+                      "recent_activity": old_member.get("recent_activity", [])
                   }
 
                   members_list.append(merged_member)
@@ -116,7 +128,7 @@ jobs:
               with open("members.json", "w", encoding="utf-8") as f:
                   json.dump(members_list, f, indent=2, ensure_ascii=False)
 
-              print("Zsynchronizowano statystyki ze Statbota i Discorda!")
+              print("Zaktualizowano plik members.json pomyślnie!")
               await client.close()
 
           client.run(os.environ["TOKEN"])
@@ -127,4 +139,4 @@ jobs:
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email "actions@github.com"
           git add members.json
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Automatyczna synchronizacja ze Statbotem" && git push)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Aktualizacja statystyk ze Statbota" && git push)
