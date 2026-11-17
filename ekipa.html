@@ -241,19 +241,15 @@
 
       // Definicja rang i wymagań do paska postępu
       const ranksConfig = [
-        { name: "Świeżak", days: 0, nextDays: 14 },
-        { name: "Zwiadowca", days: 14, nextDays: 60 },
-        { name: "Obywatel w Sieci", days: 60, nextDays: 180 },
-        { name: "Weteran Survivalu", days: 180, nextDays: 365 },
-        { name: "Legenda Osady", days: 365, nextDays: 365 }
+        { name: "Świeżak", days: 0 },
+        { name: "Zwiadowca", days: 14 },
+        { name: "Obywatel w Sieci", days: 60 },
+        { name: "Weteran Survivalu", days: 180 },
+        { name: "Legenda Osady", days: 365 }
       ];
 
-      let currentRankIdx = ranksConfig.findIndex(r => r.name === currentTitle);
-      if (currentRankIdx === -1) currentRankIdx = 0;
-
-      // Generowanie listy rang z postępem
       let ranksListHtml = "";
-      ranksConfig.forEach((r, idx) => {
+      ranksConfig.forEach((r) => {
         let isUnlocked = days >= r.days;
         let isCurrent = r.name === currentTitle;
         let dotColor = isUnlocked ? roleColor : "#475569";
@@ -284,43 +280,48 @@
       `).join('');
 
       content.innerHTML = `
+        <!-- GÓRNA KARTA Z STATUSEM OSOBISTYM -->
         <div class="profile-header-card" style="border-left: 4px solid ${roleColor};">
-          <div class="profile-header-top">
-            <div class="profile-user-info">
-              <img src="${member.avatar || 'https://cdn.discordapp.com/embed/avatars/0.png'}" alt="${member.name}" class="profile-big-avatar" style="border: 2px solid ${roleColor};" onerror="this.src='https://cdn.discordapp.com/embed/avatars/0.png'" />
-              <div>
-                <h2 style="font-family: 'Cinzel', serif; font-size: 2.2rem; color: #fff; margin: 0; display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
-                  ${member.name}
-                  <span class="profile-status-pill ${statusClass}">● ${statusText}</span>
-                </h2>
-                <p style="color: #94a3b8; margin: 0.3rem 0; font-size: 0.9rem;">${joinedInfo}</p>
-                <div class="profile-badges" style="margin-top: 0.5rem; display: flex; gap: 6px; flex-wrap: wrap;">
-                  <span class="badge-pill" style="border-color: ${roleColor}; color: ${roleColor};"><i data-lucide="shield" style="width: 13px; height: 13px;"></i> ${mainRole}</span>
-                  <span class="badge-pill" style="background: rgba(212,160,23,0.1); color: var(--gold);">⭐ ${currentTitle}</span>
+          <div class="profile-header-top" style="flex-direction: column; align-items: flex-start; gap: 1rem;">
+            <div style="display: flex; justify-content: space-width; width: 100%; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+              <div class="profile-user-info">
+                <img src="${member.avatar || 'https://cdn.discordapp.com/embed/avatars/0.png'}" alt="${member.name}" class="profile-big-avatar" style="border: 2px solid ${roleColor};" onerror="this.src='https://cdn.discordapp.com/embed/avatars/0.png'" />
+                <div>
+                  <h2 style="font-family: 'Cinzel', serif; font-size: 2.2rem; color: #fff; margin: 0; display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+                    ${member.name}
+                    <span class="profile-status-pill ${statusClass}">● ${statusText}</span>
+                  </h2>
+                  <p style="color: #94a3b8; margin: 0.3rem 0; font-size: 0.9rem;">${joinedInfo}</p>
+                  <div class="profile-badges" style="margin-top: 0.5rem; display: flex; gap: 6px; flex-wrap: wrap;">
+                    <span class="badge-pill" style="border-color: ${roleColor}; color: ${roleColor};"><i data-lucide="shield" style="width: 13px; height: 13px;"></i> ${mainRole}</span>
+                    <span class="badge-pill" style="background: rgba(212,160,23,0.1); color: var(--gold);">⭐ ${currentTitle}</span>
+                  </div>
                 </div>
               </div>
+              <div class="profile-rank-badge">
+                <small>Ranking Serwera</small>
+                <strong>#${member.rank || '-'}</strong>
+              </div>
             </div>
-            <div class="profile-rank-badge">
-              <small>Ranking Serwera</small>
-              <strong>#${member.rank || '-'}</strong>
+
+            <!-- STATUS OSOBISTY W GÓRNEJ KARTIE -->
+            <div style="width: 100%; background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 10px 15px; margin-top: 0.5rem; color: #cbd5e1; font-style: italic; font-size: 0.95rem; display: flex; align-items: center; gap: 10px;">
+              <span style="color: var(--gold); font-weight: 600; font-style: normal; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;">Status Osobisty:</span>
+              <span>${customStatus}</span>
             </div>
           </div>
         </div>
 
         <div class="profile-grid">
           <div class="profile-col">
-            <!-- PERSONALIZOWANY STATUS / MOTTO Z DISCORDA -->
+            <!-- AKTYWNA GRA / MUZYKA -->
             <div class="p-box">
-              <h3 style="margin-bottom: 0.8rem; font-family: 'Cinzel', serif; color: var(--gold);">Status i Aktywność z Discorda</h3>
-              <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1rem;">
-                Spersonalizowany opis użytkownika oraz stan w sieci.
+              <h3 style="margin-bottom: 0.8rem; font-family: 'Cinzel', serif; color: var(--gold);">Aktywność na Discordzie</h3>
+              <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.2rem;">
+                Aktualny stan w sieci, uruchomione gry lub odtwarzana muzyka.
               </p>
-              <div style="background: rgba(255,255,255,0.03); padding: 12px 15px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); margin-bottom: 10px; text-align: center;">
-                <small style="color: #94a3b8; display: block; font-size: 0.75rem; margin-bottom: 4px;">OPIS / STATUS OSOBISTY</small>
-                <strong style="color: #fff; font-size: 0.95rem; font-style: italic;">${customStatus}</strong>
-              </div>
-              <div style="background: rgba(255,255,255,0.03); padding: 12px 15px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); text-align: center;">
-                <small style="color: #94a3b8; display: block; font-size: 0.75rem; margin-bottom: 4px;">AKTUALNA AKTYWNOŚĆ / GRA</small>
+              <div style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); text-align: center;">
+                <small style="color: #94a3b8; display: block; font-size: 0.75rem; margin-bottom: 4px;">AKTUALNA AKTYWNOŚĆ</small>
                 <strong style="color: var(--gold); font-size: 1.05rem;">🎮 ${activityStatus}</strong>
               </div>
             </div>
@@ -348,7 +349,7 @@
           </div>
 
           <div class="profile-col">
-            <!-- ZASTĄPIENIE NOTATKI: DRZEWKO RANG I WYMAGANIA -->
+            <!-- DRZEWKO RANG I POSTĘPY -->
             <div class="p-box">
               <h3 style="margin-bottom: 0.8rem; font-family: 'Cinzel', serif; color: var(--gold);">Drzewko Rang i Postępy</h3>
               <p style="color: #cbd5e1; font-size: 0.9rem; line-height: 1.5; margin-bottom: 1rem;">
