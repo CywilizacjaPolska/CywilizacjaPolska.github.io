@@ -52,7 +52,7 @@
         <div class="container">
           <div class="eyebrow">Cywilizacja to my</div>
           <h1>Poznaj swoją <span>ekipę.</span></h1>
-          <p>Wspólna gra buduje relacje. Kliknij na gracza, aby zobaczyć jego kartę postaci i ekwipunek.</p>
+          <p>Wspólna gra buduje relacje. Kliknij na gracza, aby zobaczyć jego kartę postaci i status.</p>
         </div>
       </section>
 
@@ -190,7 +190,7 @@
         const memberId = member.id || member.name.toLowerCase().replace(/\s+/g, '-');
 
         card.innerHTML = `
-          <div class="member-lvl">RANG ${member.level || 1}</div>
+          <div class="member-lvl">RANG ${member.rank || 1}</div>
           <img src="${member.avatar || 'https://cdn.discordapp.com/embed/avatars/0.png'}" alt="${member.name}" class="member-avatar" onerror="this.src='https://cdn.discordapp.com/embed/avatars/0.png'" />
           <h3 class="member-name">${member.name}</h3>
           <div class="member-handle">${member.role || 'Obywatel'}</div>
@@ -199,8 +199,8 @@
           </div>
           <div class="member-stats">
             <div><small>Pozycja</small><strong>#${member.rank || '-'}</strong></div>
-            <div><small>Świat</small><strong>${member.main_game || 'Valheim'}</strong></div>
-            <div><small>Status</small><strong style="color: var(--gold);">Aktywny</strong></div>
+            <div><small>Aktywność</small><strong style="font-size: 0.8rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 90px; display: inline-block;">${member.main_game || 'Brak'}</strong></div>
+            <div><small>Dołączył</small><strong>${member.joined || 'N/A'}</strong></div>
           </div>
         `;
 
@@ -229,12 +229,17 @@
       const statusText = isOnline ? "Online" : "Offline";
       const statusClass = isOnline ? "online" : "offline";
       
-      const mainGame = member.main_game || "Valheim";
-      const mottoText = member.motto || "Jedna społeczność, wspólny cel w świecie surviwalu.";
+      const activityStatus = member.main_game || "Brak aktywnej gry";
+      const joinedDate = member.joined ? `W społeczności od ${member.joined}` : "Członek społeczności";
+      
+      // Dynamiczne wyświetlanie wszystkich ról z Discorda
+      const rolesList = (member.all_roles && member.all_roles.length > 0) 
+        ? member.all_roles.map(r => `<span class="badge-pill" style="margin: 2px;"><i data-lucide="shield" style="width: 12px; height: 12px;"></i> ${r}</span>`).join('')
+        : `<span class="badge-pill"><i data-lucide="shield" style="width: 12px; height: 12px;"></i> ${member.role || 'Obywatel'}</span>`;
 
-      const weapon = (member.equipment?.weapon && member.equipment.weapon !== "Brak") ? member.equipment.weapon : "Topór Bojowy";
-      const armor = (member.equipment?.armor && member.equipment.armor !== "Brak") ? member.equipment.armor : "Zbroja Łuskowa";
-      const amulet = (member.equipment?.amulet && member.equipment.amulet !== "Brak") ? member.equipment.amulet : "Talizman Odyna";
+      const weapon = member.equipment?.weapon || "Brak";
+      const armor = member.equipment?.armor || "Brak";
+      const amulet = member.equipment?.amulet || "Brak";
 
       content.innerHTML = `
         <div class="profile-header-card">
@@ -246,11 +251,9 @@
                   ${member.name}
                   <span class="profile-status-pill ${statusClass}">● ${statusText}</span>
                 </h2>
-                <p style="color: #94a3b8; margin: 0.3rem 0; font-size: 0.9rem;">Członek społeczności Cywilizacja Polska</p>
-                <p class="profile-motto">„${mottoText}”</p>
-                <div class="profile-badges">
-                  <span class="badge-pill"><i data-lucide="shield" style="width: 13px; height: 13px;"></i> ${member.role || 'Obywatel'}</span>
-                  <span class="badge-pill badge-game"><i data-lucide="axe" style="width: 13px; height: 13px;"></i> Główny świat: ${mainGame}</span>
+                <p style="color: #94a3b8; margin: 0.3rem 0; font-size: 0.9rem;">${joinedDate}</p>
+                <div class="profile-badges" style="margin-top: 0.5rem; display: flex; flex-wrap: wrap; gap: 4px;">
+                  ${rolesList}
                 </div>
               </div>
             </div>
@@ -263,62 +266,56 @@
 
         <div class="profile-grid">
           <div class="profile-col">
-            <!-- STATUS OBYWATELA -->
+            <!-- DYNAMICZNY STATUS Z DISCORDA -->
             <div class="p-box">
-              <h3 style="margin-bottom: 0.8rem; font-family: 'Cinzel', serif; color: var(--gold);">Karta Postaci i Status</h3>
+              <h3 style="margin-bottom: 0.8rem; font-family: 'Cinzel', serif; color: var(--gold);">Status i Aktywność z Discorda</h3>
               <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.2rem;">
-                Oficjalny profil uczestnika wypraw survivalowych. Gotowy do eksploracji nieznanych lądów i budowy osad.
+                Informacje pobierane w czasie rzeczywistym z profilu użytkownika na serwerze.
               </p>
-              <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                <div style="flex: 1; min-width: 120px; background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); text-align: center;">
-                  <small style="color: #94a3b8; display: block; font-size: 0.75rem;">RANG / POZIOM</small>
-                  <strong style="color: #fff; font-size: 1.1rem;">#${member.rank || '-'}</strong>
-                </div>
-                <div style="flex: 1; min-width: 120px; background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); text-align: center;">
-                  <small style="color: #94a3b8; display: block; font-size: 0.75rem;">SPECJALIZACJA</small>
-                  <strong style="color: var(--gold); font-size: 1.1rem;">Wojownik</strong>
-                </div>
+              <div style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); text-align: center;">
+                <small style="color: #94a3b8; display: block; font-size: 0.75rem; margin-bottom: 4px;">AKTUALNA AKTYWNOŚĆ / GRA</small>
+                <strong style="color: var(--gold); font-size: 1.05rem;">🎮 ${activityStatus}</strong>
               </div>
             </div>
 
-            <!-- ODZNAKI SPOŁECZNOŚCI -->
+            <!-- INFORMACJE O KONCIE -->
             <div class="p-box grow">
-              <h3>Odznaki i Tytuły</h3>
+              <h3>Informacje o koncie</h3>
               <div class="achieve-list">
                 <div class="achieve-item">
                   <div>
-                    <strong style="color: #fff; display: block; font-size: 0.92rem;">⭐ Obywatel Cywilizacji</strong>
-                    <small style="color: #94a3b8; font-size: 0.8rem;">Zweryfikowany uczestnik społeczności Discord</small>
+                    <strong style="color: #fff; display: block; font-size: 0.92rem;">🛡️ Data dołączenia do gildii</strong>
+                    <small style="color: #94a3b8; font-size: 0.8rem;">Zarejestrowane automatycznie przez serwer</small>
                   </div>
-                  <span style="color: var(--gold); font-weight: 700; font-size: 0.82rem;">Nadane</span>
+                  <span style="color: var(--gold); font-weight: 700; font-size: 0.85rem;">${member.joined || 'Brak danych'}</span>
                 </div>
                 <div class="achieve-item">
                   <div>
-                    <strong style="color: #fff; display: block; font-size: 0.92rem;">⭐ Wędrowiec Północy</strong>
-                    <small style="color: #94a3b8; font-size: 0.8rem;">Gotowy do walki w surowych warunkach</small>
+                    <strong style="color: #fff; display: block; font-size: 0.92rem;">⚡ Status połączenia</strong>
+                    <small style="color: #94a3b8; font-size: 0.8rem;">Stan w sieci Discord</small>
                   </div>
-                  <span style="color: var(--gold); font-weight: 700; font-size: 0.82rem;">Aktywny</span>
+                  <span style="color: ${isOnline ? '#22c55e' : '#94a3b8'}; font-weight: 700; font-size: 0.85rem;">${statusText}</span>
                 </div>
               </div>
             </div>
           </div>
 
           <div class="profile-col">
-            <!-- EKWIPUNEK I STYL -->
+            <!-- EKWIPUNEK BOJOWY -->
             <div class="p-box">
               <h3>Ekwipunek Bojowy</h3>
               <div class="equip-slots">
-                <div class="equip-slot equipped">
+                <div class="equip-slot ${weapon !== 'Brak' ? 'equipped' : 'empty'}">
                   <i data-lucide="sword"></i>
                   Główna Broń
                   <span>${weapon}</span>
                 </div>
-                <div class="equip-slot equipped">
+                <div class="equip-slot ${armor !== 'Brak' ? 'equipped' : 'empty'}">
                   <i data-lucide="shield"></i>
                   Pancerz
                   <span>${armor}</span>
                 </div>
-                <div class="equip-slot equipped">
+                <div class="equip-slot ${amulet !== 'Brak' ? 'equipped' : 'empty'}">
                   <i data-lucide="sparkles"></i>
                   Talizman
                   <span>${amulet}</span>
@@ -326,11 +323,11 @@
               </div>
             </div>
 
-            <!-- OSOBISTA NOTATKA -->
+            <!-- DZIENNIK -->
             <div class="p-box grow">
-              <h3>Osobisty Dziennik</h3>
+              <h3>Notatka Społeczności</h3>
               <div style="padding: 15px; background: rgba(0,0,0,0.2); border-radius: 8px; color: #94a3b8; font-style: italic; font-size: 0.95rem; border-left: 3px solid var(--gold);">
-                „Spotkajmy się przy wspólnym ognisku. Razem przetrwamy każdą burzę i zbudujemy potężne królestwo.”
+                „${member.motto || 'Razem tworzymy historię w świecie Cywilizacji Polskiej. Dołącz do nas na kanałach głosowych!'}”
               </div>
             </div>
           </div>

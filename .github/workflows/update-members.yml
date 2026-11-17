@@ -24,14 +24,12 @@ jobs:
           guild_id = os.environ["GUILD_ID"]
           statbot_data = {}
           
-          # Pobieramy dane ze Statbota z poprawnym nagłówkiem/zapytaniem
           try:
               url = f"https://api.statbot.net/v3/guild/{guild_id}/members"
               response = requests.get(url, timeout=10)
               print("Statbot API Status:", response.status_code)
               if response.status_code == 200:
                   res_json = response.json()
-                  # Statbot v3 zwykle trzyma listę w "members" lub bezpośrednio w "result"
                   members_arr = res_json.get("result", {}).get("members", [])
                   if not members_arr and isinstance(res_json.get("result"), list):
                       members_arr = res_json.get("result")
@@ -43,9 +41,6 @@ jobs:
                               "messages": user.get("messages", 0),
                               "voice_time_mins": user.get("voice", user.get("voice_time", 0))
                           }
-                  print(f"Pobrano statystyki Statbota dla {len(statbot_data)} użytkowników.")
-              else:
-                  print("Odpowiedź Statbota:", response.text)
           except Exception as e:
               print(f"Błąd połączenia ze Statbotem: {e}")
 
@@ -85,12 +80,29 @@ jobs:
               for member in sorted_members:
                   mid = str(member.id)
                   role_name = member.top_role.name if member.top_role.name != "@everyone" else "Gracz"
+                  
+                  # Pobieranie wszystkich ról użytkownika poza @everyone
+                  all_roles = [r.name for r in member.roles if r.name != "@everyone"]
+                  
                   status_str = "online" if str(member.status) in ["online", "idle", "dnd"] else "offline"
                   avatar_url = member.display_avatar.url if member.display_avatar else "https://cdn.discordapp.com/embed/avatars/0.png"
 
+                  # Pobieranie aktywnej gry z Discorda
+                  main_game = "Valheim"
+                  if member.activities:
+                      for act in member.activities:
+                          if isinstance(act, discord.Game) or act.type == discord.ActivityType.playing:
+                              main_game = act.name
+                              break
+                          elif act.name:
+                              main_game = act.name
+                              break
+
+                  # Data dołączenia do gildii
+                  joined_str = member.joined_at.strftime("%d.%m.%Y") if member.joined_at else "Brak danych"
+
                   old_member = existing_data.get(mid, {})
                   
-                  # Pobieramy dane ze Statbota
                   sb_user = statbot_data.get(mid, {})
                   messages = sb_user.get("messages", old_member.get("messages", 0))
                   
@@ -109,13 +121,15 @@ jobs:
                       "avatar": avatar_url,
                       "status": status_str,
                       "role": role_name,
+                      "all_roles": all_roles if all_roles else [role_name],
                       "level": old_member.get("level", max(1, member.top_role.position)),
                       "xp": old_member.get("xp", messages * 2 + 750),
                       "rank": rank,
                       "tokens": old_member.get("tokens", 0),
                       "messages": messages,
                       "voice_time": voice_time,
-                      "main_game": old_member.get("main_game", "Valheim"),
+                      "main_game": main_game,
+                      "joined": joined_str,
                       "motto": old_member.get("motto", ""),
                       "equipment": old_member.get("equipment", {"weapon": "Brak", "armor": "Brak", "amulet": "Brak"}),
                       "achievements": old_member.get("achievements", []),
@@ -139,4 +153,4 @@ jobs:
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email "actions@github.com"
           git add members.json
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Aktualizacja statystyk ze Statbota" && git push)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Automatyczna synchronizacja Discorda" && git push)
