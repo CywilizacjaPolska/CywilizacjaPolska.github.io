@@ -36,7 +36,6 @@ jobs:
                   await client.close()
                   return
 
-              # Wczytaj dotychczasowe dane z pliku members.json
               existing_data = {}
               if os.path.exists("members.json"):
                   try:
@@ -62,25 +61,17 @@ jobs:
                   avatar_url = member.display_avatar.url if member.display_avatar else "https://cdn.discordapp.com/embed/avatars/0.png"
 
                   lvl = max(1, member.top_role.position)
-                  
-                  # Pobierz stare dane gracza (jeśli istnieją)
                   old_member = existing_data.get(mid, {})
                   
-                  # Pobierz lub zainicjuj statystyki, żeby rosły dla każdego
                   messages = old_member.get("messages", random.randint(10, 50))
                   tokens = old_member.get("tokens", random.randint(1, 10))
                   xp = old_member.get("xp", lvl * 150)
                   
-                  # Jeśli gracz jest teraz online, dodajmy mu trochę aktywności przy każdej synchronizacji!
                   if status_str == "online":
                       messages += random.randint(1, 3)
                       xp += random.randint(10, 25)
 
-                  # Przeliczanie czasu głosowego (symulacja lub zachowanie starego)
                   voice_time = old_member.get("voice_time", "2h 15m")
-                  if status_str == "online" and random.random() > 0.5:
-                      # dodaj trochę minut głosowych aktywnym użytkownikom
-                      pass
 
                   merged_member = {
                       "id": mid,
@@ -102,7 +93,7 @@ jobs:
                           {"title": "Pierwsze Kroki", "desc": "Dołącz do społeczności Cywilizacji", "reward": "+50 XP"}
                       ]),
                       "recent_activity": old_member.get("recent_activity", [
-                          {"text": f"Aktywny na serwerze", "time": "Przed chwilą"}
+                          {"text": "Aktywny na serwerze", "time": "Przed chwilą"}
                       ])
                   }
 
@@ -124,12 +115,3 @@ jobs:
           git config --global user.email "bot@github.com"
           git add members.json
           git diff --quiet && git diff --staged --quiet || (git commit -m "Automatyczna aktualizacja statystyk dla wszystkich graczy" && git push)
-```[cite: 13]
-
----
-
-### Rozwiązanie 2: Prawdziwy bot Discord (zalecane, jeśli masz swój serwer VPS / komputer)
-Jeśli uruchamiasz bota u siebie na komputerze lub hostingu (np. Node.js lub Python), bot ma **ciągłe połączenie z Discordem w czasie rzeczywistym**. 
-Wtedy reaguje na każde wysłanie wiadomości na czacie przez *każdego* użytkownika i na każde wejście na kanał głosowy, zapisując idealne, co do sekundy statystyki do pliku `members.json`, a następnie wysyła je na GitHub.
-
-Którą z tych dwóch dróg wolisz zastosować? Czy wolisz, żeby to GitHub Actions automatycznie uzupełniało statystyki dla wszystkich członków (Rozwiązanie 1), czy uruchamiasz osobnego bota na komputerze?
