@@ -13,7 +13,7 @@ jobs:
       - name: Zainstaluj bibliotekę Discord
         run: pip install discord.py
 
-      - name: Pobierz prawdziwych użytkowników z Discorda
+      - name: Pobierz i zaktualizuj użytkowników z Discorda
         env:
           TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
           GUILD_ID: ${{ secrets.DISCORD_GUILD_ID }}
@@ -36,6 +36,17 @@ jobs:
                   await client.close()
                   return
 
+              # Wczytaj istniejący members.json, aby nie stracić statystyk
+              existing_data = {}
+              if os.path.exists("members.json"):
+                  try:
+                      with open("members.json", "r", encoding="utf-8") as f:
+                          old_list = json.load(f)
+                          if isinstance(old_list, list):
+                              existing_data = {m["id"]: m for m in old_list}
+                  except Exception as e:
+                      print(f"Błąd odczytu starego pliku: {e}")
+
               members_list = []
               rank = 1
 
@@ -45,6 +56,7 @@ jobs:
               )
 
               for member in sorted_members:
+                  mid = str(member.id)
                   role_name = member.top_role.name if member.top_role.name != "@everyone" else "Gracz"
                   status_str = "online" if str(member.status) in ["online", "idle", "dnd"] else "offline"
                   avatar_url = member.display_avatar.url if member.display_avatar else "https://cdn.discordapp.com/embed/avatars/0.png"
@@ -52,8 +64,11 @@ jobs:
                   lvl = max(1, member.top_role.position)
                   xp = lvl * 150
 
-                  members_list.append({
-                      "id": str(member.id),
+                  # Pobierz stare dane gracza lub utwórz domyślne
+                  old_member = existing_data.get(mid, {})
+
+                  merged_member = {
+                      "id": mid,
                       "name": member.display_name,
                       "handle": f"@{member.name}",
                       "avatar": avatar_url,
@@ -61,22 +76,33 @@ jobs:
                       "role": role_name,
                       "level": lvl,
                       "xp": xp,
-                      "rank": rank
-                  })
+                      "rank": rank,
+                      # Zachowaj poniższe pola, jeśli już istniały, lub ustaw wartości domyślne:
+                      "tokens": old_member.get("tokens", 0),
+                      "messages": old_member.get("messages", 0),
+                      "voice_time": old_member.get("voice_time", "0h 0m"),
+                      "main_game": old_member.get("main_game", "Valheim"),
+                      "motto": old_member.get("motto", ""),
+                      "equipment": old_member.get("equipment", {"weapon": "Brak", "armor": "Brak", "amulet": "Brak"}),
+                      "achievements": old_member.get("achievements", []),
+                      "recent_activity": old_member.get("recent_activity", [])
+                  }
+
+                  members_list.append(merged_member)
                   rank += 1
 
               with open("members.json", "w", encoding="utf-8") as f:
                   json.dump(members_list, f, indent=2, ensure_ascii=False)
 
-              print(f"Zsynchronizowano {len(members_list)} prawdziwych graczy!")
+              print(f"Zsynchronizowano {len(members_list)} graczy bez utraty danych!")
               await client.close()
 
           client.run(os.environ["TOKEN"])
           '
 
-      - name: Zapisz prawdziwych użytkowników w repozytorium
+      - name: Zapisz zmiany w repozytorium
         run: |
           git config --global user.name "Status Bot"
           git config --global user.email "bot@github.com"
           git add members.json
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Aktualizacja listy graczy z Discorda" && git push)
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Automatyczna synchronizacja graczy z zachowaniem statystyk" && git push)
