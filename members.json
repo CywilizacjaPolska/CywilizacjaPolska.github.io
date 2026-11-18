@@ -86,7 +86,7 @@
     "tokens": 0,
     "messages": 5,
     "voice_time": "0h 0m",
-    "main_game": "Visual Studio Code",
+    "main_game": "Aktywny na Discordzie",
     "faction": "The Ascent",
     "game_counts": {
       "The Ascent": 1,
@@ -103,7 +103,7 @@
       {
         "game": "The Ascent",
         "timestamp": "2026-11-18T22:21:14.754131+00:00",
-        "time": "Przed chwilą",
+        "time": "15 min. temu",
         "tag": "Nowy gracz",
         "icon": null
       }
