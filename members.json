@@ -72,7 +72,7 @@
     "name": "Psycho1425",
     "handle": "@psycho1425",
     "avatar": "https://cdn.discordapp.com/avatars/634884694248259584/079d24a4eab24c194096a9ff66753901.png?size=1024",
-    "status": "online",
+    "status": "offline",
     "role": "║💼║Moderator",
     "role_color": "#a84300",
     "all_roles": [
@@ -86,7 +86,7 @@
     "tokens": 0,
     "messages": 5,
     "voice_time": "0h 0m",
-    "main_game": "Aktywny na Discordzie",
+    "main_game": "Brak",
     "faction": "The Ascent",
     "game_counts": {
       "The Ascent": 1,
@@ -96,19 +96,19 @@
       {
         "game": "RUINER",
         "timestamp": "2026-11-18T22:23:53.497869+00:00",
-        "time": "22 min. temu",
+        "time": "1 godz. temu",
         "tag": "Nowy gracz",
         "icon": null
       },
       {
         "game": "The Ascent",
         "timestamp": "2026-11-18T22:21:14.754131+00:00",
-        "time": "24 min. temu",
+        "time": "1 godz. temu",
         "tag": "Nowy gracz",
         "icon": null
       }
     ],
-    "custom_status": "Tak to już bywa hahah",
+    "custom_status": "",
     "joined": "26.05.2026",
     "joined_days": 176,
     "veteran_title": "Obywatel w Sieci",
@@ -212,7 +212,7 @@
     "activity_log": [],
     "custom_status": "",
     "joined": "20.07.2026",
-    "joined_days": 120,
+    "joined_days": 121,
     "veteran_title": "Obywatel w Sieci",
     "equipment": {
       "weapon": "Brak",
@@ -280,7 +280,7 @@
     "activity_log": [],
     "custom_status": "",
     "joined": "20.07.2026",
-    "joined_days": 120,
+    "joined_days": 121,
     "veteran_title": "Obywatel w Sieci",
     "equipment": {
       "weapon": "Brak",
