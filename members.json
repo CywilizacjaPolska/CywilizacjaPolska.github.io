@@ -86,10 +86,20 @@
     "tokens": 0,
     "messages": 5,
     "voice_time": "0h 0m",
-    "main_game": "Visual Studio Code",
-    "faction": "Wędrowiec",
-    "game_counts": {},
-    "activity_log": [],
+    "main_game": "The Ascent",
+    "faction": "The Ascent",
+    "game_counts": {
+      "The Ascent": 1
+    },
+    "activity_log": [
+      {
+        "game": "The Ascent",
+        "timestamp": "2026-11-18T22:21:14.754131+00:00",
+        "time": "Teraz",
+        "tag": "Nowy gracz",
+        "icon": null
+      }
+    ],
     "custom_status": "Tak to już bywa hahah",
     "joined": "26.05.2026",
     "joined_days": 176,
