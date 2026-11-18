@@ -17,6 +17,24 @@
     document.write('<link rel="stylesheet" href="ekipa.css?v=' + cacheBuster + '" />');
   </script>
   <style>
+    /* Estetyczne dopasowanie kafelków listy graczy, aby etykieta rangi nie nachodziła na awatar */
+    .member-card {
+      position: relative;
+      padding-top: 48px !important; /* Więcej miejsca od góry na etykietę rangi */
+    }
+    .member-card-badge {
+      position: absolute;
+      top: 14px;
+      left: 16px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 3px 9px;
+      border-radius: 6px;
+      z-index: 2;
+    }
+
     /* Kompaktowy, zbalansowany panel profilu */
     .rpg-profile-banner-card {
       background: #0f141e;
@@ -160,33 +178,6 @@
       text-align: center;
       flex: 1;
       min-width: 240px;
-    }
-
-    /* Styl dla osi czasu aktywności (FIFO - najnowsze na górze) */
-    .timeline-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      padding: 10px 12px;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 8px;
-      margin-bottom: 8px;
-      transition: border-color 0.2s ease;
-    }
-    .timeline-item:hover {
-      border-color: rgba(212, 160, 23, 0.3);
-    }
-    .timeline-icon {
-      width: 28px;
-      height: 28px;
-      border-radius: 6px;
-      background: rgba(212, 160, 23, 0.1);
-      color: var(--gold);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
     }
   </style>
 </head>
@@ -356,16 +347,16 @@
       members.forEach(member => {
         const card = document.createElement("article");
         card.className = "member-card";
-        card.style.position = "relative";
         
         const isOnline = member.status === "online";
         const statusClass = isOnline ? "online" : "offline";
         const statusText = isOnline ? "Online" : "Offline";
         const memberId = member.id || member.name.toLowerCase().replace(/\s+/g, '-');
         const roleColor = member.role_color || 'var(--gold)';
+        const faction = member.faction || member.main_game || 'Brak';
 
         card.innerHTML = `
-          <div style="position: absolute; top: 14px; left: 14px; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; border: 1px solid ${roleColor}; color: ${roleColor}; background: rgba(212,160,23,0.08); padding: 2px 8px; border-radius: 6px; z-index: 2;">${member.veteran_title || 'Podróżnik'}</div>
+          <div class="member-card-badge" style="border: 1px solid ${roleColor}; color: ${roleColor}; background: rgba(212,160,23,0.08);">${member.veteran_title || 'Podróżnik'}</div>
           <img src="${member.avatar || 'https://cdn.discordapp.com/embed/avatars/0.png'}" alt="${member.name}" class="member-avatar" style="border: 2px solid ${roleColor};" onerror="this.src='https://cdn.discordapp.com/embed/avatars/0.png'" />
           <h3 class="member-name">${member.name}</h3>
           <div class="member-handle" style="color: ${roleColor};">${member.role || 'Obywatel'}</div>
@@ -374,7 +365,7 @@
           </div>
           <div class="member-stats">
             <div><small>W osadzie</small><strong>${member.joined_days || 0} dni</strong></div>
-            <div><small>Aktywność</small><strong style="font-size: 0.8rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 90px; display: inline-block;">${member.main_game || 'Brak'}</strong></div>
+            <div><small>Aktywność</small><strong style="font-size: 0.8rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 90px; display: inline-block;">${faction}</strong></div>
             <div><small>Ranking</small><strong>#${member.rank || '-'}</strong></div>
           </div>
         `;
@@ -411,6 +402,7 @@
       const joinedDate = member.joined || "Brak danych";
       const currentActivity = member.main_game || "Spoczynek w obozie";
       const memberRank = member.rank || "-";
+      const faction = member.faction || member.main_game || "Wędrowiec";
 
       const ranksConfig = [
         { name: "Świeżak", days: 0 },
@@ -459,29 +451,6 @@
         </div>
       ` : '';
 
-      // Pobieranie tablicy aktywności (FIFO - do 5 ostatnich wpisów)
-      let activityLogs = member.activity_log;
-      if (!activityLogs || !Array.isArray(activityLogs) || activityLogs.length === 0) {
-        // Fallback, jeśli w JSON jeszcze nie ma historii
-        activityLogs = [
-          { icon: "gamepad-2", text: `Aktywność: ${currentActivity}`, time: "Teraz" },
-          { icon: "award", text: `Posiadana ranga: ${currentTitle}`, time: "Aktualnie" },
-          { icon: "calendar", text: `Zameldowanie w osadzie`, time: joinedDate }
-        ];
-      }
-
-      let timelineHtml = activityLogs.slice(0, 5).map(log => `
-        <div class="timeline-item">
-          <div class="timeline-icon">
-            <i data-lucide="${log.icon || 'gamepad-2'}" style="width: 15px; height: 15px;"></i>
-          </div>
-          <div style="flex: 1; font-size: 0.85rem;">
-            <div style="color: #fff; font-weight: 500;">${log.text}</div>
-            <div style="color: #94a3b8; font-size: 0.72rem; margin-top: 1px;">${log.time}</div>
-          </div>
-        </div>
-      `).join('');
-
       content.innerHTML = `
         <!-- KOMPAKTOWY GÓRNY PANEL PROFILU -->
         <div class="rpg-profile-banner-card">
@@ -497,7 +466,7 @@
               </div>
             </div>
 
-            <!-- Zbalansowana belka statystyk i danych -->
+            <!-- Zbalansowana belka statystyk -->
             <div class="rpg-stats-row">
               
               <!-- Lewa strona: Czas w osadzie -->
@@ -534,20 +503,21 @@
 
         <!-- DOLNE BOKSY SZCZEGÓŁOWE -->
         <div class="profile-grid">
+          <!-- LEWA KOLUMNA: AKTYWNOŚĆ NA DISCORDZIE + CZAS W OSADZIE Z TRZECIM KAFELKIEM -->
           <div class="profile-col">
             <div class="p-box">
               <h3 style="margin-bottom: 0.8rem; font-family: 'Cinzel', serif; color: var(--gold);">Aktywność na Discordzie</h3>
-              <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.2rem;">
+              <p style="color: #cbd5e1; font-size: 0.90rem; line-height: 1.5; margin-bottom: 1rem;">
                 Aktualny stan w sieci, uruchomione gry lub odtwarzana muzyka.
               </p>
-              <div style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); text-align: center;">
-                <small style="color: #94a3b8; display: block; font-size: 0.75rem; margin-bottom: 4px;">AKTUALNA AKTYWNOŚĆ</small>
-                <strong style="color: var(--gold); font-size: 1.05rem;">🎮 ${currentActivity}</strong>
+              <div style="background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); text-align: center;">
+                <small style="color: #94a3b8; display: block; font-size: 0.7rem; margin-bottom: 3px;">AKTUALNA AKTYWNOŚĆ</small>
+                <strong style="color: var(--gold); font-size: 1rem;">🎮 ${currentActivity}</strong>
               </div>
             </div>
 
             <div class="p-box grow">
-              <h3>Czas w Osadzie</h3>
+              <h3 style="margin-bottom: 0.8rem; font-family: 'Cinzel', serif; color: var(--gold);">Czas w Osadzie</h3>
               <div class="achieve-list">
                 <div class="achieve-item">
                   <div>
@@ -563,21 +533,28 @@
                   </div>
                   <span style="color: var(--gold); font-weight: 700; font-size: 0.85rem;">${joinedDate}</span>
                 </div>
+                <div class="achieve-item" style="border-bottom: none;">
+                  <div>
+                    <strong style="color: #fff; display: block; font-size: 0.92rem; display: flex; align-items: center; gap: 6px;">
+                      <i data-lucide="gamepad-2" style="width: 14px; height: 14px; color: #22c55e;"></i> Najczęściej grane
+                    </strong>
+                    <small style="color: #94a3b8; font-size: 0.8rem;">Główna specjalizacja</small>
+                  </div>
+                  <span style="color: #22c55e; background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3); padding: 2px 8px; border-radius: 6px; font-weight: 700; font-size: 0.8rem;">${faction}</span>
+                </div>
               </div>
             </div>
           </div>
 
+          <!-- PRAWA KOLUMNA: DRZEWKO RANG + RANGI DISCORD -->
           <div class="profile-col">
-            <!-- SEKCJA OSTATNIEJ AKTYWNOŚCI (HISTORIA KROK PO KROKU) -->
             <div class="p-box">
-              <h3 style="margin-bottom: 0.4rem; font-family: 'Cinzel', serif; color: var(--gold); display: flex; align-items: center; gap: 8px;">
-                <i data-lucide="history" style="width: 16px; height: 16px;"></i> Ostatnia Aktywność
-              </h3>
-              <p style="color: #94a3b8; font-size: 0.85rem; margin-bottom: 1rem;">
-                Kronika ostatnich działań (maksymalnie 5 ostatnich wpisów).
+              <h3 style="margin-bottom: 0.8rem; font-family: 'Cinzel', serif; color: var(--gold);">Drzewko Rang i Postępy</h3>
+              <p style="color: #cbd5e1; font-size: 0.9rem; line-height: 1.5; margin-bottom: 1rem;">
+                Tytuły weterana przyznawane automatycznie na podstawie stażu przetrwania w osadzie.
               </p>
               <div style="display: flex; flex-direction: column;">
-                ${timelineHtml}
+                ${ranksListHtml}
               </div>
             </div>
 
