@@ -16,6 +16,179 @@
     document.write('<link rel="stylesheet" href="style.css?v=' + cacheBuster + '" />');
     document.write('<link rel="stylesheet" href="ekipa.css?v=' + cacheBuster + '" />');
   </script>
+  <style>
+    /* Kompaktowy, zbalansowany panel profilu */
+    .rpg-profile-banner-card {
+      background: #0f141e;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+    }
+    .rpg-banner-cover {
+      height: 90px;
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .rpg-banner-body {
+      padding: 0 24px 20px 24px;
+      position: relative;
+    }
+    .rpg-avatar-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-top: -46px;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 2;
+    }
+    .rpg-avatar-anchor {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .rpg-center-avatar {
+      width: 92px;
+      height: 92px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #0f141e;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.65);
+      position: relative;
+      z-index: 2;
+    }
+    /* Kropka statusu idealnie na obwodzie awatara */
+    .avatar-status-dot {
+      position: absolute;
+      bottom: 4px;
+      right: 4px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 3px solid #0f141e;
+      z-index: 4;
+    }
+    .avatar-status-dot.online { background: #22c55e; box-shadow: 0 0 8px rgba(34, 197, 94, 0.6); }
+    .avatar-status-dot.offline { background: #64748b; }
+
+    /* Zgrabna chmurka statusu */
+    .discord-thought-bubble {
+      position: absolute;
+      top: -6px;
+      left: 82px;
+      background: rgba(15, 20, 30, 0.95);
+      backdrop-filter: blur(8px);
+      padding: 5px 12px;
+      border-radius: 14px;
+      color: #f8fafc;
+      font-size: 0.8rem;
+      font-style: italic;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      white-space: nowrap;
+      z-index: 5;
+    }
+    .discord-thought-dot-lg {
+      position: absolute;
+      bottom: -4px;
+      left: 8px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #0f141e;
+    }
+    .discord-thought-dot-sm {
+      position: absolute;
+      bottom: -9px;
+      left: 2px;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #0f141e;
+    }
+
+    .rpg-stats-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    
+    /* Efekt najechania myszką (hover) dla kafelków */
+    .rpg-stat-pill {
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 10px;
+      padding: 8px 16px;
+      text-align: center;
+      min-width: 130px;
+      transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+    }
+    .rpg-stat-pill:hover {
+      transform: translateY(-3px);
+      border-color: rgba(212, 160, 23, 0.4);
+      background: rgba(255, 255, 255, 0.05);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .rpg-stat-pill small {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      color: #94a3b8;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+      font-weight: 600;
+    }
+    .rpg-stat-pill strong {
+      display: block;
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+    .rpg-center-identity {
+      text-align: center;
+      flex: 1;
+      min-width: 240px;
+    }
+
+    /* Styl dla osi czasu aktywności (FIFO - najnowsze na górze) */
+    .timeline-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 12px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      margin-bottom: 8px;
+      transition: border-color 0.2s ease;
+    }
+    .timeline-item:hover {
+      border-color: rgba(212, 160, 23, 0.3);
+    }
+    .timeline-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: rgba(212, 160, 23, 0.1);
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+  </style>
 </head>
 <body class="cywilizacja-world-site">
 
@@ -228,16 +401,16 @@
       const content = document.getElementById("profile-content");
       
       const isOnline = member.status === "online";
-      const statusText = isOnline ? "Online" : "Offline";
       const statusClass = isOnline ? "online" : "offline";
       
-      const activityStatus = member.main_game || "Brak aktywnej gry";
       const customStatus = member.custom_status ? member.custom_status : null;
-      const joinedInfo = member.joined ? `W osadzie od ${member.joined} (${member.joined_days || 0} dni przetrwania)` : "Członek społeczności";
       const mainRole = member.role || "Obywatel";
-      const roleColor = member.role_color || 'var(--gold)';
+      const roleColor = member.role_color || '#d4a017';
       const currentTitle = member.veteran_title || "Podróżnik";
       const days = member.joined_days || 0;
+      const joinedDate = member.joined || "Brak danych";
+      const currentActivity = member.main_game || "Spoczynek w obozie";
+      const memberRank = member.rank || "-";
 
       const ranksConfig = [
         { name: "Świeżak", days: 0 },
@@ -278,44 +451,88 @@
         </div>
       `).join('');
 
-      let bubbleHtml = customStatus ? `
-        <div style="position: relative; background: rgba(15, 23, 42, 0.95); border: 1px solid ${roleColor}; border-radius: 10px; padding: 8px 14px; color: #f8fafc; font-size: 0.88rem; font-style: italic; max-width: 320px; box-shadow: 0 4px 16px rgba(0,0,0,0.4); display: inline-flex; align-items: center; gap: 8px; margin-top: 6px;">
-          <i data-lucide="message-square" style="width: 14px; height: 14px; color: ${roleColor}; flex-shrink: 0; opacity: 0.8;"></i>
+      let avatarBubbleHtml = customStatus ? `
+        <div class="discord-thought-bubble" style="border: 1px solid ${roleColor};">
+          <div class="discord-thought-dot-lg" style="border: 1px solid ${roleColor};"></div>
+          <div class="discord-thought-dot-sm" style="border: 1px solid ${roleColor};"></div>
           <span>„${customStatus}”</span>
         </div>
       ` : '';
 
-      content.innerHTML = `
-        <div class="profile-header-card" style="border-left: 4px solid ${roleColor};">
-          <div class="profile-header-top" style="align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem;">
-            <div class="profile-user-info" style="align-items: flex-start; flex-wrap: wrap; gap: 1.5rem;">
-              
-              <!-- Awatar i dymek pod nim po lewej stronie -->
-              <div style="display: flex; flex-direction: column; align-items: center;">
-                <img src="${member.avatar || 'https://cdn.discordapp.com/embed/avatars/0.png'}" alt="${member.name}" class="profile-big-avatar" style="border: 2px solid ${roleColor}; flex-shrink: 0;" onerror="this.src='https://cdn.discordapp.com/embed/avatars/0.png'" />
-                ${bubbleHtml}
-              </div>
+      // Pobieranie tablicy aktywności (FIFO - do 5 ostatnich wpisów)
+      let activityLogs = member.activity_log;
+      if (!activityLogs || !Array.isArray(activityLogs) || activityLogs.length === 0) {
+        // Fallback, jeśli w JSON jeszcze nie ma historii
+        activityLogs = [
+          { icon: "gamepad-2", text: `Aktywność: ${currentActivity}`, time: "Teraz" },
+          { icon: "award", text: `Posiadana ranga: ${currentTitle}`, time: "Aktualnie" },
+          { icon: "calendar", text: `Zameldowanie w osadzie`, time: joinedDate }
+        ];
+      }
 
-              <div>
-                <h2 style="font-family: 'Cinzel', serif; font-size: 2.2rem; color: #fff; margin: 0; display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
-                  ${member.name}
-                  <span class="profile-status-pill ${statusClass}">● ${statusText}</span>
-                </h2>
-                <p style="color: #94a3b8; margin: 0.3rem 0; font-size: 0.9rem;">${joinedInfo}</p>
-                <div class="profile-badges" style="margin-top: 0.5rem; display: flex; gap: 6px; flex-wrap: wrap;">
-                  <span class="badge-pill" style="border-color: ${roleColor}; color: ${roleColor};"><i data-lucide="shield" style="width: 13px; height: 13px;"></i> ${mainRole}</span>
-                  <span class="badge-pill" style="background: rgba(212,160,23,0.1); color: var(--gold);">⭐ ${currentTitle}</span>
-                </div>
+      let timelineHtml = activityLogs.slice(0, 5).map(log => `
+        <div class="timeline-item">
+          <div class="timeline-icon">
+            <i data-lucide="${log.icon || 'gamepad-2'}" style="width: 15px; height: 15px;"></i>
+          </div>
+          <div style="flex: 1; font-size: 0.85rem;">
+            <div style="color: #fff; font-weight: 500;">${log.text}</div>
+            <div style="color: #94a3b8; font-size: 0.72rem; margin-top: 1px;">${log.time}</div>
+          </div>
+        </div>
+      `).join('');
+
+      content.innerHTML = `
+        <!-- KOMPAKTOWY GÓRNY PANEL PROFILU -->
+        <div class="rpg-profile-banner-card">
+          <div class="rpg-banner-cover" style="background: linear-gradient(135deg, ${roleColor}33 0%, #151c2c 55%, #0b0f19 100%);"></div>
+
+          <div class="rpg-banner-body">
+            <!-- Awatar na krawędzi banera z kropką i chmurką -->
+            <div class="rpg-avatar-wrapper">
+              <div class="rpg-avatar-anchor">
+                <img src="${member.avatar || 'https://cdn.discordapp.com/embed/avatars/0.png'}" alt="${member.name}" class="rpg-center-avatar" style="border: 3px solid ${roleColor};" onerror="this.src='https://cdn.discordapp.com/embed/avatars/0.png'" />
+                <span class="avatar-status-dot ${statusClass}" title="${statusClass}"></span>
+                ${avatarBubbleHtml}
               </div>
             </div>
 
-            <div class="profile-rank-badge">
-              <small>Ranking Serwera</small>
-              <strong>#${member.rank || '-'}</strong>
+            <!-- Zbalansowana belka statystyk i danych -->
+            <div class="rpg-stats-row">
+              
+              <!-- Lewa strona: Czas w osadzie -->
+              <div class="rpg-stat-pill">
+                <small><i data-lucide="calendar" style="width: 12px; height: 12px; color: ${roleColor};"></i> W osadzie</small>
+                <strong>${days} dni</strong>
+              </div>
+
+              <!-- Środek: Nazwa i odznaki rang -->
+              <div class="rpg-center-identity">
+                <h2 style="font-family: 'Cinzel', serif; font-size: 1.7rem; color: #fff; margin: 0; line-height: 1.1; letter-spacing: 0.5px;">
+                  ${member.name}
+                </h2>
+
+                <div style="margin-top: 8px; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;">
+                  <span class="badge-pill" style="border-color: ${roleColor}; color: ${roleColor}; background: ${roleColor}14; font-size: 0.75rem; padding: 2px 10px;">
+                    <i data-lucide="shield" style="width: 11px; height: 11px;"></i> ${mainRole}
+                  </span>
+                  <span class="badge-pill" style="background: rgba(212,160,23,0.1); border-color: rgba(212,160,23,0.3); color: var(--gold); font-size: 0.75rem; padding: 2px 10px;">
+                    ⭐ ${currentTitle}
+                  </span>
+                </div>
+              </div>
+
+              <!-- Prawa strona: Ranking -->
+              <div class="rpg-stat-pill">
+                <small><i data-lucide="trophy" style="width: 12px; height: 12px; color: var(--gold);"></i> Ranking</small>
+                <strong style="color: var(--gold);">#${memberRank}</strong>
+              </div>
+
             </div>
           </div>
         </div>
 
+        <!-- DOLNE BOKSY SZCZEGÓŁOWE -->
         <div class="profile-grid">
           <div class="profile-col">
             <div class="p-box">
@@ -325,7 +542,7 @@
               </p>
               <div style="background: rgba(255,255,255,0.03); padding: 15px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); text-align: center;">
                 <small style="color: #94a3b8; display: block; font-size: 0.75rem; margin-bottom: 4px;">AKTUALNA AKTYWNOŚĆ</small>
-                <strong style="color: var(--gold); font-size: 1.05rem;">🎮 ${activityStatus}</strong>
+                <strong style="color: var(--gold); font-size: 1.05rem;">🎮 ${currentActivity}</strong>
               </div>
             </div>
 
@@ -344,20 +561,23 @@
                     <strong style="color: #fff; display: block; font-size: 0.92rem;">🛡️ Data dołączenia</strong>
                     <small style="color: #94a3b8; font-size: 0.8rem;">Zarejestrowane przez serwer</small>
                   </div>
-                  <span style="color: var(--gold); font-weight: 700; font-size: 0.85rem;">${member.joined || 'Brak'}</span>
+                  <span style="color: var(--gold); font-weight: 700; font-size: 0.85rem;">${joinedDate}</span>
                 </div>
               </div>
             </div>
           </div>
 
           <div class="profile-col">
+            <!-- SEKCJA OSTATNIEJ AKTYWNOŚCI (HISTORIA KROK PO KROKU) -->
             <div class="p-box">
-              <h3 style="margin-bottom: 0.8rem; font-family: 'Cinzel', serif; color: var(--gold);">Drzewko Rang i Postępy</h3>
-              <p style="color: #cbd5e1; font-size: 0.9rem; line-height: 1.5; margin-bottom: 1rem;">
-                Tytuły weterana przyznawane automatycznie na podstawie stażu przetrwania w osadzie.
+              <h3 style="margin-bottom: 0.4rem; font-family: 'Cinzel', serif; color: var(--gold); display: flex; align-items: center; gap: 8px;">
+                <i data-lucide="history" style="width: 16px; height: 16px;"></i> Ostatnia Aktywność
+              </h3>
+              <p style="color: #94a3b8; font-size: 0.85rem; margin-bottom: 1rem;">
+                Kronika ostatnich działań (maksymalnie 5 ostatnich wpisów).
               </p>
               <div style="display: flex; flex-direction: column;">
-                ${ranksListHtml}
+                ${timelineHtml}
               </div>
             </div>
 
