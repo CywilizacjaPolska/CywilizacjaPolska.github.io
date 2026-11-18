@@ -4,6 +4,9 @@ on:
     - cron: '*/15 * * * *'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   sync:
     runs-on: ubuntu-latest
@@ -43,6 +46,25 @@ jobs:
           except Exception as e:
               print(f"Błąd Statbota: {e}")
 
+          IGNORED_GAMES = {"Visual Studio Code", "Spotify", "Custom Status"}
+
+          def format_relative_time(iso_str, now_dt):
+              try:
+                  past = datetime.datetime.fromisoformat(iso_str)
+                  seconds = int((now_dt - past).total_seconds())
+                  if seconds < 900:
+                      return "Przed chwilą"
+                  elif seconds < 3600:
+                      return f"{seconds // 60} min. temu"
+                  elif seconds < 86400:
+                      return f"{seconds // 3600} godz. temu"
+                  elif seconds < 604800:
+                      return f"{seconds // 86400} d. temu"
+                  else:
+                      return f"{seconds // 604800} tyg. temu"
+              except Exception:
+                  return "Niedawno"
+
           intents = discord.Intents.default()
           intents.members = True
           intents.presences = True
@@ -69,6 +91,7 @@ jobs:
 
               members_list = []
               rank = 1
+              now = datetime.datetime.now(datetime.timezone.utc)
 
               sorted_members = sorted(
                   [m for m in guild.members if not m.bot],
@@ -77,6 +100,7 @@ jobs:
 
               for member in sorted_members:
                   mid = str(member.id)
+                  old_member = existing_data.get(mid, {})
                   top_role = member.top_role
                   role_name = top_role.name if top_role and top_role.name != "@everyone" else "Gracz"
                   role_color = str(top_role.color) if top_role and top_role.color.value != 0 else "#d4a017"
@@ -86,9 +110,10 @@ jobs:
                   status_str = "online" if str(member.status) in ["online", "idle", "dnd"] else "offline"
                   avatar_url = member.display_avatar.url if member.display_avatar else "https://cdn.discordapp.com/embed/avatars/0.png"
 
-                  # Pobieranie statusu niestandardowego (Custom Status) lub aktywnej gry/muzyki
                   custom_status = ""
                   main_game = "Brak"
+                  detected_game = None
+                  detected_icon = None
                   
                   if status_str == "online":
                       main_game = "Aktywny na Discordzie"
@@ -98,16 +123,52 @@ jobs:
                                   custom_status = act.state
                               elif isinstance(act, discord.Spotify):
                                   main_game = f"Słucha Spotify: {act.title} - {act.artist}"
-                                  break
                               elif act.type == discord.ActivityType.listening:
                                   main_game = f"Słucha: {act.name}"
-                                  break
                               elif isinstance(act, discord.Game) or act.type == discord.ActivityType.playing:
                                   main_game = act.name
+                                  if act.name not in IGNORED_GAMES:
+                                      detected_game = act.name
+                                      if hasattr(act, "large_image_url") and act.large_image_url:
+                                          detected_icon = act.large_image_url
                                   break
                               elif act.name and act.type != discord.ActivityType.custom:
                                   main_game = act.name
                                   break
+
+                  # Aktualizacja historii gier (activity_log - max 7 wpisów)
+                  activity_log = old_member.get("activity_log", [])
+                  game_counts = old_member.get("game_counts", {})
+
+                  if detected_game:
+                      game_counts[detected_game] = game_counts.get(detected_game, 0) + 1
+                      if activity_log and activity_log[0].get("game") == detected_game:
+                          activity_log[0]["timestamp"] = now.isoformat()
+                          activity_log[0]["time"] = "Teraz"
+                          if detected_icon:
+                              activity_log[0]["icon"] = detected_icon
+                      else:
+                          is_first_time = not any(item.get("game") == detected_game for item in activity_log)
+                          activity_log.insert(0, {
+                              "game": detected_game,
+                              "timestamp": now.isoformat(),
+                              "time": "Teraz",
+                              "tag": "Nowy gracz" if is_first_time else "Ostatnio grane",
+                              "icon": detected_icon
+                          })
+                          activity_log = activity_log[:7]
+
+                  for i, entry in enumerate(activity_log):
+                      if i == 0 and detected_game == entry.get("game"):
+                          entry["time"] = "Teraz"
+                      elif "timestamp" in entry:
+                          entry["time"] = format_relative_time(entry["timestamp"], now)
+
+                  # Wyznaczenie najczęściej granej gry (faction)
+                  if game_counts:
+                      faction = max(game_counts.items(), key=lambda x: x[1])[0]
+                  else:
+                      faction = old_member.get("faction", detected_game or "Wędrowiec")
 
                   # Obliczanie dni i tytułu weterana
                   joined_days = 0
@@ -116,7 +177,7 @@ jobs:
                   
                   if member.joined_at:
                       joined_str = member.joined_at.strftime("%d.%m.%Y")
-                      delta = datetime.datetime.now(datetime.timezone.utc) - member.joined_at
+                      delta = now - member.joined_at
                       joined_days = delta.days
                       
                       if joined_days > 365:
@@ -130,7 +191,6 @@ jobs:
                       else:
                           veteran_title = "Świeżak"
 
-                  old_member = existing_data.get(mid, {})
                   sb_user = statbot_data.get(mid, {})
                   messages = sb_user.get("messages", old_member.get("messages", 0))
                   
@@ -156,6 +216,9 @@ jobs:
                       "messages": messages,
                       "voice_time": voice_time,
                       "main_game": main_game,
+                      "faction": faction,
+                      "game_counts": game_counts,
+                      "activity_log": activity_log,
                       "custom_status": custom_status,
                       "joined": joined_str,
                       "joined_days": joined_days,

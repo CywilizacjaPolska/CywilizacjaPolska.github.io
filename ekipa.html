@@ -20,7 +20,7 @@
     /* Estetyczne dopasowanie kafelków listy graczy, aby etykieta rangi nie nachodziła na awatar */
     .member-card {
       position: relative;
-      padding-top: 48px !important; /* Więcej miejsca od góry na etykietę rangi */
+      padding-top: 48px !important;
     }
     .member-card-badge {
       position: absolute;
@@ -178,6 +178,82 @@
       text-align: center;
       flex: 1;
       min-width: 240px;
+    }
+
+    /* Karty ostatniej aktywności w stylu Discorda */
+    .discord-activity-section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 1rem 0 0.6rem 0;
+      padding-top: 0.8rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #94a3b8;
+    }
+    .discord-activity-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .discord-activity-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 10px;
+      padding: 9px 12px;
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+    .discord-activity-card:hover {
+      transform: translateX(3px);
+      border-color: rgba(212, 160, 23, 0.35);
+      background: rgba(255, 255, 255, 0.045);
+    }
+    .discord-game-thumb {
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
+      object-fit: cover;
+      background: #151c2c;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+    }
+    .discord-game-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .discord-game-title {
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .discord-game-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #94a3b8;
+      font-size: 0.74rem;
+      margin-top: 2px;
+      flex-wrap: wrap;
+    }
+    .discord-game-tag {
+      color: #cbd5e1;
+      background: rgba(255, 255, 255, 0.06);
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-size: 0.68rem;
     }
   </style>
 </head>
@@ -451,6 +527,51 @@
         </div>
       ` : '';
 
+      // Ostatnia aktywność (historia gier z members.json)
+      const activityLog = Array.isArray(member.activity_log) ? member.activity_log : [];
+      let activityHistoryHtml = "";
+
+      if (activityLog.length > 0) {
+        const cardsHtml = activityLog.map(item => {
+          const thumbHtml = item.icon
+            ? `<img src="${item.icon}" alt="${item.game}" class="discord-game-thumb" onerror="this.outerHTML='<div class=\\'discord-game-thumb\\'><i data-lucide=\\'gamepad-2\\' style=\\'width: 18px; height: 18px;\\'></i></div>'" />`
+            : `<div class="discord-game-thumb"><i data-lucide="gamepad-2" style="width: 18px; height: 18px;"></i></div>`;
+
+          return `
+            <div class="discord-activity-card">
+              ${thumbHtml}
+              <div class="discord-game-info">
+                <div class="discord-game-title">${item.game}</div>
+                <div class="discord-game-meta">
+                  <span><i data-lucide="gamepad-2" style="width: 12px; height: 12px; vertical-align: -2px;"></i> ${item.time || 'Niedawno'}</span>
+                  ${item.tag ? `<span class="discord-game-tag">🎖️ ${item.tag}</span>` : ''}
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        activityHistoryHtml = `
+          <div class="discord-activity-section-title">
+            <span>Ostatnia aktywność</span>
+            <span style="font-weight: 500; text-transform: none; font-size: 0.7rem;">Z ostatnich 30 dni</span>
+          </div>
+          <div class="discord-activity-list">
+            ${cardsHtml}
+          </div>
+        `;
+      } else {
+        activityHistoryHtml = `
+          <div class="discord-activity-section-title">
+            <span>Ostatnia aktywność</span>
+            <span style="font-weight: 500; text-transform: none; font-size: 0.7rem;">Z ostatnich 30 dni</span>
+          </div>
+          <div style="text-align: center; padding: 14px; color: #64748b; font-size: 0.8rem; background: rgba(255,255,255,0.015); border-radius: 8px; border: 1px dashed rgba(255,255,255,0.06);">
+            Brak zarejestrowanych gier w ostatnim czasie.
+          </div>
+        `;
+      }
+
       content.innerHTML = `
         <!-- KOMPAKTOWY GÓRNY PANEL PROFILU -->
         <div class="rpg-profile-banner-card">
@@ -503,7 +624,7 @@
 
         <!-- DOLNE BOKSY SZCZEGÓŁOWE -->
         <div class="profile-grid">
-          <!-- LEWA KOLUMNA: AKTYWNOŚĆ NA DISCORDZIE + CZAS W OSADZIE Z TRZECIM KAFELKIEM -->
+          <!-- LEWA KOLUMNA: AKTYWNOŚĆ NA DISCORDZIE + OSTATNIA AKTYWNOŚĆ + CZAS W OSADZIE -->
           <div class="profile-col">
             <div class="p-box">
               <h3 style="margin-bottom: 0.8rem; font-family: 'Cinzel', serif; color: var(--gold);">Aktywność na Discordzie</h3>
@@ -514,6 +635,8 @@
                 <small style="color: #94a3b8; display: block; font-size: 0.7rem; margin-bottom: 3px;">AKTUALNA AKTYWNOŚĆ</small>
                 <strong style="color: var(--gold); font-size: 1rem;">🎮 ${currentActivity}</strong>
               </div>
+
+              ${activityHistoryHtml}
             </div>
 
             <div class="p-box grow">
