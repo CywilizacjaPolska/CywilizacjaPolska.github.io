@@ -57,7 +57,7 @@
     "activity_log": [],
     "custom_status": "",
     "joined": "06.06.2025",
-    "joined_days": 530,
+    "joined_days": 531,
     "veteran_title": "Legenda Osady",
     "equipment": {
       "weapon": "Brak",
@@ -91,12 +91,12 @@
     "game_counts": {
       "The Ascent": 1,
       "RUINER": 1,
-      "Beholder": 2
+      "Beholder": 3
     },
     "activity_log": [
       {
         "game": "Beholder",
-        "timestamp": "2026-11-19T17:37:48.031336+00:00",
+        "timestamp": "2026-11-19T18:37:22.736815+00:00",
         "time": "Teraz",
         "tag": "Nowy gracz",
         "icon": null
@@ -104,21 +104,21 @@
       {
         "game": "RUINER",
         "timestamp": "2026-11-18T22:23:53.497869+00:00",
-        "time": "19 godz. temu",
+        "time": "20 godz. temu",
         "tag": "Nowy gracz",
         "icon": null
       },
       {
         "game": "The Ascent",
         "timestamp": "2026-11-18T22:21:14.754131+00:00",
-        "time": "19 godz. temu",
+        "time": "20 godz. temu",
         "tag": "Nowy gracz",
         "icon": null
       }
     ],
     "custom_status": "",
     "joined": "26.05.2026",
-    "joined_days": 176,
+    "joined_days": 177,
     "veteran_title": "Obywatel w Sieci",
     "equipment": {
       "weapon": "Brak",
@@ -285,12 +285,12 @@
     "main_game": "Walk of Life",
     "faction": "Walk of Life",
     "game_counts": {
-      "Walk of Life": 1
+      "Walk of Life": 2
     },
     "activity_log": [
       {
         "game": "Walk of Life",
-        "timestamp": "2026-11-19T17:37:48.031336+00:00",
+        "timestamp": "2026-11-19T18:37:22.736815+00:00",
         "time": "Teraz",
         "tag": "Nowy gracz",
         "icon": null
@@ -335,7 +335,7 @@
       {
         "game": "Dune: Awakening",
         "timestamp": "2026-11-19T15:27:00.639791+00:00",
-        "time": "2 godz. temu",
+        "time": "3 godz. temu",
         "tag": "Nowy gracz",
         "icon": null
       }
@@ -376,7 +376,7 @@
     "activity_log": [],
     "custom_status": "",
     "joined": "26.05.2026",
-    "joined_days": 176,
+    "joined_days": 177,
     "veteran_title": "Obywatel w Sieci",
     "equipment": {
       "weapon": "Brak",
@@ -444,7 +444,7 @@
     "activity_log": [],
     "custom_status": "",
     "joined": "28.05.2026",
-    "joined_days": 174,
+    "joined_days": 175,
     "veteran_title": "Obywatel w Sieci",
     "equipment": {
       "weapon": "Brak",
