@@ -86,24 +86,32 @@
     "tokens": 0,
     "messages": 5,
     "voice_time": "0h 0m",
-    "main_game": "Aktywny na Discordzie",
+    "main_game": "Beholder",
     "faction": "The Ascent",
     "game_counts": {
       "The Ascent": 1,
-      "RUINER": 1
+      "RUINER": 1,
+      "Beholder": 1
     },
     "activity_log": [
       {
+        "game": "Beholder",
+        "timestamp": "2026-11-19T16:32:44.614941+00:00",
+        "time": "Teraz",
+        "tag": "Nowy gracz",
+        "icon": null
+      },
+      {
         "game": "RUINER",
         "timestamp": "2026-11-18T22:23:53.497869+00:00",
-        "time": "17 godz. temu",
+        "time": "18 godz. temu",
         "tag": "Nowy gracz",
         "icon": null
       },
       {
         "game": "The Ascent",
         "timestamp": "2026-11-18T22:21:14.754131+00:00",
-        "time": "17 godz. temu",
+        "time": "18 godz. temu",
         "tag": "Nowy gracz",
         "icon": null
       }
@@ -295,7 +303,7 @@
     "name": "KOKO",
     "handle": "@kiki2023",
     "avatar": "https://cdn.discordapp.com/avatars/805329899400855572/63a99c3230b2ddacaa77625e5ff5d02e.png?size=1024",
-    "status": "online",
+    "status": "offline",
     "role": "║🥴║Gracz",
     "role_color": "#1f8b4c",
     "all_roles": [
@@ -308,7 +316,7 @@
     "tokens": 0,
     "messages": 4,
     "voice_time": "0h 0m",
-    "main_game": "Dune: Awakening",
+    "main_game": "Brak",
     "faction": "Dune: Awakening",
     "game_counts": {
       "Dune: Awakening": 3
@@ -317,14 +325,14 @@
       {
         "game": "Dune: Awakening",
         "timestamp": "2026-11-19T15:27:00.639791+00:00",
-        "time": "Teraz",
+        "time": "1 godz. temu",
         "tag": "Nowy gracz",
         "icon": null
       }
     ],
     "custom_status": "",
     "joined": "30.05.2026",
-    "joined_days": 172,
+    "joined_days": 173,
     "veteran_title": "Obywatel w Sieci",
     "equipment": {
       "weapon": "Brak",
