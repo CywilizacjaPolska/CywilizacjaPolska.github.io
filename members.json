@@ -87,16 +87,16 @@
     "messages": 5,
     "voice_time": "0h 0m",
     "main_game": "Beholder",
-    "faction": "The Ascent",
+    "faction": "Beholder",
     "game_counts": {
       "The Ascent": 1,
       "RUINER": 1,
-      "Beholder": 1
+      "Beholder": 2
     },
     "activity_log": [
       {
         "game": "Beholder",
-        "timestamp": "2026-11-19T16:32:44.614941+00:00",
+        "timestamp": "2026-11-19T17:37:48.031336+00:00",
         "time": "Teraz",
         "tag": "Nowy gracz",
         "icon": null
@@ -104,14 +104,14 @@
       {
         "game": "RUINER",
         "timestamp": "2026-11-18T22:23:53.497869+00:00",
-        "time": "18 godz. temu",
+        "time": "19 godz. temu",
         "tag": "Nowy gracz",
         "icon": null
       },
       {
         "game": "The Ascent",
         "timestamp": "2026-11-18T22:21:14.754131+00:00",
-        "time": "18 godz. temu",
+        "time": "19 godz. temu",
         "tag": "Nowy gracz",
         "icon": null
       }
@@ -282,10 +282,20 @@
     "tokens": 0,
     "messages": 0,
     "voice_time": "0h 0m",
-    "main_game": "Aktywny na Discordzie",
-    "faction": "Wędrowiec",
-    "game_counts": {},
-    "activity_log": [],
+    "main_game": "Walk of Life",
+    "faction": "Walk of Life",
+    "game_counts": {
+      "Walk of Life": 1
+    },
+    "activity_log": [
+      {
+        "game": "Walk of Life",
+        "timestamp": "2026-11-19T17:37:48.031336+00:00",
+        "time": "Teraz",
+        "tag": "Nowy gracz",
+        "icon": null
+      }
+    ],
     "custom_status": "",
     "joined": "20.07.2026",
     "joined_days": 121,
@@ -325,7 +335,7 @@
       {
         "game": "Dune: Awakening",
         "timestamp": "2026-11-19T15:27:00.639791+00:00",
-        "time": "1 godz. temu",
+        "time": "2 godz. temu",
         "tag": "Nowy gracz",
         "icon": null
       }
