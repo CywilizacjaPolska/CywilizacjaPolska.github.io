@@ -72,7 +72,7 @@
     "name": "Psycho1425",
     "handle": "@psycho1425",
     "avatar": "https://cdn.discordapp.com/avatars/634884694248259584/079d24a4eab24c194096a9ff66753901.png?size=1024",
-    "status": "offline",
+    "status": "online",
     "role": "║💼║Moderator",
     "role_color": "#a84300",
     "all_roles": [
@@ -86,18 +86,26 @@
     "tokens": 0,
     "messages": 5,
     "voice_time": "0h 0m",
-    "main_game": "Brak",
+    "main_game": "Tom Clancy's Ghost Recon: Wildlands",
     "faction": "Beholder",
     "game_counts": {
       "The Ascent": 1,
       "RUINER": 1,
-      "Beholder": 6
+      "Beholder": 6,
+      "Tom Clancy's Ghost Recon: Wildlands": 1
     },
     "activity_log": [
       {
+        "game": "Tom Clancy's Ghost Recon: Wildlands",
+        "timestamp": "2026-11-20T12:42:45.957726+00:00",
+        "time": "Teraz",
+        "tag": "Nowy gracz",
+        "icon": null
+      },
+      {
         "game": "Beholder",
         "timestamp": "2026-11-19T21:44:00.280092+00:00",
-        "time": "13 godz. temu",
+        "time": "14 godz. temu",
         "tag": "Nowy gracz",
         "icon": null
       },
@@ -291,7 +299,7 @@
       {
         "game": "Walk of Life",
         "timestamp": "2026-11-19T18:37:22.736815+00:00",
-        "time": "17 godz. temu",
+        "time": "18 godz. temu",
         "tag": "Nowy gracz",
         "icon": null
       }
@@ -335,7 +343,7 @@
       {
         "game": "Dune: Awakening",
         "timestamp": "2026-11-19T15:27:00.639791+00:00",
-        "time": "20 godz. temu",
+        "time": "21 godz. temu",
         "tag": "Nowy gracz",
         "icon": null
       }
