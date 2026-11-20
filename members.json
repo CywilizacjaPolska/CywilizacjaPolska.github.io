@@ -72,7 +72,7 @@
     "name": "Psycho1425",
     "handle": "@psycho1425",
     "avatar": "https://cdn.discordapp.com/avatars/634884694248259584/079d24a4eab24c194096a9ff66753901.png?size=1024",
-    "status": "offline",
+    "status": "online",
     "role": "║💼║Moderator",
     "role_color": "#a84300",
     "all_roles": [
@@ -86,26 +86,26 @@
     "tokens": 0,
     "messages": 5,
     "voice_time": "0h 0m",
-    "main_game": "Brak",
+    "main_game": "Tom Clancy's Ghost Recon: Wildlands",
     "faction": "Beholder",
     "game_counts": {
       "The Ascent": 1,
       "RUINER": 1,
       "Beholder": 6,
-      "Tom Clancy's Ghost Recon: Wildlands": 3
+      "Tom Clancy's Ghost Recon: Wildlands": 4
     },
     "activity_log": [
       {
         "game": "Tom Clancy's Ghost Recon: Wildlands",
-        "timestamp": "2026-11-20T14:54:24.955554+00:00",
-        "time": "57 min. temu",
+        "timestamp": "2026-11-20T16:53:24.466651+00:00",
+        "time": "Teraz",
         "tag": "Nowy gracz",
         "icon": null
       },
       {
         "game": "Beholder",
         "timestamp": "2026-11-19T21:44:00.280092+00:00",
-        "time": "18 godz. temu",
+        "time": "19 godz. temu",
         "tag": "Nowy gracz",
         "icon": null
       },
@@ -290,16 +290,16 @@
     "tokens": 0,
     "messages": 0,
     "voice_time": "0h 0m",
-    "main_game": "Aktywny na Discordzie",
+    "main_game": "Walk of Life",
     "faction": "Walk of Life",
     "game_counts": {
-      "Walk of Life": 2
+      "Walk of Life": 3
     },
     "activity_log": [
       {
         "game": "Walk of Life",
-        "timestamp": "2026-11-19T18:37:22.736815+00:00",
-        "time": "21 godz. temu",
+        "timestamp": "2026-11-20T16:53:24.466651+00:00",
+        "time": "Teraz",
         "tag": "Nowy gracz",
         "icon": null
       }
@@ -321,7 +321,7 @@
     "name": "KOKO",
     "handle": "@kiki2023",
     "avatar": "https://cdn.discordapp.com/avatars/805329899400855572/63a99c3230b2ddacaa77625e5ff5d02e.png?size=1024",
-    "status": "offline",
+    "status": "online",
     "role": "║🥴║Gracz",
     "role_color": "#1f8b4c",
     "all_roles": [
@@ -334,7 +334,7 @@
     "tokens": 0,
     "messages": 4,
     "voice_time": "0h 0m",
-    "main_game": "Brak",
+    "main_game": "Aktywny na Discordzie",
     "faction": "Dune: Awakening",
     "game_counts": {
       "Dune: Awakening": 3
@@ -350,7 +350,7 @@
     ],
     "custom_status": "",
     "joined": "30.05.2026",
-    "joined_days": 173,
+    "joined_days": 174,
     "veteran_title": "Obywatel w Sieci",
     "equipment": {
       "weapon": "Brak",
