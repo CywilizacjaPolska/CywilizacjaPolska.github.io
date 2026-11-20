@@ -23,7 +23,7 @@
     "activity_log": [],
     "custom_status": "",
     "joined": "08.07.2022",
-    "joined_days": 1595,
+    "joined_days": 1596,
     "veteran_title": "Legenda Osady",
     "equipment": {
       "weapon": "Brak",
@@ -86,7 +86,7 @@
     "tokens": 0,
     "messages": 5,
     "voice_time": "0h 0m",
-    "main_game": "Mark of the Deep  ",
+    "main_game": "Aktywny na Discordzie",
     "faction": "Beholder",
     "game_counts": {
       "The Ascent": 1,
@@ -99,21 +99,21 @@
       {
         "game": "Mark of the Deep  ",
         "timestamp": "2026-11-20T18:52:45.919937+00:00",
-        "time": "Teraz",
+        "time": "1 godz. temu",
         "tag": "Nowy gracz",
         "icon": null
       },
       {
         "game": "Tom Clancy's Ghost Recon: Wildlands",
         "timestamp": "2026-11-20T17:53:34.116180+00:00",
-        "time": "59 min. temu",
+        "time": "2 godz. temu",
         "tag": "Nowy gracz",
         "icon": null
       },
       {
         "game": "Beholder",
         "timestamp": "2026-11-19T21:44:00.280092+00:00",
-        "time": "21 godz. temu",
+        "time": "22 godz. temu",
         "tag": "Nowy gracz",
         "icon": null
       },
@@ -285,7 +285,7 @@
     "name": "Kamil",
     "handle": "@kamil9165",
     "avatar": "https://cdn.discordapp.com/avatars/328538759085817859/407d57d79d24ceabf2618d86c7bcadef.png?size=1024",
-    "status": "online",
+    "status": "offline",
     "role": "║🥴║Gracz",
     "role_color": "#1f8b4c",
     "all_roles": [
@@ -298,7 +298,7 @@
     "tokens": 0,
     "messages": 0,
     "voice_time": "0h 0m",
-    "main_game": "Aktywny na Discordzie",
+    "main_game": "Brak",
     "faction": "Walk of Life",
     "game_counts": {
       "Walk of Life": 3,
@@ -308,14 +308,14 @@
       {
         "game": "Counter-Strike 2",
         "timestamp": "2026-11-20T17:53:34.116180+00:00",
-        "time": "59 min. temu",
+        "time": "2 godz. temu",
         "tag": "Nowy gracz",
         "icon": null
       },
       {
         "game": "Walk of Life",
         "timestamp": "2026-11-20T16:53:24.466651+00:00",
-        "time": "1 godz. temu",
+        "time": "3 godz. temu",
         "tag": "Nowy gracz",
         "icon": null
       }
@@ -337,7 +337,7 @@
     "name": "KOKO",
     "handle": "@kiki2023",
     "avatar": "https://cdn.discordapp.com/avatars/805329899400855572/63a99c3230b2ddacaa77625e5ff5d02e.png?size=1024",
-    "status": "offline",
+    "status": "online",
     "role": "║🥴║Gracz",
     "role_color": "#1f8b4c",
     "all_roles": [
@@ -350,7 +350,7 @@
     "tokens": 0,
     "messages": 4,
     "voice_time": "0h 0m",
-    "main_game": "Brak",
+    "main_game": "Aktywny na Discordzie",
     "faction": "Dune: Awakening",
     "game_counts": {
       "Dune: Awakening": 3
@@ -434,7 +434,7 @@
     "activity_log": [],
     "custom_status": "",
     "joined": "26.05.2026",
-    "joined_days": 177,
+    "joined_days": 178,
     "veteran_title": "Obywatel w Sieci",
     "equipment": {
       "weapon": "Brak",
@@ -449,7 +449,7 @@
     "name": "SoCoCold",
     "handle": "@sococold",
     "avatar": "https://cdn.discordapp.com/avatars/391135232029360130/8a3d3e9afd5f0da8239dd4f4edcef012.png?size=1024",
-    "status": "online",
+    "status": "offline",
     "role": "║🥴║Gracz",
     "role_color": "#1f8b4c",
     "all_roles": [
@@ -462,7 +462,7 @@
     "tokens": 0,
     "messages": 4,
     "voice_time": "0h 0m",
-    "main_game": "Aktywny na Discordzie",
+    "main_game": "Brak",
     "faction": "Wędrowiec",
     "game_counts": {},
     "activity_log": [],
