@@ -86,7 +86,7 @@
     "tokens": 0,
     "messages": 5,
     "voice_time": "0h 0m",
-    "main_game": "Visual Studio Code",
+    "main_game": "Aktywny na Discordzie",
     "faction": "Beholder",
     "game_counts": {
       "The Ascent": 1,
@@ -99,14 +99,14 @@
       {
         "game": "Mark of the Deep  ",
         "timestamp": "2026-11-20T18:52:45.919937+00:00",
-        "time": "19 godz. temu",
+        "time": "20 godz. temu",
         "tag": "Nowy gracz",
         "icon": null
       },
       {
         "game": "Tom Clancy's Ghost Recon: Wildlands",
         "timestamp": "2026-11-20T17:53:34.116180+00:00",
-        "time": "20 godz. temu",
+        "time": "21 godz. temu",
         "tag": "Nowy gracz",
         "icon": null
       },
@@ -308,14 +308,14 @@
       {
         "game": "Counter-Strike 2",
         "timestamp": "2026-11-20T17:53:34.116180+00:00",
-        "time": "20 godz. temu",
+        "time": "21 godz. temu",
         "tag": "Nowy gracz",
         "icon": null
       },
       {
         "game": "Walk of Life",
         "timestamp": "2026-11-20T16:53:24.466651+00:00",
-        "time": "21 godz. temu",
+        "time": "22 godz. temu",
         "tag": "Nowy gracz",
         "icon": null
       }
