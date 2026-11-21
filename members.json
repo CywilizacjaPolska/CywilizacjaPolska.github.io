@@ -20,13 +20,13 @@
     "main_game": "Mount & Blade II with Medal",
     "faction": "Mount & Blade II with Medal",
     "game_counts": {
-      "Mount & Blade II with Medal": 4,
+      "Mount & Blade II with Medal": 5,
       "Microsoft Visual Studio": 1
     },
     "activity_log": [
       {
         "game": "Mount & Blade II with Medal",
-        "timestamp": "2026-11-21T22:39:46.313141+00:00",
+        "timestamp": "2026-11-21T23:21:17.180078+00:00",
         "time": "Teraz",
         "tag": "Ostatnio grane",
         "icon": "https://media.discordapp.net/external/d__V6Escz61iAUJnVv0L3UAyA51zwfKxECcyvD20Yb4/https/cdn.medal.tv/games/1160/cover.jpg"
@@ -34,7 +34,7 @@
       {
         "game": "Microsoft Visual Studio",
         "timestamp": "2026-11-21T21:13:16.788668+00:00",
-        "time": "1 godz. temu",
+        "time": "2 godz. temu",
         "tag": "Nowy gracz",
         "icon": null
       },
@@ -117,13 +117,13 @@
       "The Ascent": 1,
       "RUINER": 1,
       "Beholder": 6,
-      "Tom Clancy's Ghost Recon: Wildlands": 10,
+      "Tom Clancy's Ghost Recon: Wildlands": 11,
       "Mark of the Deep  ": 1
     },
     "activity_log": [
       {
         "game": "Tom Clancy's Ghost Recon: Wildlands",
-        "timestamp": "2026-11-21T22:39:46.313141+00:00",
+        "timestamp": "2026-11-21T23:21:17.180078+00:00",
         "time": "Teraz",
         "tag": "Ostatnio grane",
         "icon": null
@@ -268,7 +268,7 @@
     "activity_log": [],
     "custom_status": "",
     "joined": "20.07.2026",
-    "joined_days": 123,
+    "joined_days": 124,
     "veteran_title": "Obywatel w Sieci",
     "equipment": {
       "weapon": "Brak",
@@ -354,7 +354,7 @@
     ],
     "custom_status": "",
     "joined": "20.07.2026",
-    "joined_days": 123,
+    "joined_days": 124,
     "veteran_title": "Obywatel w Sieci",
     "equipment": {
       "weapon": "Brak",
@@ -392,7 +392,7 @@
       {
         "game": "Conan Exiles",
         "timestamp": "2026-11-21T17:14:16.116020+00:00",
-        "time": "5 godz. temu",
+        "time": "6 godz. temu",
         "tag": "Nowy gracz",
         "icon": null
       },
