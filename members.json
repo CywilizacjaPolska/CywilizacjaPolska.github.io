@@ -17,16 +17,24 @@
     "tokens": 0,
     "messages": 5,
     "voice_time": "0h 0m",
-    "main_game": "Mount & Blade II with Medal",
+    "main_game": "Microsoft Visual Studio",
     "faction": "Mount & Blade II with Medal",
     "game_counts": {
-      "Mount & Blade II with Medal": 2
+      "Mount & Blade II with Medal": 2,
+      "Microsoft Visual Studio": 1
     },
     "activity_log": [
       {
+        "game": "Microsoft Visual Studio",
+        "timestamp": "2026-11-21T21:13:16.788668+00:00",
+        "time": "Teraz",
+        "tag": "Nowy gracz",
+        "icon": null
+      },
+      {
         "game": "Mount & Blade II with Medal",
         "timestamp": "2026-11-21T20:25:12.037376+00:00",
-        "time": "Teraz",
+        "time": "48 min. temu",
         "tag": "Nowy gracz",
         "icon": "https://media.discordapp.net/external/d__V6Escz61iAUJnVv0L3UAyA51zwfKxECcyvD20Yb4/https/cdn.medal.tv/games/1160/cover.jpg"
       }
@@ -102,13 +110,13 @@
       "The Ascent": 1,
       "RUINER": 1,
       "Beholder": 6,
-      "Tom Clancy's Ghost Recon: Wildlands": 7,
+      "Tom Clancy's Ghost Recon: Wildlands": 8,
       "Mark of the Deep  ": 1
     },
     "activity_log": [
       {
         "game": "Tom Clancy's Ghost Recon: Wildlands",
-        "timestamp": "2026-11-21T20:25:12.037376+00:00",
+        "timestamp": "2026-11-21T21:13:16.788668+00:00",
         "time": "Teraz",
         "tag": "Ostatnio grane",
         "icon": null
@@ -302,7 +310,7 @@
     "name": "Kamil",
     "handle": "@kamil9165",
     "avatar": "https://cdn.discordapp.com/avatars/328538759085817859/407d57d79d24ceabf2618d86c7bcadef.png?size=1024",
-    "status": "online",
+    "status": "offline",
     "role": "║🥴║Gracz",
     "role_color": "#1f8b4c",
     "all_roles": [
@@ -315,7 +323,7 @@
     "tokens": 0,
     "messages": 0,
     "voice_time": "0h 0m",
-    "main_game": "Aktywny na Discordzie",
+    "main_game": "Brak",
     "faction": "Walk of Life",
     "game_counts": {
       "Walk of Life": 3,
