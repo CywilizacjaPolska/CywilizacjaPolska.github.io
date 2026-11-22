@@ -21,12 +21,12 @@
     "faction": "Mount & Blade II with Medal",
     "game_counts": {
       "Mount & Blade II with Medal": 6,
-      "Microsoft Visual Studio": 2
+      "Microsoft Visual Studio": 3
     },
     "activity_log": [
       {
         "game": "Microsoft Visual Studio",
-        "timestamp": "2026-11-22T00:06:18.160031+00:00",
+        "timestamp": "2026-11-22T01:23:08.186809+00:00",
         "time": "Teraz",
         "tag": "Ostatnio grane",
         "icon": null
@@ -34,21 +34,21 @@
       {
         "game": "Mount & Blade II with Medal",
         "timestamp": "2026-11-21T23:34:39.030875+00:00",
-        "time": "31 min. temu",
+        "time": "1 godz. temu",
         "tag": "Ostatnio grane",
         "icon": "https://media.discordapp.net/external/d__V6Escz61iAUJnVv0L3UAyA51zwfKxECcyvD20Yb4/https/cdn.medal.tv/games/1160/cover.jpg"
       },
       {
         "game": "Microsoft Visual Studio",
         "timestamp": "2026-11-21T21:13:16.788668+00:00",
-        "time": "2 godz. temu",
+        "time": "4 godz. temu",
         "tag": "Nowy gracz",
         "icon": null
       },
       {
         "game": "Mount & Blade II with Medal",
         "timestamp": "2026-11-21T20:25:12.037376+00:00",
-        "time": "3 godz. temu",
+        "time": "4 godz. temu",
         "tag": "Nowy gracz",
         "icon": "https://media.discordapp.net/external/d__V6Escz61iAUJnVv0L3UAyA51zwfKxECcyvD20Yb4/https/cdn.medal.tv/games/1160/cover.jpg"
       }
@@ -131,7 +131,7 @@
       {
         "game": "Tom Clancy's Ghost Recon: Wildlands",
         "timestamp": "2026-11-21T23:21:17.180078+00:00",
-        "time": "45 min. temu",
+        "time": "2 godz. temu",
         "tag": "Ostatnio grane",
         "icon": null
       },
@@ -376,7 +376,7 @@
     "name": "KOKO",
     "handle": "@kiki2023",
     "avatar": "https://cdn.discordapp.com/avatars/805329899400855572/63a99c3230b2ddacaa77625e5ff5d02e.png?size=1024",
-    "status": "online",
+    "status": "offline",
     "role": "║🥴║Gracz",
     "role_color": "#1f8b4c",
     "all_roles": [
@@ -389,7 +389,7 @@
     "tokens": 0,
     "messages": 4,
     "voice_time": "0h 0m",
-    "main_game": "Aktywny na Discordzie",
+    "main_game": "Brak",
     "faction": "Dune: Awakening",
     "game_counts": {
       "Dune: Awakening": 3,
@@ -399,7 +399,7 @@
       {
         "game": "Conan Exiles",
         "timestamp": "2026-11-21T17:14:16.116020+00:00",
-        "time": "6 godz. temu",
+        "time": "8 godz. temu",
         "tag": "Nowy gracz",
         "icon": null
       },
