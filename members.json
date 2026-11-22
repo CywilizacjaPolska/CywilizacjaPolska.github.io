@@ -4,7 +4,7 @@
     "name": "Ej-dżej",
     "handle": "@endriu799111",
     "avatar": "https://cdn.discordapp.com/avatars/879347951506440222/b4b6f30a9b6e4bc510f868af34105c94.png?size=1024",
-    "status": "offline",
+    "status": "online",
     "role": "║👑║𝗪ł𝗮𝘀́𝗰𝗶𝗰𝗶𝗲𝗹",
     "role_color": "#f1c40f",
     "all_roles": [
@@ -17,7 +17,7 @@
     "tokens": 0,
     "messages": 5,
     "voice_time": "0h 0m",
-    "main_game": "Brak",
+    "main_game": "Aktywny na Discordzie",
     "faction": "Mount & Blade II with Medal",
     "game_counts": {
       "Mount & Blade II with Medal": 7,
@@ -27,7 +27,7 @@
       {
         "game": "Microsoft Visual Studio",
         "timestamp": "2026-11-22T03:22:45.203487+00:00",
-        "time": "7 godz. temu",
+        "time": "8 godz. temu",
         "tag": "Ostatnio grane",
         "icon": null
       },
@@ -41,28 +41,28 @@
       {
         "game": "Microsoft Visual Studio",
         "timestamp": "2026-11-22T01:23:08.186809+00:00",
-        "time": "9 godz. temu",
+        "time": "10 godz. temu",
         "tag": "Ostatnio grane",
         "icon": null
       },
       {
         "game": "Mount & Blade II with Medal",
         "timestamp": "2026-11-21T23:34:39.030875+00:00",
-        "time": "10 godz. temu",
+        "time": "11 godz. temu",
         "tag": "Ostatnio grane",
         "icon": "https://media.discordapp.net/external/d__V6Escz61iAUJnVv0L3UAyA51zwfKxECcyvD20Yb4/https/cdn.medal.tv/games/1160/cover.jpg"
       },
       {
         "game": "Microsoft Visual Studio",
         "timestamp": "2026-11-21T21:13:16.788668+00:00",
-        "time": "13 godz. temu",
+        "time": "14 godz. temu",
         "tag": "Nowy gracz",
         "icon": null
       },
       {
         "game": "Mount & Blade II with Medal",
         "timestamp": "2026-11-21T20:25:12.037376+00:00",
-        "time": "14 godz. temu",
+        "time": "15 godz. temu",
         "tag": "Nowy gracz",
         "icon": "https://media.discordapp.net/external/d__V6Escz61iAUJnVv0L3UAyA51zwfKxECcyvD20Yb4/https/cdn.medal.tv/games/1160/cover.jpg"
       }
@@ -145,7 +145,7 @@
       {
         "game": "Tom Clancy's Ghost Recon: Wildlands",
         "timestamp": "2026-11-21T23:21:17.180078+00:00",
-        "time": "11 godz. temu",
+        "time": "12 godz. temu",
         "tag": "Ostatnio grane",
         "icon": null
       },
@@ -356,12 +356,12 @@
     "game_counts": {
       "Walk of Life": 3,
       "Counter-Strike 2": 1,
-      "CurseForge": 2
+      "CurseForge": 3
     },
     "activity_log": [
       {
         "game": "CurseForge",
-        "timestamp": "2026-11-22T10:30:13.817148+00:00",
+        "timestamp": "2026-11-22T11:27:31.190606+00:00",
         "time": "Teraz",
         "tag": "Nowy gracz",
         "icon": "https://media.discordapp.net/external/udQA5YXW7Ecka15TdWc2VvIzSXthsccEnwtutuaex8E/https/curseforge.overwolf.com/app/games/world-of-warcraft/assets/logo.webp"
@@ -421,7 +421,7 @@
       {
         "game": "Conan Exiles",
         "timestamp": "2026-11-22T09:31:46.109217+00:00",
-        "time": "58 min. temu",
+        "time": "1 godz. temu",
         "tag": "Nowy gracz",
         "icon": null
       },
