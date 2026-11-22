@@ -20,13 +20,13 @@
     "main_game": "Mount & Blade II with Medal",
     "faction": "Mount & Blade II with Medal",
     "game_counts": {
-      "Mount & Blade II with Medal": 8,
+      "Mount & Blade II with Medal": 9,
       "Microsoft Visual Studio": 4
     },
     "activity_log": [
       {
         "game": "Mount & Blade II with Medal",
-        "timestamp": "2026-11-22T12:16:34.613388+00:00",
+        "timestamp": "2026-11-22T13:29:24.647157+00:00",
         "time": "Teraz",
         "tag": "Ostatnio grane",
         "icon": "https://media.discordapp.net/external/d__V6Escz61iAUJnVv0L3UAyA51zwfKxECcyvD20Yb4/https/cdn.medal.tv/games/1160/cover.jpg"
@@ -34,42 +34,42 @@
       {
         "game": "Microsoft Visual Studio",
         "timestamp": "2026-11-22T03:22:45.203487+00:00",
-        "time": "8 godz. temu",
-        "tag": "Ostatnio grane",
-        "icon": null
-      },
-      {
-        "game": "Mount & Blade II with Medal",
-        "timestamp": "2026-11-22T02:27:57.526431+00:00",
-        "time": "9 godz. temu",
-        "tag": "Ostatnio grane",
-        "icon": "https://media.discordapp.net/external/d__V6Escz61iAUJnVv0L3UAyA51zwfKxECcyvD20Yb4/https/cdn.medal.tv/games/1160/cover.jpg"
-      },
-      {
-        "game": "Microsoft Visual Studio",
-        "timestamp": "2026-11-22T01:23:08.186809+00:00",
         "time": "10 godz. temu",
         "tag": "Ostatnio grane",
         "icon": null
       },
       {
         "game": "Mount & Blade II with Medal",
-        "timestamp": "2026-11-21T23:34:39.030875+00:00",
+        "timestamp": "2026-11-22T02:27:57.526431+00:00",
+        "time": "11 godz. temu",
+        "tag": "Ostatnio grane",
+        "icon": "https://media.discordapp.net/external/d__V6Escz61iAUJnVv0L3UAyA51zwfKxECcyvD20Yb4/https/cdn.medal.tv/games/1160/cover.jpg"
+      },
+      {
+        "game": "Microsoft Visual Studio",
+        "timestamp": "2026-11-22T01:23:08.186809+00:00",
         "time": "12 godz. temu",
+        "tag": "Ostatnio grane",
+        "icon": null
+      },
+      {
+        "game": "Mount & Blade II with Medal",
+        "timestamp": "2026-11-21T23:34:39.030875+00:00",
+        "time": "13 godz. temu",
         "tag": "Ostatnio grane",
         "icon": "https://media.discordapp.net/external/d__V6Escz61iAUJnVv0L3UAyA51zwfKxECcyvD20Yb4/https/cdn.medal.tv/games/1160/cover.jpg"
       },
       {
         "game": "Microsoft Visual Studio",
         "timestamp": "2026-11-21T21:13:16.788668+00:00",
-        "time": "15 godz. temu",
+        "time": "16 godz. temu",
         "tag": "Nowy gracz",
         "icon": null
       },
       {
         "game": "Mount & Blade II with Medal",
         "timestamp": "2026-11-21T20:25:12.037376+00:00",
-        "time": "15 godz. temu",
+        "time": "17 godz. temu",
         "tag": "Nowy gracz",
         "icon": "https://media.discordapp.net/external/d__V6Escz61iAUJnVv0L3UAyA51zwfKxECcyvD20Yb4/https/cdn.medal.tv/games/1160/cover.jpg"
       }
@@ -152,7 +152,7 @@
       {
         "game": "Tom Clancy's Ghost Recon: Wildlands",
         "timestamp": "2026-11-21T23:21:17.180078+00:00",
-        "time": "12 godz. temu",
+        "time": "14 godz. temu",
         "tag": "Ostatnio grane",
         "icon": null
       },
@@ -364,12 +364,12 @@
       "Walk of Life": 3,
       "Counter-Strike 2": 1,
       "CurseForge": 3,
-      "World of Warcraft: Forever": 1
+      "World of Warcraft: Forever": 2
     },
     "activity_log": [
       {
         "game": "World of Warcraft: Forever",
-        "timestamp": "2026-11-22T12:16:34.613388+00:00",
+        "timestamp": "2026-11-22T13:29:24.647157+00:00",
         "time": "Teraz",
         "tag": "Nowy gracz",
         "icon": null
@@ -377,7 +377,7 @@
       {
         "game": "CurseForge",
         "timestamp": "2026-11-22T11:27:31.190606+00:00",
-        "time": "49 min. temu",
+        "time": "2 godz. temu",
         "tag": "Nowy gracz",
         "icon": "https://media.discordapp.net/external/udQA5YXW7Ecka15TdWc2VvIzSXthsccEnwtutuaex8E/https/curseforge.overwolf.com/app/games/world-of-warcraft/assets/logo.webp"
       },
@@ -430,12 +430,12 @@
     "faction": "Conan Exiles",
     "game_counts": {
       "Dune: Awakening": 3,
-      "Conan Exiles": 5
+      "Conan Exiles": 6
     },
     "activity_log": [
       {
         "game": "Conan Exiles",
-        "timestamp": "2026-11-22T12:16:34.613388+00:00",
+        "timestamp": "2026-11-22T13:29:24.647157+00:00",
         "time": "Teraz",
         "tag": "Nowy gracz",
         "icon": null
