@@ -27,21 +27,21 @@
       {
         "game": "Microsoft Visual Studio",
         "timestamp": "2026-11-22T03:22:45.203487+00:00",
-        "time": "5 godz. temu",
+        "time": "6 godz. temu",
         "tag": "Ostatnio grane",
         "icon": null
       },
       {
         "game": "Mount & Blade II with Medal",
         "timestamp": "2026-11-22T02:27:57.526431+00:00",
-        "time": "6 godz. temu",
+        "time": "7 godz. temu",
         "tag": "Ostatnio grane",
         "icon": "https://media.discordapp.net/external/d__V6Escz61iAUJnVv0L3UAyA51zwfKxECcyvD20Yb4/https/cdn.medal.tv/games/1160/cover.jpg"
       },
       {
         "game": "Microsoft Visual Studio",
         "timestamp": "2026-11-22T01:23:08.186809+00:00",
-        "time": "7 godz. temu",
+        "time": "8 godz. temu",
         "tag": "Ostatnio grane",
         "icon": null
       },
@@ -55,14 +55,14 @@
       {
         "game": "Microsoft Visual Studio",
         "timestamp": "2026-11-21T21:13:16.788668+00:00",
-        "time": "11 godz. temu",
+        "time": "12 godz. temu",
         "tag": "Nowy gracz",
         "icon": null
       },
       {
         "game": "Mount & Blade II with Medal",
         "timestamp": "2026-11-21T20:25:12.037376+00:00",
-        "time": "12 godz. temu",
+        "time": "13 godz. temu",
         "tag": "Nowy gracz",
         "icon": "https://media.discordapp.net/external/d__V6Escz61iAUJnVv0L3UAyA51zwfKxECcyvD20Yb4/https/cdn.medal.tv/games/1160/cover.jpg"
       }
@@ -145,7 +145,7 @@
       {
         "game": "Tom Clancy's Ghost Recon: Wildlands",
         "timestamp": "2026-11-21T23:21:17.180078+00:00",
-        "time": "9 godz. temu",
+        "time": "10 godz. temu",
         "tag": "Ostatnio grane",
         "icon": null
       },
@@ -338,7 +338,7 @@
     "name": "Kamil",
     "handle": "@kamil9165",
     "avatar": "https://cdn.discordapp.com/avatars/328538759085817859/407d57d79d24ceabf2618d86c7bcadef.png?size=1024",
-    "status": "offline",
+    "status": "online",
     "role": "║🥴║Gracz",
     "role_color": "#1f8b4c",
     "all_roles": [
@@ -351,13 +351,21 @@
     "tokens": 0,
     "messages": 0,
     "voice_time": "0h 0m",
-    "main_game": "Brak",
+    "main_game": "CurseForge",
     "faction": "Walk of Life",
     "game_counts": {
       "Walk of Life": 3,
-      "Counter-Strike 2": 1
+      "Counter-Strike 2": 1,
+      "CurseForge": 1
     },
     "activity_log": [
+      {
+        "game": "CurseForge",
+        "timestamp": "2026-11-22T09:31:46.109217+00:00",
+        "time": "Teraz",
+        "tag": "Nowy gracz",
+        "icon": "https://media.discordapp.net/external/udQA5YXW7Ecka15TdWc2VvIzSXthsccEnwtutuaex8E/https/curseforge.overwolf.com/app/games/world-of-warcraft/assets/logo.webp"
+      },
       {
         "game": "Counter-Strike 2",
         "timestamp": "2026-11-20T17:53:34.116180+00:00",
@@ -404,15 +412,15 @@
     "messages": 4,
     "voice_time": "0h 0m",
     "main_game": "Conan Exiles",
-    "faction": "Dune: Awakening",
+    "faction": "Conan Exiles",
     "game_counts": {
       "Dune: Awakening": 3,
-      "Conan Exiles": 3
+      "Conan Exiles": 4
     },
     "activity_log": [
       {
         "game": "Conan Exiles",
-        "timestamp": "2026-11-22T08:35:44.396913+00:00",
+        "timestamp": "2026-11-22T09:31:46.109217+00:00",
         "time": "Teraz",
         "tag": "Nowy gracz",
         "icon": null
