@@ -17,17 +17,24 @@
     "tokens": 0,
     "messages": 5,
     "voice_time": "0h 0m",
-    "main_game": "Mount & Blade II with Medal",
+    "main_game": "Microsoft Visual Studio",
     "faction": "Mount & Blade II with Medal",
     "game_counts": {
       "Mount & Blade II with Medal": 6,
-      "Microsoft Visual Studio": 1
+      "Microsoft Visual Studio": 2
     },
     "activity_log": [
       {
+        "game": "Microsoft Visual Studio",
+        "timestamp": "2026-11-22T00:06:18.160031+00:00",
+        "time": "Teraz",
+        "tag": "Ostatnio grane",
+        "icon": null
+      },
+      {
         "game": "Mount & Blade II with Medal",
         "timestamp": "2026-11-21T23:34:39.030875+00:00",
-        "time": "Teraz",
+        "time": "31 min. temu",
         "tag": "Ostatnio grane",
         "icon": "https://media.discordapp.net/external/d__V6Escz61iAUJnVv0L3UAyA51zwfKxECcyvD20Yb4/https/cdn.medal.tv/games/1160/cover.jpg"
       },
@@ -97,7 +104,7 @@
     "name": "Psycho1425",
     "handle": "@psycho1425",
     "avatar": "https://cdn.discordapp.com/avatars/634884694248259584/079d24a4eab24c194096a9ff66753901.png?size=1024",
-    "status": "online",
+    "status": "offline",
     "role": "║💼║Moderator",
     "role_color": "#a84300",
     "all_roles": [
@@ -111,7 +118,7 @@
     "tokens": 0,
     "messages": 5,
     "voice_time": "0h 0m",
-    "main_game": "Aktywny na Discordzie",
+    "main_game": "Brak",
     "faction": "Tom Clancy's Ghost Recon: Wildlands",
     "game_counts": {
       "The Ascent": 1,
@@ -124,7 +131,7 @@
       {
         "game": "Tom Clancy's Ghost Recon: Wildlands",
         "timestamp": "2026-11-21T23:21:17.180078+00:00",
-        "time": "Przed chwilą",
+        "time": "45 min. temu",
         "tag": "Ostatnio grane",
         "icon": null
       },
