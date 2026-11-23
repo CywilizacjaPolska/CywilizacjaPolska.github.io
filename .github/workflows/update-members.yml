@@ -136,27 +136,77 @@ jobs:
                                   main_game = act.name
                                   break
 
-                  # Aktualizacja historii gier (activity_log - max 7 wpisów)
+                  # Aktualizacja historii gier i cache ikon
                   activity_log = old_member.get("activity_log", [])
                   game_counts = old_member.get("game_counts", {})
+                  game_icons = old_member.get("game_icons", {})
+
+                  def get_fallback_game_icon(game_name: str):
+                      if game_name in game_icons and game_icons[game_name]:
+                          return game_icons[game_name]
+                      try:
+                          r = requests.get(
+                              "https://store.steampowered.com/api/storesearch/",
+                              params={"term": game_name, "l": "polish", "cc": "PL"},
+                              timeout=6,
+                          )
+                          if r.status_code == 200:
+                              items = r.json().get("items") or []
+                              if items and items[0].get("tiny_image"):
+                                  game_icons[game_name] = items[0]["tiny_image"]
+                                  return game_icons[game_name]
+                      except Exception:
+                          pass
+                      game_icons.setdefault(game_name, None)
+                      return None
+
+                  # Zapisz istniejące ikony z wcześniejszych wpisów do cache
+                  for old_item in activity_log:
+                      g_name = old_item.get("game")
+                      g_icon = old_item.get("icon")
+                      if g_name and g_icon and not game_icons.get(g_name):
+                          game_icons[g_name] = g_icon
 
                   if detected_game:
                       game_counts[detected_game] = game_counts.get(detected_game, 0) + 1
-                      if activity_log and activity_log[0].get("game") == detected_game:
-                          activity_log[0]["timestamp"] = now.isoformat()
-                          activity_log[0]["time"] = "Teraz"
-                          if detected_icon:
-                              activity_log[0]["icon"] = detected_icon
-                      else:
-                          is_first_time = not any(item.get("game") == detected_game for item in activity_log)
+
+                      icon_to_use = detected_icon or game_icons.get(detected_game) or get_fallback_game_icon(detected_game)
+                      if icon_to_use:
+                          game_icons[detected_game] = icon_to_use
+
+                      existing_idx = next((i for i, item in enumerate(activity_log) if item.get("game") == detected_game), None)
+                      if existing_idx is not None:
+                          prev_entry = activity_log.pop(existing_idx)
+                          prev_icon = icon_to_use or prev_entry.get("icon")
                           activity_log.insert(0, {
                               "game": detected_game,
                               "timestamp": now.isoformat(),
                               "time": "Teraz",
-                              "tag": "Nowy gracz" if is_first_time else "Ostatnio grane",
-                              "icon": detected_icon
+                              "tag": prev_entry.get("tag") or "Ostatnio grane",
+                              "icon": prev_icon
                           })
-                          activity_log = activity_log[:7]
+                      else:
+                          activity_log.insert(0, {
+                              "game": detected_game,
+                              "timestamp": now.isoformat(),
+                              "time": "Teraz",
+                              "tag": "Nowy gracz",
+                              "icon": icon_to_use
+                          })
+
+                  # Scal istniejące duplikaty tej samej gry na liście i uzupełnij brakujące ikony
+                  deduped_log = []
+                  seen_games = set()
+                  for entry in activity_log:
+                      g_name = entry.get("game")
+                      if not g_name or g_name in seen_games:
+                          continue
+                      seen_games.add(g_name)
+                      if not entry.get("icon"):
+                          entry["icon"] = game_icons.get(g_name) or get_fallback_game_icon(g_name)
+                      deduped_log.append(entry)
+
+                  activity_log = deduped_log[:5]
 
                   for i, entry in enumerate(activity_log):
                       if i == 0 and detected_game == entry.get("game"):
@@ -218,6 +268,7 @@ jobs:
                       "main_game": main_game,
                       "faction": faction,
                       "game_counts": game_counts,
+                      "game_icons": game_icons,
                       "activity_log": activity_log,
                       "custom_status": custom_status,
                       "joined": joined_str,
