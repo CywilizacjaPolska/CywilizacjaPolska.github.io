@@ -23,6 +23,10 @@
       "Mount & Blade II with Medal": 15,
       "Microsoft Visual Studio": 10
     },
+    "game_icons": {
+      "Mount & Blade II with Medal": "https://media.discordapp.net/external/d__V6Escz61iAUJnVv0L3UAyA51zwfKxECcyvD20Yb4/https/cdn.medal.tv/games/1160/cover.jpg",
+      "Microsoft Visual Studio": null
+    },
     "activity_log": [
       {
         "game": "Mount & Blade II with Medal",
@@ -37,41 +41,6 @@
         "time": "15 godz. temu",
         "tag": "Ostatnio grane",
         "icon": null
-      },
-      {
-        "game": "Mount & Blade II with Medal",
-        "timestamp": "2026-11-22T22:15:01.858643+00:00",
-        "time": "16 godz. temu",
-        "tag": "Ostatnio grane",
-        "icon": "https://media.discordapp.net/external/d__V6Escz61iAUJnVv0L3UAyA51zwfKxECcyvD20Yb4/https/cdn.medal.tv/games/1160/cover.jpg"
-      },
-      {
-        "game": "Microsoft Visual Studio",
-        "timestamp": "2026-11-22T21:19:40.861363+00:00",
-        "time": "17 godz. temu",
-        "tag": "Ostatnio grane",
-        "icon": null
-      },
-      {
-        "game": "Mount & Blade II with Medal",
-        "timestamp": "2026-11-22T17:14:18.364515+00:00",
-        "time": "21 godz. temu",
-        "tag": "Ostatnio grane",
-        "icon": "https://media.discordapp.net/external/d__V6Escz61iAUJnVv0L3UAyA51zwfKxECcyvD20Yb4/https/cdn.medal.tv/games/1160/cover.jpg"
-      },
-      {
-        "game": "Microsoft Visual Studio",
-        "timestamp": "2026-11-22T03:22:45.203487+00:00",
-        "time": "1 d. temu",
-        "tag": "Ostatnio grane",
-        "icon": null
-      },
-      {
-        "game": "Mount & Blade II with Medal",
-        "timestamp": "2026-11-22T02:27:57.526431+00:00",
-        "time": "1 d. temu",
-        "tag": "Ostatnio grane",
-        "icon": "https://media.discordapp.net/external/d__V6Escz61iAUJnVv0L3UAyA51zwfKxECcyvD20Yb4/https/cdn.medal.tv/games/1160/cover.jpg"
       }
     ],
     "custom_status": "",
@@ -107,6 +76,7 @@
     "main_game": "Brak",
     "faction": "Wędrowiec",
     "game_counts": {},
+    "game_icons": {},
     "activity_log": [],
     "custom_status": "",
     "joined": "06.06.2025",
@@ -148,48 +118,48 @@
       "Tom Clancy's Ghost Recon: Wildlands": 22,
       "Mark of the Deep  ": 1
     },
+    "game_icons": {
+      "Tom Clancy's Ghost Recon: Wildlands": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/460930/068505b164cb0af9bd49aa0627c1dae4831d149b/capsule_231x87.jpg?t=1790268185",
+      "Mark of the Deep  ": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1933370/29d6d17e4e203130ce7305717343b953452be8cd/capsule_231x87.jpg?t=1788364373",
+      "Beholder": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5522030/c317a76b32526f3f1739a25e855dd5a96cc4c3bd/capsule_231x87.jpg?t=1794256807",
+      "RUINER": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2936810/bd73d5590c6c621677737aada7aa1be2e701ee28/capsule_231x87.jpg?t=1776116028",
+      "The Ascent": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/979690/capsule_231x87.jpg?t=1795056640"
+    },
     "activity_log": [
       {
         "game": "Tom Clancy's Ghost Recon: Wildlands",
         "timestamp": "2026-11-22T23:53:28.529031+00:00",
         "time": "14 godz. temu",
         "tag": "Ostatnio grane",
-        "icon": null
+        "icon": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/460930/068505b164cb0af9bd49aa0627c1dae4831d149b/capsule_231x87.jpg?t=1790268185"
       },
       {
         "game": "Mark of the Deep  ",
         "timestamp": "2026-11-20T18:52:45.919937+00:00",
         "time": "2 d. temu",
         "tag": "Nowy gracz",
-        "icon": null
-      },
-      {
-        "game": "Tom Clancy's Ghost Recon: Wildlands",
-        "timestamp": "2026-11-20T17:53:34.116180+00:00",
-        "time": "2 d. temu",
-        "tag": "Nowy gracz",
-        "icon": null
+        "icon": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1933370/29d6d17e4e203130ce7305717343b953452be8cd/capsule_231x87.jpg?t=1788364373"
       },
       {
         "game": "Beholder",
         "timestamp": "2026-11-19T21:44:00.280092+00:00",
         "time": "3 d. temu",
         "tag": "Nowy gracz",
-        "icon": null
+        "icon": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/5522030/c317a76b32526f3f1739a25e855dd5a96cc4c3bd/capsule_231x87.jpg?t=1794256807"
       },
       {
         "game": "RUINER",
         "timestamp": "2026-11-18T22:23:53.497869+00:00",
         "time": "4 d. temu",
         "tag": "Nowy gracz",
-        "icon": null
+        "icon": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2936810/bd73d5590c6c621677737aada7aa1be2e701ee28/capsule_231x87.jpg?t=1776116028"
       },
       {
         "game": "The Ascent",
         "timestamp": "2026-11-18T22:21:14.754131+00:00",
         "time": "4 d. temu",
         "tag": "Nowy gracz",
-        "icon": null
+        "icon": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/979690/capsule_231x87.jpg?t=1795056640"
       }
     ],
     "custom_status": "",
@@ -225,6 +195,7 @@
     "main_game": "Brak",
     "faction": "Wędrowiec",
     "game_counts": {},
+    "game_icons": {},
     "activity_log": [],
     "custom_status": "",
     "joined": "27.05.2026",
@@ -259,6 +230,7 @@
     "main_game": "Brak",
     "faction": "Wędrowiec",
     "game_counts": {},
+    "game_icons": {},
     "activity_log": [],
     "custom_status": "",
     "joined": "04.06.2026",
@@ -293,6 +265,7 @@
     "main_game": "Brak",
     "faction": "Wędrowiec",
     "game_counts": {},
+    "game_icons": {},
     "activity_log": [],
     "custom_status": "",
     "joined": "20.07.2026",
@@ -327,6 +300,7 @@
     "main_game": "Brak",
     "faction": "Wędrowiec",
     "game_counts": {},
+    "game_icons": {},
     "activity_log": [],
     "custom_status": "",
     "joined": "24.07.2026",
@@ -367,13 +341,19 @@
       "World of Warcraft: Forever": 3,
       "Fortnite": 8
     },
+    "game_icons": {
+      "Fortnite": "https://cdn.discordapp.com/app-assets/432980957394370572/1169923443119116288.png",
+      "CurseForge": "https://media.discordapp.net/external/udQA5YXW7Ecka15TdWc2VvIzSXthsccEnwtutuaex8E/https/curseforge.overwolf.com/app/games/world-of-warcraft/assets/logo.webp",
+      "World of Warcraft: Forever": null,
+      "Walk of Life": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1910150/18adece21a966af8989d0a7fee7eaea0d80640e9/capsule_231x87.jpg?t=1795195478"
+    },
     "activity_log": [
       {
         "game": "Fortnite",
         "timestamp": "2026-11-23T11:55:22.262621+00:00",
         "time": "2 godz. temu",
         "tag": "Ostatnio grane",
-        "icon": null
+        "icon": "https://cdn.discordapp.com/app-assets/432980957394370572/1169923443119116288.png"
       },
       {
         "game": "World of Warcraft: Forever",
@@ -383,32 +363,11 @@
         "icon": null
       },
       {
-        "game": "Fortnite",
-        "timestamp": "2026-11-22T22:15:01.858643+00:00",
-        "time": "16 godz. temu",
-        "tag": "Ostatnio grane",
-        "icon": null
-      },
-      {
         "game": "Walk of Life",
         "timestamp": "2026-11-22T19:37:08.230803+00:00",
-        "time": "18 godz. temu",
+        "time": "19 godz. temu",
         "tag": "Ostatnio grane",
-        "icon": null
-      },
-      {
-        "game": "Fortnite",
-        "timestamp": "2026-11-22T17:57:40.383182+00:00",
-        "time": "20 godz. temu",
-        "tag": "Nowy gracz",
-        "icon": "https://cdn.discordapp.com/app-assets/432980957394370572/1169923443119116288.png"
-      },
-      {
-        "game": "World of Warcraft: Forever",
-        "timestamp": "2026-11-22T13:29:24.647157+00:00",
-        "time": "1 d. temu",
-        "tag": "Nowy gracz",
-        "icon": null
+        "icon": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1910150/18adece21a966af8989d0a7fee7eaea0d80640e9/capsule_231x87.jpg?t=1795195478"
       },
       {
         "game": "CurseForge",
@@ -454,20 +413,24 @@
       "Dune: Awakening": 3,
       "Conan Exiles": 10
     },
+    "game_icons": {
+      "Conan Exiles": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/440900/c99dc6953376feafb9d5805e69755ab5f39354a9/capsule_231x87_alt_assets_10_polish.jpg?t=1794495825",
+      "Dune: Awakening": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1172710/1122dbb1046ee63f4dc8d7da1355f5d3d31f0fa0/capsule_231x87.jpg?t=1793636917"
+    },
     "activity_log": [
       {
         "game": "Conan Exiles",
         "timestamp": "2026-11-23T13:05:59.630325+00:00",
         "time": "1 godz. temu",
         "tag": "Nowy gracz",
-        "icon": null
+        "icon": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/440900/c99dc6953376feafb9d5805e69755ab5f39354a9/capsule_231x87_alt_assets_10_polish.jpg?t=1794495825"
       },
       {
         "game": "Dune: Awakening",
         "timestamp": "2026-11-19T15:27:00.639791+00:00",
         "time": "3 d. temu",
         "tag": "Nowy gracz",
-        "icon": null
+        "icon": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1172710/1122dbb1046ee63f4dc8d7da1355f5d3d31f0fa0/capsule_231x87.jpg?t=1793636917"
       }
     ],
     "custom_status": "",
@@ -503,6 +466,7 @@
     "main_game": "Brak",
     "faction": "Wędrowiec",
     "game_counts": {},
+    "game_icons": {},
     "activity_log": [],
     "custom_status": "",
     "joined": "26.05.2026",
@@ -537,6 +501,7 @@
     "main_game": "Brak",
     "faction": "Wędrowiec",
     "game_counts": {},
+    "game_icons": {},
     "activity_log": [],
     "custom_status": "",
     "joined": "26.05.2026",
@@ -571,6 +536,7 @@
     "main_game": "Brak",
     "faction": "Wędrowiec",
     "game_counts": {},
+    "game_icons": {},
     "activity_log": [],
     "custom_status": "",
     "joined": "28.05.2026",
@@ -605,6 +571,7 @@
     "main_game": "Brak",
     "faction": "Wędrowiec",
     "game_counts": {},
+    "game_icons": {},
     "activity_log": [],
     "custom_status": "",
     "joined": "26.05.2026",
