@@ -180,13 +180,13 @@ jobs:
                       delta = now - member.joined_at
                       joined_days = delta.days
                       
-                      if joined_days > 365:
+                      if joined_days >= 365:
                           veteran_title = "Legenda Osady"
-                      elif joined_days > 180:
+                      elif joined_days >= 180:
                           veteran_title = "Weteran Survivalu"
-                      elif joined_days > 60:
+                      elif joined_days >= 60:
                           veteran_title = "Obywatel w Sieci"
-                      elif joined_days > 14:
+                      elif joined_days >= 14:
                           veteran_title = "Zwiadowca"
                       else:
                           veteran_title = "Świeżak"
