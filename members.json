@@ -27,35 +27,35 @@
       {
         "game": "Mount & Blade II with Medal",
         "timestamp": "2026-11-22T23:53:28.529031+00:00",
-        "time": "12 godz. temu",
-        "tag": "Ostatnio grane",
-        "icon": "https://media.discordapp.net/external/d__V6Escz61iAUJnVv0L3UAyA51zwfKxECcyvD20Yb4/https/cdn.medal.tv/games/1160/cover.jpg"
-      },
-      {
-        "game": "Microsoft Visual Studio",
-        "timestamp": "2026-11-22T23:00:30.473789+00:00",
-        "time": "12 godz. temu",
-        "tag": "Ostatnio grane",
-        "icon": null
-      },
-      {
-        "game": "Mount & Blade II with Medal",
-        "timestamp": "2026-11-22T22:15:01.858643+00:00",
         "time": "13 godz. temu",
         "tag": "Ostatnio grane",
         "icon": "https://media.discordapp.net/external/d__V6Escz61iAUJnVv0L3UAyA51zwfKxECcyvD20Yb4/https/cdn.medal.tv/games/1160/cover.jpg"
       },
       {
         "game": "Microsoft Visual Studio",
-        "timestamp": "2026-11-22T21:19:40.861363+00:00",
+        "timestamp": "2026-11-22T23:00:30.473789+00:00",
         "time": "14 godz. temu",
         "tag": "Ostatnio grane",
         "icon": null
       },
       {
         "game": "Mount & Blade II with Medal",
+        "timestamp": "2026-11-22T22:15:01.858643+00:00",
+        "time": "14 godz. temu",
+        "tag": "Ostatnio grane",
+        "icon": "https://media.discordapp.net/external/d__V6Escz61iAUJnVv0L3UAyA51zwfKxECcyvD20Yb4/https/cdn.medal.tv/games/1160/cover.jpg"
+      },
+      {
+        "game": "Microsoft Visual Studio",
+        "timestamp": "2026-11-22T21:19:40.861363+00:00",
+        "time": "15 godz. temu",
+        "tag": "Ostatnio grane",
+        "icon": null
+      },
+      {
+        "game": "Mount & Blade II with Medal",
         "timestamp": "2026-11-22T17:14:18.364515+00:00",
-        "time": "18 godz. temu",
+        "time": "19 godz. temu",
         "tag": "Ostatnio grane",
         "icon": "https://media.discordapp.net/external/d__V6Escz61iAUJnVv0L3UAyA51zwfKxECcyvD20Yb4/https/cdn.medal.tv/games/1160/cover.jpg"
       },
@@ -152,7 +152,7 @@
       {
         "game": "Tom Clancy's Ghost Recon: Wildlands",
         "timestamp": "2026-11-22T23:53:28.529031+00:00",
-        "time": "12 godz. temu",
+        "time": "13 godz. temu",
         "tag": "Ostatnio grane",
         "icon": null
       },
@@ -345,7 +345,7 @@
     "name": "Kamil",
     "handle": "@kamil9165",
     "avatar": "https://cdn.discordapp.com/avatars/328538759085817859/407d57d79d24ceabf2618d86c7bcadef.png?size=1024",
-    "status": "online",
+    "status": "offline",
     "role": "║🥴║Gracz",
     "role_color": "#1f8b4c",
     "all_roles": [
@@ -358,7 +358,7 @@
     "tokens": 0,
     "messages": 0,
     "voice_time": "0h 0m",
-    "main_game": "Fortnite",
+    "main_game": "Brak",
     "faction": "Fortnite",
     "game_counts": {
       "Walk of Life": 5,
@@ -371,42 +371,42 @@
       {
         "game": "Fortnite",
         "timestamp": "2026-11-23T11:55:22.262621+00:00",
-        "time": "Teraz",
+        "time": "1 godz. temu",
         "tag": "Ostatnio grane",
         "icon": null
       },
       {
         "game": "World of Warcraft: Forever",
         "timestamp": "2026-11-23T09:53:26.948179+00:00",
-        "time": "2 godz. temu",
+        "time": "3 godz. temu",
         "tag": "Ostatnio grane",
         "icon": null
       },
       {
         "game": "Fortnite",
         "timestamp": "2026-11-22T22:15:01.858643+00:00",
-        "time": "13 godz. temu",
+        "time": "14 godz. temu",
         "tag": "Ostatnio grane",
         "icon": null
       },
       {
         "game": "Walk of Life",
         "timestamp": "2026-11-22T19:37:08.230803+00:00",
-        "time": "16 godz. temu",
+        "time": "17 godz. temu",
         "tag": "Ostatnio grane",
         "icon": null
       },
       {
         "game": "Fortnite",
         "timestamp": "2026-11-22T17:57:40.383182+00:00",
-        "time": "17 godz. temu",
+        "time": "19 godz. temu",
         "tag": "Nowy gracz",
         "icon": "https://cdn.discordapp.com/app-assets/432980957394370572/1169923443119116288.png"
       },
       {
         "game": "World of Warcraft: Forever",
         "timestamp": "2026-11-22T13:29:24.647157+00:00",
-        "time": "22 godz. temu",
+        "time": "23 godz. temu",
         "tag": "Nowy gracz",
         "icon": null
       },
@@ -448,17 +448,17 @@
     "tokens": 0,
     "messages": 4,
     "voice_time": "0h 0m",
-    "main_game": "Aktywny na Discordzie",
+    "main_game": "Conan Exiles",
     "faction": "Conan Exiles",
     "game_counts": {
       "Dune: Awakening": 3,
-      "Conan Exiles": 9
+      "Conan Exiles": 10
     },
     "activity_log": [
       {
         "game": "Conan Exiles",
-        "timestamp": "2026-11-22T16:15:26.274024+00:00",
-        "time": "19 godz. temu",
+        "timestamp": "2026-11-23T13:05:59.630325+00:00",
+        "time": "Teraz",
         "tag": "Nowy gracz",
         "icon": null
       },
