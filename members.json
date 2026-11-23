@@ -115,7 +115,7 @@
       "The Ascent": 1,
       "RUINER": 1,
       "Beholder": 6,
-      "Tom Clancy's Ghost Recon: Wildlands": 23,
+      "Tom Clancy's Ghost Recon: Wildlands": 24,
       "Mark of the Deep  ": 1
     },
     "game_icons": {
@@ -128,7 +128,7 @@
     "activity_log": [
       {
         "game": "Tom Clancy's Ghost Recon: Wildlands",
-        "timestamp": "2026-11-23T15:11:38.278290+00:00",
+        "timestamp": "2026-11-23T15:45:20.531571+00:00",
         "time": "Teraz",
         "tag": "Ostatnio grane",
         "icon": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/460930/068505b164cb0af9bd49aa0627c1dae4831d149b/capsule_231x87.jpg?t=1790268185"
@@ -365,7 +365,7 @@
       {
         "game": "Walk of Life",
         "timestamp": "2026-11-22T19:37:08.230803+00:00",
-        "time": "19 godz. temu",
+        "time": "20 godz. temu",
         "tag": "Ostatnio grane",
         "icon": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1910150/18adece21a966af8989d0a7fee7eaea0d80640e9/capsule_231x87.jpg?t=1795195478"
       },
@@ -428,7 +428,7 @@
       {
         "game": "Dune: Awakening",
         "timestamp": "2026-11-19T15:27:00.639791+00:00",
-        "time": "3 d. temu",
+        "time": "4 d. temu",
         "tag": "Nowy gracz",
         "icon": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1172710/1122dbb1046ee63f4dc8d7da1355f5d3d31f0fa0/capsule_231x87.jpg?t=1793636917"
       }
