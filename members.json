@@ -31,21 +31,21 @@
       {
         "game": "Microsoft Visual Studio",
         "timestamp": "2026-11-24T00:35:49.789843+00:00",
-        "time": "8 godz. temu",
+        "time": "9 godz. temu",
         "tag": "Ostatnio grane",
         "icon": null
       },
       {
         "game": "Mount & Blade II with Medal",
         "timestamp": "2026-11-23T21:46:16.969950+00:00",
-        "time": "10 godz. temu",
+        "time": "12 godz. temu",
         "tag": "Ostatnio grane",
         "icon": "https://media.discordapp.net/external/d__V6Escz61iAUJnVv0L3UAyA51zwfKxECcyvD20Yb4/https/cdn.medal.tv/games/1160/cover.jpg"
       },
       {
         "game": "Microsoft Visual Studio",
         "timestamp": "2026-11-23T20:51:00.939126+00:00",
-        "time": "11 godz. temu",
+        "time": "12 godz. temu",
         "tag": "Ostatnio grane",
         "icon": null
       },
@@ -150,7 +150,7 @@
       {
         "game": "Tom Clancy's Ghost Recon: Wildlands",
         "timestamp": "2026-11-23T23:44:36.514000+00:00",
-        "time": "8 godz. temu",
+        "time": "10 godz. temu",
         "tag": "Ostatnio grane",
         "icon": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/460930/068505b164cb0af9bd49aa0627c1dae4831d149b/capsule_231x87.jpg?t=1790268185"
       },
@@ -255,7 +255,7 @@
     "activity_log": [],
     "custom_status": "",
     "joined": "04.06.2026",
-    "joined_days": 172,
+    "joined_days": 173,
     "veteran_title": "Obywatel w Sieci",
     "equipment": {
       "weapon": "Brak",
@@ -359,7 +359,7 @@
       "Walk of Life": 5,
       "Counter-Strike 2": 1,
       "CurseForge": 3,
-      "World of Warcraft: Forever": 4,
+      "World of Warcraft: Forever": 5,
       "Fortnite": 9
     },
     "game_icons": {
@@ -371,7 +371,7 @@
     "activity_log": [
       {
         "game": "World of Warcraft: Forever",
-        "timestamp": "2026-11-24T08:41:48.670654+00:00",
+        "timestamp": "2026-11-24T09:50:22.036933+00:00",
         "time": "Teraz",
         "tag": "Ostatnio grane",
         "icon": null
@@ -379,14 +379,14 @@
       {
         "game": "Fortnite",
         "timestamp": "2026-11-23T22:46:33.833902+00:00",
-        "time": "9 godz. temu",
+        "time": "11 godz. temu",
         "tag": "Ostatnio grane",
         "icon": "https://cdn.discordapp.com/app-assets/432980957394370572/1169923443119116288.png"
       },
       {
         "game": "World of Warcraft: Forever",
         "timestamp": "2026-11-23T09:53:26.948179+00:00",
-        "time": "22 godz. temu",
+        "time": "23 godz. temu",
         "tag": "Ostatnio grane",
         "icon": null
       },
@@ -449,7 +449,7 @@
       {
         "game": "Conan Exiles",
         "timestamp": "2026-11-23T13:05:59.630325+00:00",
-        "time": "19 godz. temu",
+        "time": "20 godz. temu",
         "tag": "Nowy gracz",
         "icon": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/440900/c99dc6953376feafb9d5805e69755ab5f39354a9/capsule_231x87_alt_assets_10_polish.jpg?t=1794495825"
       },
@@ -548,7 +548,7 @@
     "name": "SoCoCold",
     "handle": "@sococold",
     "avatar": "https://cdn.discordapp.com/avatars/391135232029360130/8a3d3e9afd5f0da8239dd4f4edcef012.png?size=1024",
-    "status": "offline",
+    "status": "online",
     "role": "║🥴║Gracz",
     "role_color": "#1f8b4c",
     "all_roles": [
@@ -561,7 +561,7 @@
     "tokens": 0,
     "messages": 4,
     "voice_time": "0h 0m",
-    "main_game": "Brak",
+    "main_game": "Aktywny na Discordzie",
     "faction": "Wędrowiec",
     "game_counts": {},
     "game_icons": {},
