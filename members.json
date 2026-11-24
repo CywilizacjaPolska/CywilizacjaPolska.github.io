@@ -31,21 +31,21 @@
       {
         "game": "Microsoft Visual Studio",
         "timestamp": "2026-11-24T00:35:49.789843+00:00",
-        "time": "9 godz. temu",
+        "time": "10 godz. temu",
         "tag": "Ostatnio grane",
         "icon": null
       },
       {
         "game": "Mount & Blade II with Medal",
         "timestamp": "2026-11-23T21:46:16.969950+00:00",
-        "time": "12 godz. temu",
+        "time": "13 godz. temu",
         "tag": "Ostatnio grane",
         "icon": "https://media.discordapp.net/external/d__V6Escz61iAUJnVv0L3UAyA51zwfKxECcyvD20Yb4/https/cdn.medal.tv/games/1160/cover.jpg"
       },
       {
         "game": "Microsoft Visual Studio",
         "timestamp": "2026-11-23T20:51:00.939126+00:00",
-        "time": "12 godz. temu",
+        "time": "14 godz. temu",
         "tag": "Ostatnio grane",
         "icon": null
       },
@@ -150,7 +150,7 @@
       {
         "game": "Tom Clancy's Ghost Recon: Wildlands",
         "timestamp": "2026-11-23T23:44:36.514000+00:00",
-        "time": "10 godz. temu",
+        "time": "11 godz. temu",
         "tag": "Ostatnio grane",
         "icon": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/460930/068505b164cb0af9bd49aa0627c1dae4831d149b/capsule_231x87.jpg?t=1790268185"
       },
@@ -353,40 +353,49 @@
     "tokens": 0,
     "messages": 0,
     "voice_time": "0h 0m",
-    "main_game": "World of Warcraft: Forever",
+    "main_game": "Dead by Daylight",
     "faction": "Fortnite",
     "game_counts": {
       "Walk of Life": 5,
       "Counter-Strike 2": 1,
       "CurseForge": 3,
       "World of Warcraft: Forever": 5,
-      "Fortnite": 9
+      "Fortnite": 9,
+      "Dead by Daylight": 1
     },
     "game_icons": {
       "Fortnite": "https://cdn.discordapp.com/app-assets/432980957394370572/1169923443119116288.png",
       "CurseForge": "https://media.discordapp.net/external/udQA5YXW7Ecka15TdWc2VvIzSXthsccEnwtutuaex8E/https/curseforge.overwolf.com/app/games/world-of-warcraft/assets/logo.webp",
       "World of Warcraft: Forever": null,
-      "Walk of Life": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1910150/18adece21a966af8989d0a7fee7eaea0d80640e9/capsule_231x87.jpg?t=1795195478"
+      "Walk of Life": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1910150/18adece21a966af8989d0a7fee7eaea0d80640e9/capsule_231x87.jpg?t=1795195478",
+      "Dead by Daylight": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/381210/capsule_231x87.jpg?t=1795112227"
     },
     "activity_log": [
       {
+        "game": "Dead by Daylight",
+        "timestamp": "2026-11-24T10:52:28.113685+00:00",
+        "time": "Teraz",
+        "tag": "Nowy gracz",
+        "icon": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/381210/capsule_231x87.jpg?t=1795112227"
+      },
+      {
         "game": "World of Warcraft: Forever",
         "timestamp": "2026-11-24T09:50:22.036933+00:00",
-        "time": "Teraz",
+        "time": "1 godz. temu",
         "tag": "Ostatnio grane",
         "icon": null
       },
       {
         "game": "Fortnite",
         "timestamp": "2026-11-23T22:46:33.833902+00:00",
-        "time": "11 godz. temu",
+        "time": "12 godz. temu",
         "tag": "Ostatnio grane",
         "icon": "https://cdn.discordapp.com/app-assets/432980957394370572/1169923443119116288.png"
       },
       {
         "game": "World of Warcraft: Forever",
         "timestamp": "2026-11-23T09:53:26.948179+00:00",
-        "time": "23 godz. temu",
+        "time": "1 d. temu",
         "tag": "Ostatnio grane",
         "icon": null
       },
@@ -396,13 +405,6 @@
         "time": "1 d. temu",
         "tag": "Ostatnio grane",
         "icon": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1910150/18adece21a966af8989d0a7fee7eaea0d80640e9/capsule_231x87.jpg?t=1795195478"
-      },
-      {
-        "game": "CurseForge",
-        "timestamp": "2026-11-22T11:27:31.190606+00:00",
-        "time": "1 d. temu",
-        "tag": "Nowy gracz",
-        "icon": "https://media.discordapp.net/external/udQA5YXW7Ecka15TdWc2VvIzSXthsccEnwtutuaex8E/https/curseforge.overwolf.com/app/games/world-of-warcraft/assets/logo.webp"
       }
     ],
     "custom_status": "",
@@ -449,7 +451,7 @@
       {
         "game": "Conan Exiles",
         "timestamp": "2026-11-23T13:05:59.630325+00:00",
-        "time": "20 godz. temu",
+        "time": "21 godz. temu",
         "tag": "Nowy gracz",
         "icon": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/440900/c99dc6953376feafb9d5805e69755ab5f39354a9/capsule_231x87_alt_assets_10_polish.jpg?t=1794495825"
       },
@@ -548,7 +550,7 @@
     "name": "SoCoCold",
     "handle": "@sococold",
     "avatar": "https://cdn.discordapp.com/avatars/391135232029360130/8a3d3e9afd5f0da8239dd4f4edcef012.png?size=1024",
-    "status": "online",
+    "status": "offline",
     "role": "║🥴║Gracz",
     "role_color": "#1f8b4c",
     "all_roles": [
@@ -561,7 +563,7 @@
     "tokens": 0,
     "messages": 4,
     "voice_time": "0h 0m",
-    "main_game": "Aktywny na Discordzie",
+    "main_game": "Brak",
     "faction": "Wędrowiec",
     "game_counts": {},
     "game_icons": {},
