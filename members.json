@@ -21,7 +21,7 @@
     "faction": "Microsoft Visual Studio",
     "game_counts": {
       "Mount & Blade II with Medal": 19,
-      "Microsoft Visual Studio": 22
+      "Microsoft Visual Studio": 23
     },
     "game_icons": {
       "Mount & Blade II with Medal": "https://media.discordapp.net/external/d__V6Escz61iAUJnVv0L3UAyA51zwfKxECcyvD20Yb4/https/cdn.medal.tv/games/1160/cover.jpg",
@@ -30,7 +30,7 @@
     "activity_log": [
       {
         "game": "Microsoft Visual Studio",
-        "timestamp": "2026-11-25T16:02:54.537880+00:00",
+        "timestamp": "2026-11-25T16:12:10.169635+00:00",
         "time": "Teraz",
         "tag": "Ostatnio grane",
         "icon": null
@@ -38,7 +38,7 @@
       {
         "game": "Mount & Blade II with Medal",
         "timestamp": "2026-11-25T15:33:30.811765+00:00",
-        "time": "29 min. temu",
+        "time": "38 min. temu",
         "tag": "Ostatnio grane",
         "icon": "https://media.discordapp.net/external/d__V6Escz61iAUJnVv0L3UAyA51zwfKxECcyvD20Yb4/https/cdn.medal.tv/games/1160/cover.jpg"
       },
@@ -130,7 +130,7 @@
     "tokens": 0,
     "messages": 5,
     "voice_time": "0h 0m",
-    "main_game": "Tom Clancy's Ghost Recon: Wildlands",
+    "main_game": "Aktywny na Discordzie",
     "faction": "Tom Clancy's Ghost Recon: Wildlands",
     "game_counts": {
       "The Ascent": 1,
@@ -152,7 +152,7 @@
       {
         "game": "Tom Clancy's Ghost Recon: Wildlands",
         "timestamp": "2026-11-25T16:02:54.537880+00:00",
-        "time": "Teraz",
+        "time": "Przed chwilą",
         "tag": "Ostatnio grane",
         "icon": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/460930/068505b164cb0af9bd49aa0627c1dae4831d149b/capsule_231x87.jpg?t=1790268185"
       },
@@ -442,7 +442,7 @@
     "main_game": "Dune: Awakening",
     "faction": "Dune: Awakening",
     "game_counts": {
-      "Dune: Awakening": 10,
+      "Dune: Awakening": 11,
       "Conan Exiles": 10
     },
     "game_icons": {
@@ -452,7 +452,7 @@
     "activity_log": [
       {
         "game": "Dune: Awakening",
-        "timestamp": "2026-11-25T16:02:54.537880+00:00",
+        "timestamp": "2026-11-25T16:12:10.169635+00:00",
         "time": "Teraz",
         "tag": "Ostatnio grane",
         "icon": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1172710/1122dbb1046ee63f4dc8d7da1355f5d3d31f0fa0/capsule_231x87.jpg?t=1793636917"
