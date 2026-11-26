@@ -31,28 +31,28 @@
       {
         "game": "Microsoft Visual Studio",
         "timestamp": "2026-11-25T20:49:51.843190+00:00",
-        "time": "18 godz. temu",
+        "time": "19 godz. temu",
         "tag": "Ostatnio grane",
         "icon": null
       },
       {
         "game": "Mount & Blade II with Medal",
         "timestamp": "2026-11-25T18:45:57.446243+00:00",
-        "time": "20 godz. temu",
+        "time": "21 godz. temu",
         "tag": "Ostatnio grane",
         "icon": "https://media.discordapp.net/external/d__V6Escz61iAUJnVv0L3UAyA51zwfKxECcyvD20Yb4/https/cdn.medal.tv/games/1160/cover.jpg"
       },
       {
         "game": "Microsoft Visual Studio",
         "timestamp": "2026-11-25T16:12:10.169635+00:00",
-        "time": "23 godz. temu",
+        "time": "1 d. temu",
         "tag": "Ostatnio grane",
         "icon": null
       },
       {
         "game": "Mount & Blade II with Medal",
         "timestamp": "2026-11-25T15:33:30.811765+00:00",
-        "time": "23 godz. temu",
+        "time": "1 d. temu",
         "tag": "Ostatnio grane",
         "icon": "https://media.discordapp.net/external/d__V6Escz61iAUJnVv0L3UAyA51zwfKxECcyvD20Yb4/https/cdn.medal.tv/games/1160/cover.jpg"
       },
@@ -138,7 +138,7 @@
       "Beholder": 6,
       "Tom Clancy's Ghost Recon: Wildlands": 36,
       "Mark of the Deep  ": 1,
-      "The Elder Scrolls Online": 5
+      "The Elder Scrolls Online": 6
     },
     "game_icons": {
       "Tom Clancy's Ghost Recon: Wildlands": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/460930/068505b164cb0af9bd49aa0627c1dae4831d149b/capsule_231x87.jpg?t=1790268185",
@@ -151,7 +151,7 @@
     "activity_log": [
       {
         "game": "The Elder Scrolls Online",
-        "timestamp": "2026-11-26T15:29:49.111509+00:00",
+        "timestamp": "2026-11-26T16:38:32.459451+00:00",
         "time": "Teraz",
         "tag": "Ostatnio grane",
         "icon": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/306130/6fab2d1598b64e2b39ce9b5693e2fb96182af88f/capsule_231x87.jpg?t=1792607369"
@@ -159,7 +159,7 @@
       {
         "game": "Tom Clancy's Ghost Recon: Wildlands",
         "timestamp": "2026-11-25T23:44:17.272365+00:00",
-        "time": "15 godz. temu",
+        "time": "16 godz. temu",
         "tag": "Ostatnio grane",
         "icon": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/460930/068505b164cb0af9bd49aa0627c1dae4831d149b/capsule_231x87.jpg?t=1790268185"
       },
@@ -173,7 +173,7 @@
       {
         "game": "Tom Clancy's Ghost Recon: Wildlands",
         "timestamp": "2026-11-24T15:35:54.715229+00:00",
-        "time": "1 d. temu",
+        "time": "2 d. temu",
         "tag": "Ostatnio grane",
         "icon": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/460930/068505b164cb0af9bd49aa0627c1dae4831d149b/capsule_231x87.jpg?t=1790268185"
       },
@@ -376,7 +376,7 @@
       {
         "game": "Fortnite",
         "timestamp": "2026-11-26T11:39:12.462964+00:00",
-        "time": "3 godz. temu",
+        "time": "4 godz. temu",
         "tag": "Ostatnio grane",
         "icon": "https://cdn.discordapp.com/app-assets/432980957394370572/1169923443119116288.png"
       },
@@ -453,7 +453,7 @@
       {
         "game": "Dune: Awakening",
         "timestamp": "2026-11-26T12:47:47.306151+00:00",
-        "time": "2 godz. temu",
+        "time": "3 godz. temu",
         "tag": "Ostatnio grane",
         "icon": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1172710/1122dbb1046ee63f4dc8d7da1355f5d3d31f0fa0/capsule_231x87.jpg?t=1793636917"
       },
@@ -474,8 +474,8 @@
     ],
     "custom_status": "",
     "joined": "30.05.2026",
-    "joined_days": 179,
-    "veteran_title": "Obywatel w Sieci",
+    "joined_days": 180,
+    "veteran_title": "Weteran Survivalu",
     "equipment": {
       "weapon": "Brak",
       "armor": "Brak",
