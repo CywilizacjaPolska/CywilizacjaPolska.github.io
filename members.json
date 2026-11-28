@@ -45,14 +45,14 @@
       {
         "game": "Microsoft Visual Studio",
         "timestamp": "2026-11-25T16:12:10.169635+00:00",
-        "time": "2 d. temu",
+        "time": "3 d. temu",
         "tag": "Ostatnio grane",
         "icon": null
       },
       {
         "game": "Mount & Blade II with Medal",
         "timestamp": "2026-11-25T15:33:30.811765+00:00",
-        "time": "2 d. temu",
+        "time": "3 d. temu",
         "tag": "Ostatnio grane",
         "icon": "https://media.discordapp.net/external/d__V6Escz61iAUJnVv0L3UAyA51zwfKxECcyvD20Yb4/https/cdn.medal.tv/games/1160/cover.jpg"
       },
@@ -180,7 +180,7 @@
       {
         "game": "Tom Clancy's Ghost Recon: Wildlands",
         "timestamp": "2026-11-24T15:35:54.715229+00:00",
-        "time": "3 d. temu",
+        "time": "4 d. temu",
         "tag": "Ostatnio grane",
         "icon": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/460930/068505b164cb0af9bd49aa0627c1dae4831d149b/capsule_231x87.jpg?t=1790268185"
       }
@@ -453,14 +453,14 @@
       {
         "game": "Conan Exiles",
         "timestamp": "2026-11-27T18:33:41.392563+00:00",
-        "time": "20 godz. temu",
+        "time": "21 godz. temu",
         "tag": "Ostatnio grane",
         "icon": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/440900/c99dc6953376feafb9d5805e69755ab5f39354a9/capsule_231x87_alt_assets_10_polish.jpg?t=1794495825"
       },
       {
         "game": "Dune: Awakening",
         "timestamp": "2026-11-27T16:39:17.587240+00:00",
-        "time": "22 godz. temu",
+        "time": "23 godz. temu",
         "tag": "Ostatnio grane",
         "icon": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1172710/1122dbb1046ee63f4dc8d7da1355f5d3d31f0fa0/capsule_231x87.jpg?t=1793636917"
       },
@@ -481,7 +481,7 @@
     ],
     "custom_status": "",
     "joined": "30.05.2026",
-    "joined_days": 181,
+    "joined_days": 182,
     "veteran_title": "Weteran Survivalu",
     "equipment": {
       "weapon": "Brak",
@@ -566,7 +566,7 @@
     "name": "SoCoCold",
     "handle": "@sococold",
     "avatar": "https://cdn.discordapp.com/avatars/391135232029360130/8a3d3e9afd5f0da8239dd4f4edcef012.png?size=1024",
-    "status": "online",
+    "status": "offline",
     "role": "║🥴║Gracz",
     "role_color": "#1f8b4c",
     "all_roles": [
@@ -579,7 +579,7 @@
     "tokens": 0,
     "messages": 4,
     "voice_time": "0h 0m",
-    "main_game": "Aktywny na Discordzie",
+    "main_game": "Brak",
     "faction": "Wędrowiec",
     "game_counts": {},
     "game_icons": {},
