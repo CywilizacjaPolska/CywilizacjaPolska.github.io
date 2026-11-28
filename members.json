@@ -566,7 +566,7 @@
     "name": "SoCoCold",
     "handle": "@sococold",
     "avatar": "https://cdn.discordapp.com/avatars/391135232029360130/8a3d3e9afd5f0da8239dd4f4edcef012.png?size=1024",
-    "status": "offline",
+    "status": "online",
     "role": "║🥴║Gracz",
     "role_color": "#1f8b4c",
     "all_roles": [
@@ -579,7 +579,7 @@
     "tokens": 0,
     "messages": 4,
     "voice_time": "0h 0m",
-    "main_game": "Brak",
+    "main_game": "Aktywny na Discordzie",
     "faction": "Wędrowiec",
     "game_counts": {},
     "game_icons": {},
